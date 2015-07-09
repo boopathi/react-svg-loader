@@ -1,0 +1,22 @@
+{
+  "name": "react-svg-loader",
+  "version": "0.0.0",
+  "description": "Loads svg file as a react component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boopathi/react-svg-loader.git"
+  },
+  "keywords": [
+    "react-svg-loader"
+  ],
+  "author": "boopathi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boopathi/react-svg-loader/issues"
+  },
+  "homepage": "https://github.com/boopathi/react-svg-loader#readme"
+}
