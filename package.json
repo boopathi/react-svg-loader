@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/boopathi/react-svg-loader/issues"
   },
-  "homepage": "https://github.com/boopathi/react-svg-loader#readme"
+  "homepage": "https://github.com/boopathi/react-svg-loader#readme",
+  "dependencies": {
+    "xml2js": "^0.4.9"
+  }
 }
