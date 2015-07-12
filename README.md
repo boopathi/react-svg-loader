@@ -1,5 +1,7 @@
 # react-svg-loader
 
+**Not published yet. Under developement**
+
 ## Install
 
 ```sh
