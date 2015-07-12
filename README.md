@@ -26,8 +26,8 @@ module.exports = {
 of react-svg-loader
 
 ```js
-import {Component} from 'react';
-export default class extends Component {
+import React from 'react';
+export default class extends React.Component {
   render() {
     return <svg>
       ...

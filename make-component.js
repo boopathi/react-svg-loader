@@ -1,6 +1,6 @@
 module.exports = function(svg) {
-  return 'import {Component} from "react";' + '\n'
-    + 'export default class extends Component {' + '\n'
+  return 'import React from "react";' + '\n'
+    + 'export default class extends React.Component {' + '\n'
     + '  render() {' + '\n'
     + '    return ' + svg + '\n'
     + '  }' + '\n'

@@ -2,6 +2,7 @@ var xml2js = require('xml2js');
 var traverse = require('./traverse');
 var svgElements = require('./react-svg-elements');
 var makeComponent = require('./make-component');
+var cssParser = require('./css-parser');
 
 module.exports = function(content) {
 
@@ -26,14 +27,16 @@ module.exports = function(content) {
 
   parser.addListener('end', function(result) {
     var svg = result.svg;
-    var allowed = svgElements.concat(['$', 'd', 'width', 'height']);
-    traverse(result, function(key, value, parent) {
-      // traversing through an array
-      if(!isNaN(key)) return;
-      // not allowed
-      if (allowed.indexOf(key) < 0) delete parent[key];
+    var allowedAttrs = ['d', 'id', 'width', 'height', 'style'];
+    // $ is the list of attrs
+    var allowedTags = svgElements.concat(['$']);
+    var filtered = traverse(result, function(value, key, parent, parentKey) {
+      if ('number' === typeof key) return true;
+      if (parentKey === '$') return allowedAttrs.indexOf(key) > -1;
+      return allowedTags.indexOf(key) > -1;
     });
-    var xml = builder.buildObject(result);
+    var rawxml = builder.buildObject(filtered);
+    var xml = cssParser.styleAttrToJsx(rawxml);
     callback(null, makeComponent(xml));
   });
 

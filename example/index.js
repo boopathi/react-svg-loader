@@ -1,3 +1,4 @@
-var svg = require('./image.svg');
+var Pic = require('./image.svg');
+var React = require('react');
 
-console.log(svg);
+React.render(React.createElement(Pic, null), document.getElementById('test'));
