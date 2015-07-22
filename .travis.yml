@@ -7,6 +7,8 @@ cache:
   - node_modules
 after_install:
 - npm run build
+matrix:
+  fast_finish: true
 deploy:
   provider: npm
   email: me@boopathi.in
