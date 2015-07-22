@@ -38,6 +38,11 @@ export function attrsToObj(attrs) {
 }
 
 export function convertRootToProps(xml) {
+  // Note: There is a space after svg, which means that
+  // there is at least one attribute defined for the
+  // root element. This is safe to assume because, we
+  // check if at least width and height are defined for the
+  // root svg element
   let rx = /<svg (.*)>/;
   let arr = rx.exec(xml);
   let o = attrsToObj(arr[1]);
