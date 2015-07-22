@@ -1,5 +1,5 @@
 var xml2js = require('xml2js');
-var traverse = require('./traverse');
+var filter = require('./deep-filter');
 var svgElements = require('./react-svg-elements');
 var makeComponent = require('./make-component');
 var cssParser = require('./css-parser');
@@ -27,16 +27,18 @@ module.exports = function(content) {
 
   parser.addListener('end', function(result) {
     var svg = result.svg;
-    var allowedAttrs = ['d', 'id', 'width', 'height', 'style'];
+    // var allowedAttrs = ['d', 'id', 'fill', 'width', 'height', 'style'];
     // $ is the list of attrs
     var allowedTags = svgElements.concat(['$']);
-    var filtered = traverse(result, function(value, key, parent, parentKey) {
+    var filtered = filter(result, function(value, key, parent, parentKey) {
       if ('number' === typeof key) return true;
-      if (parentKey === '$') return allowedAttrs.indexOf(key) > -1;
+      // if the attribute is a namespace attr, then ignore
+      if (parentKey === '$') return key.indexOf(':') < 0;
       return allowedTags.indexOf(key) > -1;
     });
     var rawxml = builder.buildObject(filtered);
     var xml = cssParser.styleAttrToJsx(rawxml);
+    console.log(makeComponent(xml));
     callback(null, makeComponent(xml));
   });
 
