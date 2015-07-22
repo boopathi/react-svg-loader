@@ -13,9 +13,9 @@ function filter(value, fn, pkey) {
 }
 
 function filterObject(obj, fn, pkey) {
-  var newObj = {};
-  var key;
-  var value;
+  let newObj = {};
+  let key;
+  let value;
 
   for (key in obj) {
     value = filter(obj[key], fn, key);
@@ -29,7 +29,7 @@ function filterObject(obj, fn, pkey) {
 }
 
 function filterArray(array, fn, pkey) {
-  var filtered = [];
+  let filtered = [];
 
   array.forEach(function (value, index, array) {
     value = filter(value, fn, index);
@@ -42,4 +42,4 @@ function filterArray(array, fn, pkey) {
   return filtered;
 }
 
-module.exports = filter;
+export {filter as default}

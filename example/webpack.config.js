@@ -1,5 +1,5 @@
 var path = require('path');
-var svgLoader = path.join(__dirname, '..', 'index.js');
+var svgLoader = path.join(__dirname, '..', 'lib', 'index.js');
 
 module.exports = {
   entry: './index.js',

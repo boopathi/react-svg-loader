@@ -2,9 +2,11 @@
   "name": "react-svg-loader",
   "version": "0.0.0",
   "description": "Loads svg file as a react component",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir lib --copy-files --loose-mode",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "babel src --out-dir lib --copy-files --watch"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,8 @@
   "homepage": "https://github.com/boopathi/react-svg-loader#readme",
   "dependencies": {
     "xml2js": "^0.4.9"
+  },
+  "devDependencies": {
+    "babel": "^5.8.3"
   }
 }
