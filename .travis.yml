@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- '0.10'
+- '0.12'
+cache:
+  directories:
+  - node_modules
+after_install:
+- npm run build
+deploy:
+  provider: npm
+  email: me@boopathi.in
+  api_key:
+    secure: rtQGQfQu28qAfOYoYjKPCmBPOc3I/1y63BWL0Tp1FH1XP2QBJ1VXphsMJxu0fGzewwoFAja4GMPtXHbEzBaIqivu8PECFB91AboGHbDtdCRAyqPG7tKajp7yGck439x9AB/jrruR0fJpyJuRDtpQdV7erY8wxgN2H82y1z+WXwXWOV7pGZvboRcBocpLuffHm7GkL9Gti4I/hLeSE9KqS45uPPJujahr/GpuXGPjiJmEiv9mihB/wca1uxnbY2jYg7dYex8SERDfw8F+UNRoV6t9mb69gdKjpX0fkW1ALYmliOquA4pRurTio97cuwTD0Mqs+BoK18LzKcyBFeoUx0YE/ILGTlKxzqybFAb6obTTqPTodkJCXrikC4Z+vJotxrI1RsX/v1UkUVBn6oJbxmd/m8GA/ax29EfY2ySLOaSQFs6CfIzFSHJ7EYyJ1Ad00iD2tF+Ho2CMXlWnbHOwVtkWxd4Lb8/g+NJbsg48lO6nTQL6jxJq2w3/Z++XT/8bMkP7FWQeGozfhy4dGJyHP8Q8UoIXwAO0DTP0zAp3frWWM4chjiURCxRwRHFngieYD8yJXVUhJopy4O4zyyuhgIf9sNLYHQHZGFGvgy4AQOoYIZCdLRk0CXuC9bkAOaiIdpFbCsBlRQESFoWRoxBVj5fb+9aDGs+1BZ21jljljMM=
+  on:
+    branch: master
+    tags: true
+    repo: boopathi/react-svg-loader
+    condition: $(node --version) == "v0.12"*
