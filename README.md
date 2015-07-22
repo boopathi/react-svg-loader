@@ -1,5 +1,7 @@
 # react-svg-loader
 
+[![Build Status](https://travis-ci.org/boopathi/react-svg-loader.svg)](https://travis-ci.org/boopathi/react-svg-loader)
+
 **Not published yet. Under developement**
 
 ## Install
