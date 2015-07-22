@@ -39,3 +39,13 @@ export default class extends React.Component {
 ```
 
 and this should be passed through babel-loader
+
+## Assumptions and Other gotchas
+
++ Root element is always `<svg>`
++ All ids are preserved as it is
++ `style` tags are parsed and outputted as objects
++ `root`'s attributes are parsed and overridden by props
++ namespace-d attributes (`myns:something`) are stripped
++ Only tags allowed by react are retrieved. Others are simply ignored
++ Width and Height are added to svg component by default and set to 300 when not defined
