@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --copy-files --loose-mode",
-    "test": "babel-node ./test/index.js",
+    "test": "babel-node ./test/index.js | faucet",
     "watch": "babel src --out-dir lib --copy-files --watch"
   },
   "repository": {
