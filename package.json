@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --copy-files --loose-mode",
-    "test": "babel-node test/*.js",
+    "test": "babel-node ./test/index.js",
     "watch": "babel src --out-dir lib --copy-files --watch"
   },
   "repository": {
@@ -27,6 +27,7 @@
   "devDependencies": {
     "babel": "^5.8.3",
     "faucet": "0.0.1",
+    "lodash.clonedeep": "^3.0.1",
     "tape": "^4.0.0"
   }
 }

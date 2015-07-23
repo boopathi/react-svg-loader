@@ -45,7 +45,7 @@ test('parsing a css string to jsx style tag value', function(t) {
   });
 });
 
-test('parsing xml and convert style atts to jsx', function(t) {
+test('parsing xml and convert style attrs to jsx', function(t) {
   t.plan(3);
   Object.keys(styles).map(function(key) {
     t.equal(parsers.styleAttrToJsx(styles[key]), stylesResults[key]);
