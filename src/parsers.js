@@ -22,6 +22,7 @@ export function cssToJsxStr(css) {
 export function styleAttrToJsx(xml) {
   let rx = / style="([^"]*)"/g;
   let arr = rx.exec(xml);
+  if (!arr) return xml;
   return xml.replace(rx, ' style=' + cssToJsxStr(arr[1]));
 }
 
@@ -59,7 +60,7 @@ export function convertRootToProps(xml) {
   let keys = Object.keys(o);
   keys.map(function(key) {
     if (key === 'style') return;
-    o[key] = `{'undefined' === typeof this.props['${key}'] ? ${o[key]} : this.props['${key}']}`;
+    o[key] = `{'undefined' === typeof this.props['${key}'] ? ${JSON.stringify(o[key])} : this.props['${key}']}`;
   });
   let proped = keys.map(function(key) {
     return `${key}=${o[key]}`;

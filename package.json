@@ -28,6 +28,7 @@
     "babel": "^5.8.3",
     "faucet": "0.0.1",
     "lodash.clonedeep": "^3.0.1",
+    "sinon": "^1.15.4",
     "tape": "^4.0.0"
   }
 }
