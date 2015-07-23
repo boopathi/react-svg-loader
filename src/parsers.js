@@ -17,22 +17,32 @@ export function cssToJsxStr(css) {
   return `{${JSON.stringify(o)}}`;
 }
 
+// here we assume that there are no escaped
+// double quotes inside the style tag value
 export function styleAttrToJsx(xml) {
   let rx = / style="([^"]*)"/g;
   let arr = rx.exec(xml);
   return xml.replace(rx, ' style=' + cssToJsxStr(arr[1]));
 }
 
+// we assume that the ouput of xml2js is always
+// with lower-case and that it uses double quotes
+// all attr values
+// Another assumption is that there are no
+// escaped double quotes in the attr value
 export function attrsToObj(attrs) {
   let o = {};
-  let elements = attrs.trim().split(/\s/);
+  // a non whitespace character can be an attr name
+  let rx = / (\S+)="/g;
+  let elements = [], tmp;
+  while(tmp = rx.exec(attrs)) elements.push(tmp[1]);
+
   elements
-    .filter(i => !!i)
     .map(function(i) {
-      let e = i.split('=');
-      let key = e.shift().trim();
-      let value = e.join('=').trim();
-      o[key] = value;
+      // non double quote character can be an attr value
+      let rx2 = new RegExp(` ${i}="([^\"]*)"`, 'g');
+      let arr = rx2.exec(attrs);
+      o[i] = arr[1];
     });
   return o;
 }

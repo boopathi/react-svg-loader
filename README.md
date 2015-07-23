@@ -40,6 +40,10 @@ export default class extends React.Component {
 
 and this should be passed through babel-loader
 
+### Options
+
+The ouput svg component takes in options that are defined in the svg
+
 ## Assumptions and Other gotchas
 
 + Root element is always `<svg>`

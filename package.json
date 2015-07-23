@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --copy-files --loose-mode",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "babel-node test/*.js",
     "watch": "babel src --out-dir lib --copy-files --watch"
   },
   "repository": {
@@ -25,6 +25,8 @@
     "xml2js": "^0.4.9"
   },
   "devDependencies": {
-    "babel": "^5.8.3"
+    "babel": "^5.8.3",
+    "faucet": "0.0.1",
+    "tape": "^4.0.0"
   }
 }
