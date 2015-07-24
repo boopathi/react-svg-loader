@@ -26,8 +26,8 @@ export function styleAttrToJsx(xml) {
   return xml.replace(rx, ' style=' + cssToJsxStr(arr[1]));
 }
 
-// we assume that the ouput of xml2js is always
-// with lower-case and that it uses double quotes
+// we assume that the ouput of xml2js is always outputted
+// with lower-case and that it uses double quotes for
 // all attr values
 // Another assumption is that there are no
 // escaped double quotes in the attr value
