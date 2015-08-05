@@ -52,4 +52,5 @@ The ouput svg component takes in options that are defined in the svg
 + `root`'s attributes are parsed and overridden by props
 + namespace-d attributes (`myns:something`) are stripped
 + Only tags allowed by react are retrieved. Others are simply ignored
++ Order of the tags are maintained as it is
 + Width and Height are added to svg component by default and set to 300 when not defined
