@@ -1,4 +1,5 @@
 import xml2js from 'xml2js';
+import builder from './build-xml';
 import filter from './deep-filter';
 import {svgTags, svgAttrs} from './react-svg-elements';
 import makeComponent from './make-component';
@@ -14,21 +15,23 @@ export default function(content) {
 
   let parser = new xml2js.Parser({
     normalize: true,
-    normalizeTags: true
-  });
-
-  let builder = new xml2js.Builder({
-    headless: true
+    normalizeTags: true,
+    explicitArray: true,
+    explicitChildren: true,
+    preserveChildrenOrder: true
   });
 
   parser.addListener('error', err => callback(err));
 
   parser.addListener('end', function(result) {
     let svg = result.svg;
-    // $ is the list of attrs
-    let allowedTags = svgTags.concat(['$']);
+    let allowedTags = svgTags.concat(['$', '$$', '#name']);
     let filtered = filter(result, function(value, key, parent, parentKey) {
-      if ('number' === typeof key) return true;
+      if ('number' === typeof key) {
+        if (parentKey === '$$')
+          return allowedTags.indexOf(value['#name']) > -1;
+        return true;
+      }
       // if the attribute is a namespace attr, then ignore
       if (parentKey === '$') {
         return key.indexOf(':') < 0;
@@ -43,7 +46,7 @@ export default function(content) {
       filtered.svg['$'].height = "300";
 
     // pass things through the pipeline
-    let xml = builder.buildObject(filtered);
+    let xml = builder(filtered);
     xml = styleAttrToJsx(xml);
     xml = convertRootToProps(xml);
     var componentStr = makeComponent(xml);
