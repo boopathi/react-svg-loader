@@ -44,6 +44,23 @@ and this should be passed through babel-loader
 
 The ouput svg component takes in options that are defined in the svg
 
+### CLI
+
+The react-svg-loader comes in with a cli that you can use to convert svg files to react components.
+
+#### Usage
+
+```sh
+`npm bin`/svg2react file1.svg file2.svg
+```
+
+and the following files will be emitted
+
++ `file1.react.svg`
++ `file2.react.svg`
+
+in the SAME directory as the files
+
 ## Assumptions and Other gotchas
 
 + Root element is always `<svg>`
