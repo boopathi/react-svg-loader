@@ -46,9 +46,7 @@ The ouput svg component takes in options that are defined in the svg
 
 ### CLI
 
-The react-svg-loader comes in with a cli that you can use to convert svg files to react components.
-
-#### Usage
+The react-svg-loader comes with a cli that you can use to convert svg files to react components. Use this tool when you'd want to customize your svg component by hand. Otherwise the loader just works.
 
 ```sh
 `npm bin`/svg2react file1.svg file2.svg
