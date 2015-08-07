@@ -46,11 +46,19 @@ export default function(content) {
       filtered.svg['$'].height = "300";
 
     // pass things through the pipeline
-    let xml = builder(filtered);
-    xml = styleAttrToJsx(xml);
-    xml = convertRootToProps(xml);
-    var componentStr = makeComponent(xml);
-    callback(null, componentStr);
+    // everything is synchronous anyway,
+    // but the promise chain gives us a neat way to
+    // list a pipeline - a list of transformations to
+    // be done on some initial data
+    Promise
+      .resolve(filtered)
+      .then(builder)
+      .then(styleAttrToJsx)
+      .then(convertRootToProps)
+      .then(makeComponent)
+      .then(component => callback(null, component))
+      .catch(err => callback(err));
+
   });
 
   parser.parseString(content.toString());
