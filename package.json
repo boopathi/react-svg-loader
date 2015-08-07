@@ -15,6 +15,9 @@
   "keywords": [
     "react-svg-loader"
   ],
+  "bin": {
+    "svg2react": "./lib/cli.js"
+  },
   "author": "boopathi",
   "license": "MIT",
   "bugs": {
@@ -23,7 +26,8 @@
   "homepage": "https://github.com/boopathi/react-svg-loader#readme",
   "dependencies": {
     "xml2js": "^0.4.9",
-    "xmlbuilder": "^2.6.4"
+    "xmlbuilder": "^2.6.4",
+    "yargs": "^3.18.0"
   },
   "devDependencies": {
     "babel": "^5.8.3",
