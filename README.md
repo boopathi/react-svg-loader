@@ -62,10 +62,10 @@ in the SAME directory as the files
 ## Assumptions and Other gotchas
 
 + Root element is always `<svg>`
-+ All ids are preserved as it is
++ namespace-d attributes (`myns:something`) are stripped
++ Hyphenated attributes are converted to camelCase. Others are preserved as it is
 + `style` tags are parsed and outputted as objects
 + `root`'s attributes are parsed and overridden by props
-+ namespace-d attributes (`myns:something`) are stripped
 + Only tags allowed by react are retrieved. Others are simply ignored
 + Order of the tags are maintained as it is
 + Width and Height are added to svg component by default and set to 300 when not defined
