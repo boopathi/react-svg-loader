@@ -2,16 +2,12 @@
 
 import loader from './index.js';
 import fs from 'fs';
-import path from 'path';
 import yargs from 'yargs';
 
 let {argv} = yargs;
 
 function makeFilename(filename) {
-  let ext = path.extname(filename);
-  let basename = path.basename(filename, ext);
-  let dir = path.dirname(filename);
-  return path.join(dir, basename + '.react' + ext);
+  return filename + '.react.js';
 }
 
 argv._.map(file => {
