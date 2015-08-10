@@ -54,8 +54,8 @@ The react-svg-loader comes with a cli (`svg2react`) that you can use to convert 
 
 and the following files will be emitted
 
-+ `file1.react.svg`
-+ `file2.react.svg`
++ `file1.svg.react.js`
++ `file2.svg.react.js`
 
 in the SAME directory as the files
 
