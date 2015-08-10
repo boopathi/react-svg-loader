@@ -3,7 +3,7 @@ import builder from './build-xml';
 import filter from './deep-filter';
 import {svgTags, svgAttrs} from './react-svg-elements';
 import makeComponent from './make-component';
-import {styleAttrToJsx, convertRootToProps} from './parsers';
+import {styleAttrToJsx, convertRootToProps, hyphenToCamel} from './parsers';
 
 export default function(content) {
 
@@ -32,9 +32,12 @@ export default function(content) {
           return allowedTags.indexOf(value['#name']) > -1;
         return true;
       }
-      // if the attribute is a namespace attr, then ignore
       if (parentKey === '$') {
-        return key.indexOf(':') < 0;
+        // if the attribute is a namespace attr, then ignore
+        if (key.indexOf(':') > -1) return false;
+        // convert hyphens to camelcase
+        if (key.indexOf('-') > -1) return hyphenToCamel(key);
+        return true;
       }
       return allowedTags.indexOf(key) > -1;
     });

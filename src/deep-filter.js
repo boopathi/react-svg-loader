@@ -19,9 +19,11 @@ function filterObject(obj, fn, pkey) {
 
   for (key in obj) {
     value = filter(obj[key], fn, key);
-    if (fn.call(obj, value, key, obj, pkey)) {
+    let newKey = fn.call(obj, value, key, obj, pkey);
+    if (newKey) {
       if (value !== obj[key] && !isCollection(value)) value = obj[key];
-      newObj[key] = value;
+      if (typeof newKey === 'string') newObj[newKey] = value;
+      else newObj[key] = value;
     }
   }
 

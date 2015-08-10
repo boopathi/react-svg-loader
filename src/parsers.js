@@ -67,3 +67,7 @@ export function convertRootToProps(xml) {
   }).join(' ');
   return xml.replace(arr[1], proped);
 }
+
+export function hyphenToCamel(name) {
+  return name.replace(/-([a-z])/g, g => g[1].toUpperCase());
+}
