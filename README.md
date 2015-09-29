@@ -69,3 +69,7 @@ in the SAME directory as the files
 + Only tags allowed by react are retrieved. Others are simply ignored
 + Order of the tags are maintained as it is
 + Width and Height are added to svg component by default and set to 300 when not defined
+
+## LICENSE
+
+MIT License - http://boopathi.mit-license.org
