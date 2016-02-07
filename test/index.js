@@ -9,7 +9,7 @@ import loader from '../src/index';
 
 // I don't know why,
 // but babel must be require-d
-var babel = require('babel');
+var babel = require('babel-core');
 
 let svgSource = `
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -29,7 +29,9 @@ test('test loader output', function(t) {
       return function(err, result) {
         t.ok(err === null, 'no compilation errors occurred');
         t.ok(result, 'result exists');
-        let res = babel.transform(result);
+        let res = babel.transform(result, {
+          presets: ['react', 'es2015']
+        });
         t.ok(typeof res === 'object', 'babel transformation test');
       };
     }
