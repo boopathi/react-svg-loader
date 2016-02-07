@@ -36,7 +36,9 @@ export function attrsToObj(attrs) {
   // a non whitespace character can be an attr name
   let rx = / (\S+)="/g;
   let elements = [], tmp;
-  while(tmp = rx.exec(attrs)) elements.push(tmp[1]);
+  /* eslint-disable no-cond-assign */
+  while (tmp = rx.exec(attrs)) elements.push(tmp[1]);
+  /* eslint-enable */
 
   elements
     .map(function(i) {
