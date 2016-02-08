@@ -12,6 +12,10 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'babel!' + svgLoader
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel'
       }
     ]
   }
