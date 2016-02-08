@@ -40,6 +40,18 @@ export default class extends React.Component {
 
 and this should be passed through babel-loader
 
+### MyComponent.js
+
+All the props are passed onto the root svg element.
+
+```js
+import Image from './image.svg';
+
+// ...
+  <Image width={400} height={200} fill='#abcdef' />
+// ...
+```
+
 ### Options
 
 The ouput svg component takes in options that are defined in the svg
@@ -69,6 +81,7 @@ in the SAME directory as the files
 + Only tags allowed by react are retrieved. Others are simply ignored
 + Order of the tags are maintained as it is
 + Width and Height are added to svg component by default and set to 300 when not defined
++ All attributes passed to the generated Component are passed onto the root svg element
 
 ## LICENSE
 
