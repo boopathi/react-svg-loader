@@ -1,5 +1,7 @@
 language: node_js
 node_js:
+- '5'
+- '4'
 - '0.10'
 - '0.12'
 cache:
@@ -8,6 +10,7 @@ cache:
 before_install:
 - npm install -g semver
 before_script:
+- npm run lint
 - npm run build
 matrix:
   fast_finish: true
@@ -19,4 +22,4 @@ deploy:
   on:
     tags: true
     repo: boopathi/react-svg-loader
-    condition: $(semver $TRAVIS_TAG) && $(node --version) == "v0.12"*
+    condition: $(semver $TRAVIS_TAG) && $(node --version) == "v5"*

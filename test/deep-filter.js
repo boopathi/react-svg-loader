@@ -14,7 +14,7 @@ let source = {
 
 test('filter - current key test', function(t) {
   t.plan(1);
-  let res = filter(source, function(v, k, p, pk) {
+  let res = filter(source, function(v, k) {
     if (k === 'c') return false;
     return true;
   });
@@ -25,7 +25,7 @@ test('filter - current key test', function(t) {
 
 test('filter - current value test', function(t) {
   t.plan(1);
-  let res = filter(source, function(v, k, p, pk) {
+  let res = filter(source, function(v) {
     if (v === 'c') return false;
     return true;
   });
@@ -52,7 +52,7 @@ test('filter - parent key test', function(t) {
 test('filter - parent test', function(t) {
   t.plan(1);
   let ref = source.a.b;
-  let res = filter(source, function(v, k, p, pk) {
+  let res = filter(source, function(v, k, p) {
     if (p === ref) return false;
     return true;
   });

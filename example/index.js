@@ -1,3 +1,4 @@
+/* global document */
 var Her = require('./her.svg');
 var Pic = require('./image.svg');
 var React = require('react');

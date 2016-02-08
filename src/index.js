@@ -1,7 +1,7 @@
 import xml2js from 'xml2js';
 import builder from './build-xml';
 import filter from './deep-filter';
-import {svgTags, svgAttrs} from './react-svg-elements';
+import {svgTags} from './react-svg-elements';
 import makeComponent from './make-component';
 import {styleAttrToJsx, convertRootToProps, hyphenToCamel} from './parsers';
 
@@ -10,7 +10,6 @@ export default function(content) {
   this.cacheable && this.cacheable(true);
   this.addDependency(this.resourcePath);
 
-  let loaderContext = this;
   let callback = this.async();
 
   let parser = new xml2js.Parser({
@@ -24,7 +23,6 @@ export default function(content) {
   parser.addListener('error', err => callback(err));
 
   parser.addListener('end', function(result) {
-    let svg = result.svg;
     let allowedTags = svgTags.concat(['$', '$$', '#name']);
     let filtered = filter(result, function(value, key, parent, parentKey) {
       if ('number' === typeof key) {
@@ -66,4 +64,4 @@ export default function(content) {
 
   parser.parseString(content.toString());
 
-};
+}

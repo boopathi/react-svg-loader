@@ -17,7 +17,9 @@ argv._.map(file => {
     addDependency() {},
     async() {
       return function(err, result) {
+        /* eslint-disable no-console */
         if (err) console.log(file, err);
+        /* eslint-enable */
         else fs.writeFileSync(makeFilename(file), result);
       };
     }
