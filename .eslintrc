@@ -3,5 +3,14 @@
   "parser": "babel-eslint",
   "env": {
     "node": "true"
+  },
+  "plugins": [
+    "react"
+  ],
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "rules": {
+    "react/jsx-uses-react": 1
   }
 }
