@@ -9,6 +9,10 @@ cache:
   - node_modules
 before_install:
 - npm install -g semver
+install:
+- npm install
+# Ensure babel-cli is installed after babel in node.js 0.12
+- if [ "${TRAVIS_NODE_VERSION}" = "0.12" ]; then npm uninstall babel-cli && npm install babel-cli@"^6.4.5"; fi
 before_script:
 - npm run lint
 - npm run build
