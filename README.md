@@ -48,7 +48,7 @@ All the props are passed onto the root svg element.
 import Image from './image.svg';
 
 // ...
-  <Image width={400} height={200} fill='#abcdef' />
+  <Image width={400} height={200} />
 // ...
 ```
 
