@@ -80,7 +80,6 @@ in the SAME directory as the files
 + `root`'s attributes are parsed and overridden by props
 + Only tags allowed by react are retrieved. Others are simply ignored
 + Order of the tags are maintained as it is
-+ Width and Height are added to svg component by default and set to 300 when not defined
 + All attributes passed to the generated Component are passed onto the root svg element
 
 ## LICENSE

@@ -56,7 +56,7 @@ export function convertRootToProps(xml) {
   // root element. This is safe to assume because, we
   // check if at least width and height are defined for the
   // root svg element
-  let rx = /<svg (.*)>/;
+  let rx = /<svg(.*)>/;
   let arr = rx.exec(xml);
   let o = attrsToObj(arr[1]);
   let keys = Object.keys(o);
@@ -64,7 +64,7 @@ export function convertRootToProps(xml) {
     if (key === 'style') return;
     o[key] = `{'undefined' === typeof this.props['${key}'] ? ${JSON.stringify(o[key])} : this.props['${key}']}`;
   });
-  let proped = keys.map(function(key) {
+  let proped = ' ' /*The space before the first attr*/ + keys.map(function(key) {
     return `${key}=${o[key]}`;
   }).join(' ');
   return xml.replace(arr[1], proped);
