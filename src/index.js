@@ -40,12 +40,6 @@ export default function(content) {
       return allowedTags.indexOf(key) > -1;
     });
 
-    // add some basic props by default
-    if ('undefined' === typeof filtered.svg['$'].width)
-      filtered.svg['$'].width = "300";
-    if ('undefined' === typeof filtered.svg['$'].height)
-      filtered.svg['$'].height = "300";
-
     // pass things through the pipeline
     // everything is synchronous anyway,
     // but the promise chain gives us a neat way to

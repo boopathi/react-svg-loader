@@ -65,7 +65,7 @@ let attrsResults = {
 };
 
 let tagsResults = {
-  test1: `<svg height={'undefined' === typeof this.props['height'] ? "600" : this.props['height']} id={'undefined' === typeof this.props['id'] ? "svg2" : this.props['id']} version={'undefined' === typeof this.props['version'] ? "1.0" : this.props['version']}>`
+  test1: `<svg width={\'undefined\' === typeof this.props[\'width\'] ? "600" : this.props[\'width\']} height={\'undefined\' === typeof this.props[\'height\'] ? "600" : this.props[\'height\']} id={\'undefined\' === typeof this.props[\'id\'] ? "svg2" : this.props[\'id\']} version={\'undefined\' === typeof this.props[\'version\'] ? "1.0" : this.props[\'version\']}>`
 };
 
 test('parse tag attributes to object', function(t) {

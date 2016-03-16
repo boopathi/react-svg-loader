@@ -3,7 +3,7 @@ export default function(svg) {
 import React from 'react';
 export default class extends React.Component {
   render() {
-    return ${ svg.replace(/^<svg/, "<svg { ...this.props }") };
+    return ${ svg.replace(/^<svg/, "<svg { ...this.props } ") };
   }
 }
 `;
