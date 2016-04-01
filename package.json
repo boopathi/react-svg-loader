@@ -31,14 +31,16 @@
   "homepage": "https://github.com/boopathi/react-svg-loader#readme",
   "dependencies": {
     "babel-core": "~6.7.4",
+    "babel-plugin-syntax-jsx": "^6.5.0",
+    "babel-preset-es2015-loose": "^7.0.0",
     "babel-preset-react": "~6.5.0",
+    "loader-utils": "^0.2.13",
     "svgo": "~0.6.3",
     "yargs": "~3.18.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-preset-es2015-node4": "^2.1.0",
     "eslint": "^2.5.3",
     "eslint-plugin-react": "^4.2.3",
     "mocha": "^2.4.5"

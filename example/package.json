@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "author": "boopathi",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --config webpack.config.js --watch"
+  },
   "dependencies": {
     "babel-loader": "^6.2.2",
     "react": "^0.14.7",
