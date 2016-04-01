@@ -12,18 +12,9 @@ before_install:
 install:
 - npm install
 # Ensure babel-cli is installed after babel in node.js 0.12
-- if [ "${TRAVIS_NODE_VERSION}" = "0.12" ]; then npm uninstall babel-cli && npm install babel-cli@"^6.4.5"; fi
+- if [ "${TRAVIS_NODE_VERSION}" = "0.12" ]; then npm uninstall babel-cli && npm install babel-cli@"^6.6.5"; fi
 before_script:
 - npm run lint
 - npm run build
 matrix:
   fast_finish: true
-deploy:
-  provider: npm
-  email: me@boopathi.in
-  api_key:
-    secure: Dsnkih+vBZ3Vx4VlT6kuAkc0r0UUOza5ig4FrwbTkblgqc7ZS2NYpVxyoxIFtSt8MkqMS7aLje9pjK0jba1rzn2etBHa9tb/Ge1MCFQXSEvhfTvlHJWKXzDimjLp8TMuwiMJ/s+9wLoBqQTPS76Zs1B+/ip+cDUv5vlIXLkeqsVFtd0uc+8h6iGH7xoLfSnEJv/AIVB0wS16AIg+f6GGwt4kISUQYfIKFkNYxehrxkSacTHQ/n97Y//slGubFFMhzsehlOWqcjH0SPRSvYhdhr4kQTsdeQUMr7xxB7uS2pR9JpRlNZ1+3cNSEealQ8fkCBj7RL0k3O4VmsSbxPnRY6Dj4JNEZbjfoXzH7ItxEELOYWJyua/4vdUzKebKINrt4wKRxv6rJo8igOQdO/ZLE2Wbf+nPWtHFyuobDqnXsjltqN/QzsvtGbtRV1togp+lZzbqilEqBZKixZqyM4foKdEPUMDApUVQ1BNsjqMosSbqYb8YenqeM28ldcEkNNR8KkgbdZMTgebFJSgFzPckMrTnJZ4ZS7NIhdW048RmFWZ+1WBZCpaA4zf/NiodVCD+9OOzz8jHCETDzk6/lUdAUgcLz70lUijgbyz6/hBkKzvPjN20Ag950XK3aNvSI2alOqBc2Mgz39x/uIXTeKNymz6P6kEx7au1lOY/bgzg4c0=
-  on:
-    tags: true
-    repo: boopathi/react-svg-loader
-    condition: $(semver $TRAVIS_TAG) && $(node --version) == "v5"*
