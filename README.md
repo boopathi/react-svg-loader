@@ -2,6 +2,15 @@
 
 [![Build Status](https://travis-ci.org/boopathi/react-svg-loader.svg)](https://travis-ci.org/boopathi/react-svg-loader)
 
+## NOTICE
+
+I'm rewriting the project using [`babel`](https://github.com/babel/babel) and [`svgo`](https://github.com/svg/svgo) and you can follow the same on the [rewrite branch](https://github.com/boopathi/react-svg-loader/tree/rewrite).
+
+The current branch had regex replaces and it was hard to figure what happens where and hard to reason about bugs. The rewrite has only 2 simple steps
+
+1. Optimize SVG using SVGO
+2. Transform SVG to JS using a babel-plugin
+
 ## Install
 
 ```sh
