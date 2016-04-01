@@ -1,6 +1,5 @@
 import Svgo from 'svgo';
 import {transform as babelTransform} from 'babel-core';
-import path from 'path';
 
 import plugin from './plugin';
 
