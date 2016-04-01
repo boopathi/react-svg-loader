@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import loader from './index.js';
+import loader from './loader';
 import fs from 'fs';
 import yargs from 'yargs';
 
@@ -18,9 +18,10 @@ argv._.map(file => {
     async() {
       return function(err, result) {
         /* eslint-disable no-console */
-        if (err) console.log(file, err);
+        if (err) return console.error("ERROR ERROR ERROR \n", file, err);
         /* eslint-enable */
-        else fs.writeFileSync(makeFilename(file), result);
+        console.log(result);
+        // else fs.writeFileSync(makeFilename(file), result);
       };
     }
   };
