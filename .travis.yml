@@ -12,7 +12,8 @@ before_install:
 install:
 - npm install
 # Ensure babel-cli is installed after babel in node.js 0.12
-- if [ "${TRAVIS_NODE_VERSION}" = "0.12" ]; then npm uninstall babel-cli && npm install babel-cli@"^6.6.5"; fi
+# It started happening for node4 as well. So installing this for all
+- npm install babel-cli@"^6.6.5"
 before_script:
 - npm run lint
 - npm run build
