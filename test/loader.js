@@ -111,9 +111,7 @@ test('compression: namespace attr', function(t) {
 
 const circle = `
 <svg style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
-  <g>
-    <circle cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />
-  </g>
+  <circle cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />
 </svg>
 `;
 

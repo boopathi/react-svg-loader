@@ -4,7 +4,7 @@
 
 ## Old version
 
-Now `master` represents the new rewrite of the react-svg loader. Though this gives the exact same output as of the previous one, the entire parsing is changed. So if you'd like to continue using the old one, it's in [`v0.1` branch](https://github.com/boopathi/react-svg-loader/tree/v0.1) and `~0.1.0` on npm
+Now `master` represents the new rewrite of the react-svg loader. Though this gives the exact same output as the previous one, the entire parsing is changed. So if you'd like to continue using the old one, it's in [`v0.1` branch](https://github.com/boopathi/react-svg-loader/tree/v0.1) and `^0.1.0` on npm
 
 ## Install
 
@@ -14,9 +14,19 @@ npm i react-svg-loader
 
 ## Usage
 
-### with babel-loader
+```js
+var Image1 = require('react-svg?es5=1!./image1.svg');
+// or
+var Image2 = require('babel!react-svg!./image2.svg');
 
-This outputs ES2015 and JSX code and should be transpiled with babel or any other transpiler that supports ES2015 and JSX.
+// and use it as
+<Image1 width={50} height={50}/>
+<Image2 width={50} height={50}/>
+```
+
+### ES2015 + JSX output
+
+By default the loader outputs ES2015 and JSX code and should be transpiled with babel or any other transpiler that supports ES2015 and JSX.
 
 ```js
 // In your webpack config
@@ -26,7 +36,7 @@ This outputs ES2015 and JSX code and should be transpiled with babel or any othe
 }
 ```
 
-### without babel-loader
+### ES5 output
 
 Pass loader query `es5=true`.
 
@@ -38,23 +48,6 @@ Note: babel transform is applied with `react` and `es2015-loose` presets.
   test: /\.svg$/,
   loader: 'react-svg?es5=1'
 }
-```
-
-### Props to the output component pass through to the root svg element
-
-```js
-import Image from './arrow.svg';
-// width and height will be passed to svg
-<Image width={100} height={100} /> // <svg width=100 height=100>
-```
-
-### Props to the output component override the root svg element's prop
-
-```js
-// input: arrow.svg
-// <svg width="16">
-import Image from './arrow.svg';
-<Image width={32}/> // <svg width="32">
 ```
 
 ## Internals
@@ -71,33 +64,106 @@ SVG Optimize using <a href="https://github.com/svg/svgo">SVGO</a>
 Babel Transform with `preset=react` and <a href="src/plugin.js">plugin=svgToComponent</a>
 </p>
 
-#### Input svg
+### Transformations
+
+Going from bottom up, the following transformations are applied and the same can be checked in the partly annotated source - [babel-plugin](src/plugin.js)
+
+#### 1. Hyphenated attributes to camelCase
 
 ```html
-<svg width="50" namespaced:attr="unnecessary"/>
+<svg pointer-events="none">
+  <path stroke-width="5"/>
+</svg>
 ```
 
-#### SVG Optimize
+is transformed to
 
 ```html
-<svg width="50"/>
+<svg pointerEvents="none">
+  <path strokeWidth="5"/>
+</svg>
 ```
 
-#### Babel transform
+#### 2. Style attr string to object
+
+React expects style attribute value to be an object. Also, Hyphenated style names are converted to camel case.
+
+```html
+<svg style="text-align: center">
+  <circle style="width: 10px"/>
+</svg>
+```
+
+is transformed to
+
+```html
+<svg style={{textAlign: 'center'}}>
+  <circle style={{width: '10px'}}/>
+</svg>
+```
+
+#### 3. Propagate props to root element
+
+The props passed to the output component is passed on to the root SVG node and the props already defined are overridden by the props passed.
+
+```html
+<svg width="50">
+  ...
+</svg>
+```
+
+is transformed to
+
+```html
+<svg width={this.props.width ? this.props.width : '50'} {...this.props}>
+  ...
+</svg>
+```
+
+#### 4. export React.Component
+
+The loader should now export the svg component. And this is done by wrapping it in a Component Class.
+
+```html
+<svg>...</svg>
+```
+
+is transformed to
 
 ```js
 import React from 'react';
 export default class SVG extends React.Component {
   render() {
-    return <svg width={this.props.width ? this.props.width : "50"} {...this.props} />;
+    return <svg>...</svg>;
   }
 }
 ```
 
+### Example
 
-## Options
+##### Input SVG
 
-The ouput svg component takes in options that are defined in the svg
+```html
+<svg style='text-align: center; width: 100px' pointer-events="stroke">
+  <circle cx="50" cy="50" r="25" style="text-align: center;" stroke-width="5" />
+</svg>
+```
+
+##### Output React Component
+
+```js
+import React from "react";
+export default class SVG extends React.Component {
+  render() {
+    return <svg
+      style={{ textAlign: "center", width: "100px" }}
+      pointerEvents={this.props.pointerEvents ? this.props.pointerEvents : "stroke"}
+      {...this.props} >
+        <circle cx="50" cy="50" r="25" style={{textAlign: "center"}} strokeWidth="5" />
+    </svg>;
+  }
+}
+```
 
 ## CLI
 
@@ -112,20 +178,21 @@ and the following files will be emitted
 + `file1.svg.react.js`
 + `file2.svg.react.js`
 
-in the SAME directory as the files
+in the **SAME directory** as the files
 
 ### CLI Options
 
-`--es5`: Transforms ES2015+JSX output to ES5 using `presets=[es2015-loose, react]`
++ `--es5`: Transforms ES2015+JSX output to ES5 using `presets=[es2015-loose, react]`
++ `-0`: Outputs to STDOUT
 
 ```
-`npm bin`/svg2react file1.svg --es5
+`npm bin`/svg2react file1.svg --es5 -0
 ```
 
 ## Assumptions and Other gotchas
 
 + Root element is always `<svg>`
-+ SVG is optimized
++ SVG is optimized using SVGO
 
 ## LICENSE
 
