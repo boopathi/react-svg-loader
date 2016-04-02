@@ -7,7 +7,7 @@ import Pic from './image.svg';
 let Root = (
   <div>
     <Pic />
-    <Her />
+    <Her width={300} height={300}/>
   </div>
 );
 

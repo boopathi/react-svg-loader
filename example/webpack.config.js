@@ -1,5 +1,4 @@
-var path = require('path');
-var svgLoader = path.join(__dirname, '..', 'lib', 'index.js');
+var svgLoader = require.resolve('../');
 
 module.exports = {
   entry: './index.js',
@@ -11,7 +10,7 @@ module.exports = {
     loaders: [
       {
         test: /\.svg$/,
-        loader: 'babel!' + svgLoader
+        loader: 'babel!' + svgLoader + '?es5=true'
       },
       {
         test: /\.js$/,
