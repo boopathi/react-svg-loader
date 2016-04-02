@@ -1,4 +1,3 @@
-var path = require('path');
 var svgLoader = require.resolve('../');
 
 module.exports = {

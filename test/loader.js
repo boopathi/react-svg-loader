@@ -37,11 +37,6 @@ function render(element) {
   return r.getRenderOutput();
 }
 
-function findTag(componentClass, tagName) {
-  const component = testUtils.renderIntoDocument(React.createElement(componentClass));
-  return testUtils.findRenderedDOMComponentWithTag(component, tagName);
-}
-
 test('empty svg tag', function(t) {
 
   t.plan(1);
