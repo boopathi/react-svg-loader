@@ -4,12 +4,20 @@ import hyphenToCamel from './hyphen-to-camel';
 export default function (babel) {
   const t = babel.types;
 
+  // converts
+  // <svg stroke-width="5">
+  // to
+  // <svg strokeWidth="5">
   const hyphenToCamelVisitor = {
     JSXAttribute(path) {
       path.node.name.name = hyphenToCamel(path.node.name.name);
     }
   };
 
+  // converts
+  // <tag style="text-align: center; width: 50px">
+  // to
+  // <tag style={{textAlign: 'center', width: '50px'}}>
   const styleAttrVisitor = {
     JSXAttribute(path) {
       if (path.node.name.name === 'style') {
@@ -26,6 +34,11 @@ export default function (babel) {
     }
   };
 
+  // Flow props from Output component to root SVG
+  // converts
+  // <svg width="50">
+  // to
+  // <svg width={this.props.width ? this.props.width : "50"}>
   const attrVisitor = {
     JSXAttribute(path) {
       if (!t.isJSXIdentifier(path.node.name)) return;
@@ -52,6 +65,11 @@ export default function (babel) {
     }
   };
 
+  // converts
+  // <svg>
+  // to
+  // <svg {...this.props}>
+  // after passing through attributes visitors
   const svgVisitor = {
     JSXOpeningElement(path) {
       if (t.isJSXIdentifier(path.node.name) && path.node.name.name.toLowerCase() === 'svg') {
@@ -76,6 +94,12 @@ export default function (babel) {
     }
   };
 
+  // returns
+  // export default class SVG extends React.Component {
+  //   render() {
+  //     return ${input_svg_node}
+  //   }
+  // }
   const getExport = function (svg, className = 'SVG') {
     return t.exportDefaultDeclaration(
       t.classDeclaration(
@@ -91,11 +115,7 @@ export default function (babel) {
               t.identifier('render'),
               [],
               t.blockStatement(
-                [
-                  t.returnStatement(
-                    svg
-                  )
-                ]
+                [t.returnStatement(svg)]
               )
             )
           ]
@@ -105,6 +125,12 @@ export default function (babel) {
     );
   }
 
+  // converts
+  // <svg/>
+  // to
+  // import React from 'react';
+  // export default class SVG extends React.Component { render() { <svg/> }}
+  // after passing through other visitors
   const programVisitor = {
     Program(path) {
       if (path.node.body.length === 0) throw new Error('No Content in SVG file');
