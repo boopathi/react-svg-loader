@@ -41,7 +41,7 @@ Note: babel transform is applied with `react` and `es2015-loose` presets.
 // In your webpack config
 {
   test: /\.svg$/,
-  loader: 'babel!react-svg?es5=1'
+  loader: 'react-svg?es5=1'
 }
 ```
 
