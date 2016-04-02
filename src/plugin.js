@@ -38,7 +38,7 @@ export default function (babel) {
           t.thisExpression(),
           t.identifier('props')
         ),
-        t.identifier(path.node.name.name)
+        t.identifier(hyphenToCamel(path.node.name.name))
       );
 
       path.node.value = t.jSXExpressionContainer(

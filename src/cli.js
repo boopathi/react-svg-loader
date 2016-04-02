@@ -20,8 +20,8 @@ argv._.map(file => {
       return function(err, result) {
         /* eslint-disable no-console */
         if (err) return console.error("ERROR ERROR ERROR \n", file, err.stack);
-        /* eslint-enable */
         if (argv['0']) console.log(result);
+        /* eslint-enable */
         else fs.writeFileSync(makeFilename(file), result);
       };
     }

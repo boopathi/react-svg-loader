@@ -1,5 +1,5 @@
-<svg style='text-align: center; width: 700px;height:400px' fill="#ddd" fill-color="#eee">
+<svg style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
   <g>
-    <circle cx="50" cy="50" r="25" style="stroke: #000000; fill:none; stroke-width: 5px" />
+    <circle cx="50" cy="50" r="25" style="text-align: center; stroke: #000000; fill:none; stroke-width: 5px" />
   </g>
 </svg>

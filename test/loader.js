@@ -108,3 +108,62 @@ test('compression: namespace attr', function(t) {
     })
     .catch(t.end);
 });
+
+const circle = `
+<svg style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
+  <g>
+    <circle cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />
+  </g>
+</svg>
+`;
+
+test('converts attr from hyphen to camel', function(t) {
+  loader(circle)
+    .then(c => {
+      let r = render(React.createElement(c));
+      t.ok(r.props.pointerEvents, 'contains pointerEvents');
+      t.notOk(r.props['pointer-events'], 'does not contain pointer-events');
+      t.end();
+    })
+    .catch(t.end);
+});
+
+test('style attr of root svg', function(t) {
+  loader(circle)
+    .then(c => {
+      let r = render(React.createElement(c));
+      t.ok(r.props.style, 'contains style attr');
+      t.equal(typeof r.props.style, 'object', 'style attr is an object');
+      t.ok(r.props.style.width, 'contains width');
+      t.ok(r.props.style.textAlign, 'contains textAlign');
+      t.notOk(r.props.style['text-align'], 'does not contain text-align');
+      t.end();
+    })
+    .catch(t.end);
+});
+
+test('converts attr of children from hyphen to camel', function(t) {
+  loader(circle)
+    .then(c => {
+      let r = render(React.createElement(c));
+      let props = r.props.children.props;
+      t.ok(props.strokeWidth, 'contains strokeWidth');
+      t.notOk(props['stroke-width'], 'does not contain stroke-width');
+      t.end();
+    })
+    .catch(t.end)
+});
+
+test('style attr of children', function(t) {
+  loader(circle)
+    .then(c => {
+      let r = render(React.createElement(c));
+      let props = r.props.children.props;
+      t.ok(props.style, 'contais style attr');
+      t.equal(typeof props.style, 'object', 'style attr is an object');
+      t.ok(props.style.textAlign, 'contains textAlign');
+      t.notOk(props.style['text-align'], 'does not contain text-align');
+      t.end();
+    })
+    .catch(t.end);
+});
