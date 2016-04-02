@@ -64,19 +64,29 @@ import Image from './arrow.svg';
 
 ## Internals
 
-<div style="text-align: center">
-
+<p align="center">
 Input SVG
 (eg: `<svg width="50"/>`)
+</p>
 
+<p align="center">
 ↓
+</p>
 
+<p align="center">
 SVG Optimize
 `<svg width="50"/>`
+</p>
 
+<p align="center">
 ↓
+</p>
 
+<p align="center">
 Babel Transform with `preset=react` and [`plugin=svgToComponent`](src/plugin.js)
+</p>
+
+<p align="center">
 ```js
 import React from 'react';
 export default class SVG extends React.Component {
@@ -85,8 +95,7 @@ export default class SVG extends React.Component {
   }
 }
 ```
-
-</div>
+</p>
 
 ## Options
 
