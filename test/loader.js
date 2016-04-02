@@ -2,6 +2,7 @@ import reactSVGLoader from '../src/loader';
 import React from 'react';
 import testUtils from 'react-addons-test-utils';
 import test from 'tape';
+import vm from 'vm';
 
 function loader(content) {
   return new Promise(function(resolve, reject) {
@@ -13,17 +14,10 @@ function loader(content) {
         return function(err, result) {
           if (err) return reject(err);
 
-          // there is a bug that
-          // vm.runInContext won't work in Node inside Promise (microtask)
           let exports = {};
-          let module = { exports };
-
-          // so the ugly eval comes in
-          // since we generate the code, I assume safely that it's
-          // doing no harm
-          eval(`(function(module, exports) { ${result} })(module, exports)`);
-
-          resolve(module.exports.default);
+          let sandbox = { exports, require };
+          vm.runInNewContext(result, sandbox);
+          resolve(sandbox.exports.default);
         }
       }
     };
