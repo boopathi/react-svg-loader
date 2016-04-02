@@ -67,19 +67,11 @@ import Image from './arrow.svg';
 <p align="center">
 Input SVG
 </p>
-
+<p align="center">↓</p>
 <p align="center">
-↓
+SVG Optimize using <a href="https://github.com/svg/svgo">SVGO</a>
 </p>
-
-<p align="center">
-SVG Optimize
-</p>
-
-<p align="center">
-↓
-</p>
-
+<p align="center">↓</p>
 <p align="center">
 Babel Transform with `preset=react` and <a href="src/plugin.js">plugin=svgToComponent</a>
 </p>
@@ -87,7 +79,7 @@ Babel Transform with `preset=react` and <a href="src/plugin.js">plugin=svgToComp
 #### Input svg
 
 ```html
-<svg width="50"/>
+<svg width="50" namespaced:attr="unnecessary"/>
 ```
 
 #### SVG Optimize
