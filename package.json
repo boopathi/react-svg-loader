@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir lib --copy-files",
     "clean": "rm -rf lib",
-    "lint": "eslint src/ test/ example/*.js",
+    "lint": "eslint src/ test/ example/*.js --ignore-pattern example/*.react.js",
     "test": "tape -r babel-register test/loader.js | faucet",
     "watch": "babel src --out-dir lib --copy-files --watch",
     "preversion": "npm run clean && npm run lint && npm run test",
