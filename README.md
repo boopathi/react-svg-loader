@@ -19,53 +19,80 @@ npm i react-svg-loader
 
 ## Usage
 
-This outputs ES6+JSX code and to be used with `babel-loader`
+### with babel-loader
+
+This outputs ES2015 and JSX code and should be transpiled with babel or any other transpiler that supports ES2015 and JSX.
 
 ```js
-module.exports = {
-  loaders: [
-    {
-      test: /\.svg$/,
-      loader: 'babel!react-svg'
-    }
-  ]
+// In your webpack config
+{
+  test: /\.svg$/,
+  loader: 'babel!react-svg'
 }
 ```
 
-### Output
+### without babel-loader
 
-of react-svg-loader
+Pass loader query `es5=true`.
+
+Note: babel transform is applied with `react` and `es2015-loose` presets.
 
 ```js
+// In your webpack config
+{
+  test: /\.svg$/,
+  loader: 'babel!react-svg?es5=1'
+}
+```
+
+### Props to the output component pass through to the root svg element
+
+```js
+import Image from './arrow.svg';
+// width and height will be passed to svg
+<Image width={100} height={100} /> // <svg width=100 height=100>
+```
+
+### Props to the output component override the root svg element's prop
+
+```js
+// input: arrow.svg
+// <svg width="16">
+import Image from './arrow.svg';
+<Image width={32}/> // <svg width="32">
+```
+
+## Internals
+
+<p align="center">
+
+Input SVG
+(eg: `<svg width="50"/>`)
+
+↓
+
+SVG Optimize
+`<svg width="50"/>`
+
+↓
+
+Babel Transform with `preset=react` and [`plugin=svgToComponent`](src/plugin.js)
+```js
 import React from 'react';
-export default class extends React.Component {
+export default class SVG extends React.Component {
   render() {
-    return <svg>
-      ...
-    </svg>;
+    return <svg width={this.props.width ? this.props.width : "50"} {...this.props} />;
   }
 }
 ```
 
-and this should be passed through babel-loader
+</p>
 
-### MyComponent.js
-
-All the props are passed onto the root svg element.
-
-```js
-import Image from './image.svg';
-
-// ...
-  <Image width={400} height={200} />
-// ...
-```
-
-### Options
+## Options
 
 The ouput svg component takes in options that are defined in the svg
 
-### CLI
+## CLI
 
 The react-svg-loader comes with a cli (`svg2react`) that you can use to convert svg files to react components. Use this tool when you'd want to customize your svg component by hand. Otherwise the loader just works.
 
@@ -80,16 +107,18 @@ and the following files will be emitted
 
 in the SAME directory as the files
 
+### CLI Options
+
+`--es5`: Transforms ES2015+JSX output to ES5 using `presets=[es2015-loose, react]`
+
+```
+`npm bin`/svg2react file1.svg --es5
+```
+
 ## Assumptions and Other gotchas
 
 + Root element is always `<svg>`
-+ namespace-d attributes (`myns:something`) are stripped
-+ Hyphenated attributes are converted to camelCase. Others are preserved as it is
-+ `style` tags are parsed and outputted as objects
-+ `root`'s attributes are parsed and overridden by props
-+ Only tags allowed by react are retrieved. Others are simply ignored
-+ Order of the tags are maintained as it is
-+ All attributes passed to the generated Component are passed onto the root svg element
++ SVG is optimized
 
 ## LICENSE
 
