@@ -1,10 +1,38 @@
+import cssToObj from './css-to-obj';
+import hyphenToCamel from './hyphen-to-camel';
+
 export default function (babel) {
   const t = babel.types;
+
+  const hyphenToCamelVisitor = {
+    JSXAttribute(path) {
+      path.node.name.name = hyphenToCamel(path.node.name.name);
+    }
+  };
+
+  const styleAttrVisitor = {
+    JSXAttribute(path) {
+      if (path.node.name.name === 'style') {
+        let csso = cssToObj(path.node.value.value);
+        let properties = Object.keys(csso).map(prop => t.objectProperty(
+          t.identifier(hyphenToCamel(prop)),
+          t.stringLiteral(csso[prop])
+        ));
+        path.node.value = t.jSXExpressionContainer(
+          t.objectExpression(properties)
+        );
+        return;
+      }
+    }
+  };
 
   const attrVisitor = {
     JSXAttribute(path) {
       if (!t.isJSXIdentifier(path.node.name)) return;
+      // don't handle style attr. It needs to be an object
+      if (path.node.name.name === 'style') return;
 
+      // else
       const valueExpression = t.memberExpression(
         t.memberExpression(
           t.thisExpression(),
@@ -28,6 +56,8 @@ export default function (babel) {
     JSXOpeningElement(path) {
       if (t.isJSXIdentifier(path.node.name) && path.node.name.name.toLowerCase() === 'svg') {
         path.traverse(attrVisitor);
+        path.traverse(styleAttrVisitor);
+        path.traverse(hyphenToCamelVisitor);
 
         // add spread props
         path.node.attributes.push(
@@ -38,6 +68,10 @@ export default function (babel) {
             )
           )
         );
+      } else {
+        // don't ignore style attr transformations for other nodes
+        path.traverse(styleAttrVisitor);
+        path.traverse(hyphenToCamelVisitor);
       }
     }
   };

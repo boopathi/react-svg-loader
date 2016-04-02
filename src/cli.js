@@ -4,7 +4,7 @@ import loader from './loader';
 import fs from 'fs';
 import yargs from 'yargs';
 
-let {argv} = yargs.boolean('es5');
+let {argv} = yargs.boolean('es5').boolean('0');
 
 function makeFilename(filename) {
   return filename + '.react.js';
@@ -21,7 +21,7 @@ argv._.map(file => {
         /* eslint-disable no-console */
         if (err) return console.error("ERROR ERROR ERROR \n", file, err.stack);
         /* eslint-enable */
-        // console.log(result);
+        if (argv['0']) console.log(result);
         else fs.writeFileSync(makeFilename(file), result);
       };
     }
