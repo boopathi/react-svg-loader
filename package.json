@@ -5,9 +5,12 @@
   "main": "lib/loader.js",
   "scripts": {
     "build": "babel src --out-dir lib --copy-files",
+    "clean": "rm -rf lib",
     "lint": "eslint src/ test/ example/*.js",
     "test": "tape -r babel-register test/loader.js | faucet",
-    "watch": "babel src --out-dir lib --copy-files --watch"
+    "watch": "babel src --out-dir lib --copy-files --watch",
+    "preversion": "npm run clean && npm run lint && npm run test",
+    "version": "npm run build"
   },
   "repository": {
     "type": "git",
