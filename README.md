@@ -64,7 +64,7 @@ import Image from './arrow.svg';
 
 ## Internals
 
-<p align="center">
+<div style="text-align: center">
 
 Input SVG
 (eg: `<svg width="50"/>`)
@@ -86,7 +86,7 @@ export default class SVG extends React.Component {
 }
 ```
 
-</p>
+</div>
 
 ## Options
 
