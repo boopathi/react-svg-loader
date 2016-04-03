@@ -50,6 +50,59 @@ Note: babel transform is applied with `react` and `es2015-loose` presets.
 }
 ```
 
+### SVGO options
+
+#### Webpack 1.x
+
+```js
+{
+  test: /\.svg$/,
+  loader: 'react-svg',
+  query: {
+    es5: true,
+    svgo: {
+      // svgo options
+      plugins: [{removeTitle: false}],
+      floatPrecision: 2
+    }
+  }
+}
+```
+
+or if you're using with babel-loader, you can
+
+```js
+{
+  test: /\.svg$/,
+  loader: 'babel!react-svg?' + JSON.stringify({
+    svgo: {
+      // svgo options
+      plugins: [{removeTitle: false}],
+      floatPrecision: 2
+    }
+  }),
+}
+```
+
+#### Webpack 2.x
+
+```js
+{
+  test: /\.svg$/,
+  loaders: [ 'babel',
+    {
+      loader: 'react-svg',
+      query: {
+        svgo: {
+          plugins: [{removeTitle: false}],
+          floatPrecision: 2
+        }
+      }
+    }
+  ]
+}
+```
+
 ## Internals
 
 <p align="center">
@@ -182,8 +235,12 @@ in the **SAME directory** as the files
 
 ### CLI Options
 
-+ `--es5`: Transforms ES2015+JSX output to ES5 using `presets=[es2015-loose, react]`
-+ `-0`: Outputs to STDOUT
++ `-5` | `--es5`: Transforms ES2015+JSX output to ES5 using `presets=[es2015-loose, react]`
++ `-0` | `--stdout`: Outputs to STDOUT
++ `--svgo <config_file>`: Supports SVGO Config YAML / JSON / JS
++ `--svgo.plugins <...plugins>`: Takes in an array of plugins that need to be enabled
++ `--svgo.plugins.<plugin> <true|false>`: - Enable/Disable the plugin
++ `--svgo.floatPrecision $N`: Set floatPrecision to `N` for SVGO. SVGO supports 1-8.
 
 ```
 `npm bin`/svg2react file1.svg --es5 -0
