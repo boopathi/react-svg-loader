@@ -4,10 +4,11 @@ import loaderUtils from 'loader-utils';
 
 import plugin from './plugin';
 
-const svgo = new Svgo();
-
-function optimize (content) {
-  return new Promise(r => svgo.optimize(content, ({data}) => r(data)));
+function optimize (opts) {
+  const svgo = new Svgo(opts);
+  return function (content) {
+    return new Promise(r => svgo.optimize(content, ({data}) => r(data)));
+  };
 }
 
 function transform (opts) {
@@ -38,7 +39,7 @@ export default function (content) {
   let cb = this.async();
 
   Promise.resolve(String(content))
-    .then(optimize)
+    .then(optimize(query.svgo))
     .then(transform({
       es5: query.es5
     }))

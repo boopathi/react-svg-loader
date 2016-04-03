@@ -38,7 +38,8 @@
     "babel-plugin-syntax-jsx": "~6.5.0",
     "babel-preset-es2015-loose": "~7.0.0",
     "babel-preset-react": "~6.5.0",
-    "loader-utils": "^0.2.13",
+    "js-yaml": "~3.5.5",
+    "loader-utils": "~0.2.13",
     "svgo": "~0.6.3",
     "yargs": "~3.18.0"
   },

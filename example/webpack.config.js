@@ -10,7 +10,18 @@ module.exports = {
     loaders: [
       {
         test: /\.svg$/,
-        loader: 'babel!' + svgLoader + '?es5=true'
+        loaders: [
+          'babel',
+          {
+            loader: svgLoader, // 'react-svg'
+            query: {
+              es5: false,
+              svgo: {
+                pretty: true
+              }
+            }
+          }
+        ]
       },
       {
         test: /\.js$/,
