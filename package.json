@@ -6,11 +6,10 @@
   "scripts": {
     "build": "babel src --out-dir lib --copy-files",
     "clean": "rm -rf lib",
-    "lint": "eslint src/ test/ example/*.js --ignore-pattern example/*.react.js",
-    "test": "tape -r babel-register test/loader.js | faucet",
+    "lint": "eslint src/ test/ example/*.js --ignore-pattern '*.react.js'",
+    "test": "tape -r babel-register test/index.js | faucet",
     "watch": "babel src --out-dir lib --copy-files --watch",
-    "preversion": "npm run clean && npm run lint && npm run test",
-    "version": "npm run build",
+    "preversion": "npm run clean && npm run lint && npm run build && npm run test",
     "postversion": "git push && git push --tags"
   },
   "repository": {
@@ -40,6 +39,7 @@
     "babel-preset-react": "~6.5.0",
     "js-yaml": "~3.5.5",
     "loader-utils": "~0.2.13",
+    "lodash.isplainobject": "^4.0.4",
     "svgo": "~0.6.3",
     "yargs": "~3.18.0"
   },

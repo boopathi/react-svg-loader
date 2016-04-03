@@ -91,7 +91,9 @@ argv._.map(file => {
       svgo: svgoOpts
     });
   } catch(e) {
+    /* eslint-disable no-console */
     console.error('The options passed are not serializable.');
+    /* eslint-enable */
     process.exit(1);
   }
   let loaderContext = {
@@ -101,7 +103,7 @@ argv._.map(file => {
     async() {
       return function(err, result) {
         /* eslint-disable no-console */
-        if (err) return console.error("ERROR ERROR ERROR \n", file, err.stack);
+        if (err) return console.error("ERROR ERROR ERROR", file, err.stack);
         if (argv['0']) console.log(result);
         /* eslint-enable */
         else fs.writeFileSync(makeFilename(file), result);

@@ -2,12 +2,16 @@ import Svgo from 'svgo';
 import {transform as babelTransform} from 'babel-core';
 import loaderUtils from 'loader-utils';
 
+import {validateAndFix} from './svgo';
 import plugin from './plugin';
 
 function optimize (opts) {
+  validateAndFix(opts);
   const svgo = new Svgo(opts);
   return function (content) {
-    return new Promise(r => svgo.optimize(content, ({data}) => r(data)));
+    return new Promise((resolve, reject) =>
+      svgo.optimize(content, ({error, data}) => error ? reject(error) : resolve(data))
+    );
   };
 }
 
@@ -40,6 +44,7 @@ export default function (content) {
 
   Promise.resolve(String(content))
     .then(optimize(query.svgo))
+    // .then(r => (console.log(r), r))
     .then(transform({
       es5: query.es5
     }))

@@ -1,16 +1,22 @@
 import cssToObj from './css-to-obj';
-import hyphenToCamel from './hyphen-to-camel';
+import {hyphenToCamel, namespaceToCamel} from './camelize';
 
 export default function (babel) {
   const t = babel.types;
 
   // converts
-  // <svg stroke-width="5">
+  // <svg stroke-width="5" xmlns:xlink="asdf">
   // to
-  // <svg strokeWidth="5">
-  const hyphenToCamelVisitor = {
+  // <svg strokeWidth="5" xmlnsXlink="asdf">
+  const camelizeVisitor = {
     JSXAttribute(path) {
-      path.node.name.name = hyphenToCamel(path.node.name.name);
+      if (t.isJSXNamespacedName(path.node.name)) {
+        path.node.name = t.jSXIdentifier(
+          namespaceToCamel(path.node.name.namespace.name, path.node.name.name.name)
+        );
+      } else if (t.isJSXIdentifier(path.node.name)) {
+        path.node.name.name = hyphenToCamel(path.node.name.name);
+      }
     }
   };
 
@@ -20,7 +26,7 @@ export default function (babel) {
   // <tag style={{textAlign: 'center', width: '50px'}}>
   const styleAttrVisitor = {
     JSXAttribute(path) {
-      if (path.node.name.name === 'style') {
+      if (t.isJSXIdentifier(path.node.name) && path.node.name.name === 'style') {
         let csso = cssToObj(path.node.value.value);
         let properties = Object.keys(csso).map(prop => t.objectProperty(
           t.identifier(hyphenToCamel(prop)),
@@ -73,9 +79,9 @@ export default function (babel) {
   const svgVisitor = {
     JSXOpeningElement(path) {
       if (t.isJSXIdentifier(path.node.name) && path.node.name.name.toLowerCase() === 'svg') {
+        path.traverse(camelizeVisitor);
         path.traverse(attrVisitor);
         path.traverse(styleAttrVisitor);
-        path.traverse(hyphenToCamelVisitor);
 
         // add spread props
         path.node.attributes.push(
@@ -88,8 +94,8 @@ export default function (babel) {
         );
       } else {
         // don't ignore style attr transformations for other nodes
+        path.traverse(camelizeVisitor);
         path.traverse(styleAttrVisitor);
-        path.traverse(hyphenToCamelVisitor);
       }
     }
   };
