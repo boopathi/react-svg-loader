@@ -114,7 +114,7 @@ SVG Optimize using <a href="https://github.com/svg/svgo">SVGO</a>
 </p>
 <p align="center">↓</p>
 <p align="center">
-Babel Transform with `preset=react` and <a href="src/plugin.js">plugin=svgToComponent</a>
+Babel Transform with <code>preset=react</code> and <a href="src/plugin.js"><code>plugin=svgToComponent</code></a>
 </p>
 
 ### Transformations
