@@ -13,6 +13,7 @@ install:
 # Ensure babel-cli is installed after babel in node.js 0.12
 # It started happening for node4 as well. So installing this for all
 - npm install babel-cli@"^6.6.5"
+- npm install -g codeclimate-test-reporter
 script:
 - npm run lint
 - npm run build
