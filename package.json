@@ -8,6 +8,7 @@
     "clean": "rm -rf lib",
     "lint": "eslint src/ test/ example/*.js --ignore-pattern '*.react.js'",
     "test": "tape -r babel-register test/index.js | faucet",
+    "cover": "babel-node `npm bin`/isparta cover test/index.js",
     "watch": "babel src --out-dir lib --copy-files --watch",
     "preversion": "npm run clean && npm run lint && npm run build && npm run test",
     "postversion": "git push && git push --tags"
@@ -51,6 +52,7 @@
     "eslint": "^2.5.3",
     "eslint-plugin-react": "^4.2.3",
     "faucet": "0.0.1",
+    "isparta": "^4.0.0",
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.0.0",
     "tape": "^4.5.1"
