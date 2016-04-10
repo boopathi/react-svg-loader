@@ -4,7 +4,7 @@
 
 ## Old version
 
-Now `master` represents the new rewrite of the react-svg loader. Though this gives the exact same output as the previous one, the entire parsing is changed. So if you'd like to continue using the old one, it's in [`v0.1` branch](https://github.com/boopathi/react-svg-loader/tree/v0.1) and `^0.1.0` on npm
+Now `master` represents the new rewrite of the react-svg loader. Though this gives the exact same output as the previous one, the entire parsing is changed. So if you'd like to continue using the old one, it's in [`v0.1` branch](https://github.com/boopathi/react-svg-loader/tree/v0.1) and `^0.1.0` on npm.
 
 ## Install
 
