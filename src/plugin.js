@@ -21,6 +21,18 @@ export default function (babel) {
   };
 
   // converts
+  // <tag class="blah blah1"/>
+  // to
+  // <tag className="blah blah1"/>
+  const classNameVisitor = {
+    JSXAttribute(path) {
+      if (t.isJSXIdentifier(path.node.name) && path.node.name.name === 'class') {
+        path.node.name.name = "className";
+      }
+    }
+  };
+
+  // converts
   // <tag style="text-align: center; width: 50px">
   // to
   // <tag style={{textAlign: 'center', width: '50px'}}>
@@ -82,6 +94,7 @@ export default function (babel) {
         path.traverse(camelizeVisitor);
         path.traverse(attrVisitor);
         path.traverse(styleAttrVisitor);
+        path.traverse(classNameVisitor);
 
         // add spread props
         path.node.attributes.push(
@@ -96,6 +109,7 @@ export default function (babel) {
         // don't ignore style attr transformations for other nodes
         path.traverse(camelizeVisitor);
         path.traverse(styleAttrVisitor);
+        path.traverse(classNameVisitor);
       }
     }
   };
