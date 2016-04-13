@@ -5,6 +5,7 @@ import fs from 'fs';
 import yargs from 'yargs';
 import yaml from 'js-yaml';
 import path from 'path';
+import isPlainObject from 'lodash.isplainobject';
 
 let {argv} = yargs
   .usage('Usage: $0 [files] [options]')
@@ -22,15 +23,8 @@ let {argv} = yargs
   })
   // svgo options
   .option('svgo', {
-    describe: 'Path to YAML or JS or JSON config file for SVGO',
-    nargs: 1
+    describe: 'Path to YAML or JS or JSON config file for SVGO'
   })
-  .array('svgo.plugins')
-  .option('svgo.floatPrecision', {number: true, default: 3})
-  .boolean('svgo.multipass')
-  .boolean('svgo.full')
-  .boolean('svgo.js2svg.pretty')
-  .option('svgo.js2svg.useShortTags', {default: true, boolean: true})
   .demand(1)
   .version(require('../package.json').version)
   .help('h')
@@ -54,30 +48,13 @@ function handlePath(configFile) {
 
 let svgoOpts;
 
-switch (typeof argv.svgo) {
-  case 'string':
-    svgoOpts = handlePath(argv.svgo);
-    break;
-  case 'object':
-    svgoOpts = argv.svgo;
-    if (Array.isArray(svgoOpts.plugins)) break;
-
-    // when there is only one element
-    if (typeof svgoOpts.plugins === 'string') {
-      svgoOpts.plugins = [svgoOpts.plugins];
-      break;
-    }
-
-    // when there are many and is an object
-    if (svgoOpts.plugins) {
-      svgoOpts.plugins = Object
-        .keys(svgoOpts.plugins)
-        .map(key => {
-          if (svgoOpts.plugins[key] === true) return key;
-          return {[key]: svgoOpts.plugins[key]};
-        });
-    }
-    break;
+if (typeof argv.svgo === 'string') {
+  svgoOpts = handlePath(argv.svgo);
+} else if (isPlainObject(argv.svgo)){
+  svgoOpts = argv.svgo;
+  if (isPlainObject(svgoOpts.plugins) || typeof svgoOpts.plugins === 'string') {
+    svgoOpts.plugins = [svgoOpts.plugins];
+  }
 }
 
 argv._.map(file => {
