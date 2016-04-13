@@ -91,10 +91,10 @@ export default function (babel) {
   const svgVisitor = {
     JSXOpeningElement(path) {
       if (t.isJSXIdentifier(path.node.name) && path.node.name.name.toLowerCase() === 'svg') {
+        path.traverse(classNameVisitor);
         path.traverse(camelizeVisitor);
         path.traverse(attrVisitor);
         path.traverse(styleAttrVisitor);
-        path.traverse(classNameVisitor);
 
         // add spread props
         path.node.attributes.push(
@@ -107,9 +107,9 @@ export default function (babel) {
         );
       } else {
         // don't ignore style attr transformations for other nodes
+        path.traverse(classNameVisitor);
         path.traverse(camelizeVisitor);
         path.traverse(styleAttrVisitor);
-        path.traverse(classNameVisitor);
       }
     }
   };
