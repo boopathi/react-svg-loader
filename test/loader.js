@@ -104,8 +104,8 @@ test('compression: namespace attr', function(t) {
 });
 
 const circle = `
-<svg style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
-  <circle cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />
+<svg class='class1 class2' style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
+  <circle class='class3 class4' cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />
 </svg>
 `;
 
@@ -129,6 +129,17 @@ test('style attr of root svg', function(t) {
       t.ok(r.props.style.width, 'contains width');
       t.ok(r.props.style.textAlign, 'contains textAlign');
       t.notOk(r.props.style['text-align'], 'does not contain text-align');
+      t.end();
+    })
+    .catch(t.end);
+});
+
+test('converts class to className', function(t) {
+  loader(circle)
+    .then(c => {
+      let r = render(React.createElement(c));
+      t.ok(r.props.className, 'contains className');
+      t.notOk(r.props.class, 'does not contain class');
       t.end();
     })
     .catch(t.end);
