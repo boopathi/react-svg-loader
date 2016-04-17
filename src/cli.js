@@ -63,7 +63,7 @@ export function getSVGOOpts(argv) {
   return svgoOpts;
 }
 
-export function getLoaderContext(argv, query) {
+export function getLoaderContext({argv, query, file}) {
   return {
     query,
     cacheable() {},
@@ -100,7 +100,7 @@ export function run() {
       /* eslint-enable */
       process.exit(1);
     }
-    loader.apply(getLoaderContext(argv, query), [source]);
+    loader.apply(getLoaderContext({argv, query, file}), [source]);
   });
 }
 
