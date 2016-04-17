@@ -50,7 +50,7 @@
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-register": "^6.7.2",
     "eslint": "^2.5.3",
-    "eslint-plugin-react": "^4.2.3",
+    "eslint-plugin-react": "^5.0.0",
     "faucet": "0.0.1",
     "isparta": "^4.0.0",
     "react": "^15.0.0",
