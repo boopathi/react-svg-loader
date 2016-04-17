@@ -52,37 +52,6 @@ export default function (babel) {
     }
   };
 
-  // Flow props from Output component to root SVG
-  // converts
-  // <svg width="50">
-  // to
-  // <svg width={this.props.width ? this.props.width : "50"}>
-  const attrVisitor = {
-    JSXAttribute(path) {
-      if (!t.isJSXIdentifier(path.node.name)) return;
-      // don't handle style attr. It needs to be an object
-      if (path.node.name.name === 'style') return;
-
-      // else
-      const valueExpression = t.memberExpression(
-        t.memberExpression(
-          t.thisExpression(),
-          t.identifier('props')
-        ),
-        t.identifier(hyphenToCamel(path.node.name.name))
-      );
-
-      path.node.value = t.jSXExpressionContainer(
-        t.conditionalExpression(
-          valueExpression,
-          valueExpression,
-          t.stringLiteral(path.node.value.value)
-        )
-      );
-
-    }
-  };
-
   // converts
   // <svg>
   // to
@@ -90,12 +59,11 @@ export default function (babel) {
   // after passing through attributes visitors
   const svgVisitor = {
     JSXOpeningElement(path) {
-      if (t.isJSXIdentifier(path.node.name) && path.node.name.name.toLowerCase() === 'svg') {
-        path.traverse(classNameVisitor);
-        path.traverse(camelizeVisitor);
-        path.traverse(attrVisitor);
-        path.traverse(styleAttrVisitor);
+      path.traverse(classNameVisitor);
+      path.traverse(camelizeVisitor);
+      path.traverse(styleAttrVisitor);
 
+      if (path.node.name.name.toLowerCase() === 'svg') {
         // add spread props
         path.node.attributes.push(
           t.jSXSpreadAttribute(
@@ -105,11 +73,6 @@ export default function (babel) {
             )
           )
         );
-      } else {
-        // don't ignore style attr transformations for other nodes
-        path.traverse(classNameVisitor);
-        path.traverse(camelizeVisitor);
-        path.traverse(styleAttrVisitor);
       }
     }
   };
