@@ -5,42 +5,13 @@ import fs from 'fs';
 import yargs from 'yargs';
 import yaml from 'js-yaml';
 import path from 'path';
+import isPlainObject from 'lodash.isplainobject';
 
-let {argv} = yargs
-  .usage('Usage: $0 [files] [options]')
-  .option('5', {
-    alias: 'es5',
-    describe: 'Use babel presets es2015 and react',
-    boolean: true,
-    default: false
-  })
-  .option('0', {
-    alias: 'stdout',
-    describe: 'Print output to stdout',
-    boolean: true,
-    default: 'false'
-  })
-  // svgo options
-  .option('svgo', {
-    describe: 'Path to YAML or JS or JSON config file for SVGO',
-    nargs: 1
-  })
-  .array('svgo.plugins')
-  .option('svgo.floatPrecision', {number: true, default: 3})
-  .boolean('svgo.multipass')
-  .boolean('svgo.full')
-  .boolean('svgo.js2svg.pretty')
-  .option('svgo.js2svg.useShortTags', {default: true, boolean: true})
-  .demand(1)
-  .version(require('../package.json').version)
-  .help('h')
-  .alias('h', 'help');
-
-function makeFilename(filename) {
+export function makeFilename(filename) {
   return filename + '.react.js';
 }
 
-function handlePath(configFile) {
+export function handlePath(configFile) {
   switch (path.extname(configFile)) {
     case '.yaml':
       return yaml.safeLoad(fs.readFileSync(configFile));
@@ -52,51 +23,48 @@ function handlePath(configFile) {
   }
 }
 
-let svgoOpts;
-
-switch (typeof argv.svgo) {
-  case 'string':
-    svgoOpts = handlePath(argv.svgo);
-    break;
-  case 'object':
-    svgoOpts = argv.svgo;
-    if (Array.isArray(svgoOpts.plugins)) break;
-
-    // when there is only one element
-    if (typeof svgoOpts.plugins === 'string') {
-      svgoOpts.plugins = [svgoOpts.plugins];
-      break;
-    }
-
-    // when there are many and is an object
-    if (svgoOpts.plugins) {
-      svgoOpts.plugins = Object
-        .keys(svgoOpts.plugins)
-        .map(key => {
-          if (svgoOpts.plugins[key] === true) return key;
-          return {[key]: svgoOpts.plugins[key]};
-        });
-    }
-    break;
+export function getArgv() {
+  return yargs
+    .usage('Usage: $0 [files] [options]')
+    .option('5', {
+      alias: 'es5',
+      describe: 'Use babel presets es2015 and react',
+      boolean: true,
+      default: false
+    })
+    .option('0', {
+      alias: 'stdout',
+      describe: 'Print output to stdout',
+      boolean: true,
+      default: 'false'
+    })
+    // svgo options
+    .option('svgo', {
+      describe: 'Path to YAML or JS or JSON config file for SVGO'
+    })
+    .demand(1)
+    .version(require('../package.json').version)
+    .help('h')
+    .alias('h', 'help')
+    .argv;
 }
 
-argv._.map(file => {
-  let source = fs.readFileSync(file);
+export function getSVGOOpts(argv) {
+  let svgoOpts;
 
-  let query;
-  try {
-    // serializable check
-    query = '?' + JSON.stringify({
-      es5: argv.es5,
-      svgo: svgoOpts
-    });
-  } catch(e) {
-    /* eslint-disable no-console */
-    console.error('The options passed are not serializable.');
-    /* eslint-enable */
-    process.exit(1);
+  if (typeof argv.svgo === 'string') {
+    svgoOpts = handlePath(argv.svgo);
+  } else if (isPlainObject(argv.svgo)){
+    svgoOpts = argv.svgo;
+    if (isPlainObject(svgoOpts.plugins) || typeof svgoOpts.plugins === 'string') {
+      svgoOpts.plugins = [svgoOpts.plugins];
+    }
   }
-  let loaderContext = {
+  return svgoOpts;
+}
+
+export function getLoaderContext({argv, query, file}) {
+  return {
     query,
     cacheable() {},
     addDependency() {},
@@ -110,5 +78,33 @@ argv._.map(file => {
       };
     }
   };
-  loader.apply(loaderContext, [source]);
-});
+}
+
+export function run() {
+  const argv = getArgv();
+  const svgoOpts = getSVGOOpts(argv);
+
+  argv._.map(file => {
+    let source = fs.readFileSync(file);
+
+    let query;
+    try {
+      // serializable check
+      query = '?' + JSON.stringify({
+        es5: argv.es5,
+        svgo: svgoOpts
+      });
+    } catch(e) {
+      /* eslint-disable no-console */
+      console.error('The options passed are not serializable.');
+      /* eslint-enable */
+      process.exit(1);
+    }
+    loader.apply(getLoaderContext({argv, query, file}), [source]);
+  });
+}
+
+// for testability
+if (require.main === module) {
+  run();
+}
