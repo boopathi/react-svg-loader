@@ -168,12 +168,24 @@ The props passed to the output component is passed on to the root SVG node and t
 is transformed to
 
 ```html
-<svg width={this.props.width ? this.props.width : '50'} {...this.props}>
+<svg width="50" {...this.props}>
   ...
 </svg>
 ```
 
-#### 4. export React.Component
+#### 4. class to className
+
+```html
+<svg class="hello"/>
+```
+
+is transformed to
+
+```html
+<svg className="hello"/>
+```
+
+#### 5. export React.Component
 
 The loader should now export the svg component. And this is done by wrapping it in a Component Class.
 
