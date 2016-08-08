@@ -3,3 +3,4 @@ npm-debug.log
 lib
 *.svg.react.js
 coverage
+.vscode
