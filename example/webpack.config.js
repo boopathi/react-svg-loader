@@ -17,7 +17,10 @@ module.exports = {
             query: {
               es5: false,
               svgo: {
-                pretty: true
+                pretty: true,
+                plugins: [
+                  { removeStyleElement: true }
+                ]
               }
             }
           }

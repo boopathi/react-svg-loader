@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg version="1.0">
+  <style>
+  <!-- This will be removed by svgo -->
+  svg {
+    color: red;
+    background: white;
+  }
+  </style>
   <defs
      id="defs16" />
    <g>
