@@ -2,9 +2,20 @@
 
 [![Build Status](https://travis-ci.org/boopathi/react-svg-loader.svg?branch=master)](https://travis-ci.org/boopathi/react-svg-loader) [![npm version](https://badge.fury.io/js/react-svg-loader.svg)](https://badge.fury.io/js/react-svg-loader) [![Code Climate](https://codeclimate.com/github/boopathi/react-svg-loader/badges/gpa.svg)](https://codeclimate.com/github/boopathi/react-svg-loader) [![Test Coverage](https://codeclimate.com/github/boopathi/react-svg-loader/badges/coverage.svg)](https://codeclimate.com/github/boopathi/react-svg-loader/coverage)
 
-## Old version
+## Older Versions
 
-Now `master` represents the new rewrite of the react-svg loader. Though this gives the exact same output as the previous one, the entire parsing is changed. So if you'd like to continue using the old one, it's in [`v0.1` branch](https://github.com/boopathi/react-svg-loader/tree/v0.1) and `^0.1.0` on npm.
+#### Current
+
++ v2.0.0-alpha - master branch
++ Drops Node 0.12 support (use at your own risk)
+
+#### v1.x
+
+[branch=v1](https://github.com/boopathi/react-svg-loader/tree/v1)
+
+#### v0.1.x
+
+[branch=v0.1](https://github.com/boopathi/react-svg-loader/tree/v0.1)
 
 ## Install
 
