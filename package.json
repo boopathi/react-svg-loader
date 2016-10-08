@@ -53,7 +53,7 @@
     "faucet": "0.0.1",
     "isparta": "^4.0.0",
     "react": "^15.3.0",
-    "react-addons-test-utils": "^15.3.0",
+    "react-addons-test-utils": "^15.3.1",
     "tape": "^4.5.1"
   }
 }
