@@ -26,11 +26,13 @@ npm i react-svg-loader
 ## Usage
 
 ```js
-const Image1 = require('react-svg!./image1.svg');
-// or
-const Image2 = require('babel!react-svg!./image1.svg');
+// without webpack loader config
+import Image1 from 'react-svg!./image1.svg';
 
-// and use it as
+// or if you're passing all .svg files via react-svg loader,
+import Image2 from './image1.svg';
+
+// and use it like any other React Component
 <Image1 width={50} height={50}/>
 <Image2 width={50} height={50}/>
 ```
