@@ -6,7 +6,7 @@
 
 #### Current
 
-+ v2.0.0-alpha - master branch
++ v2.0.0-alpha.0 - master branch
 + Drops Node 0.12 support (use at your own risk)
 
 #### v1.x
