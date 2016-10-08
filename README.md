@@ -18,10 +18,13 @@ npm i react-svg-loader
 var Image1 = require('react-svg?es5=1!./image1.svg');
 // or
 var Image2 = require('babel!react-svg!./image2.svg');
+// or
+import Image3 from '../images/image3.svg'
 
 // and use it as
 <Image1 width={50} height={50}/>
 <Image2 width={50} height={50}/>
+<Image3 width={50} height={50}/>
 ```
 
 ### ES2015 + JSX output
