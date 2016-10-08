@@ -18,15 +18,16 @@ function optimize (opts) {
 function transform (opts) {
   return function(content) {
     let babelOpts;
-    if (opts.es5) {
+    if (opts.jsx) {
       babelOpts = {
         babelrc: false,
-        presets: ['es2015-loose', 'react'],
-        plugins: [plugin]
+        plugins: ['syntax-jsx', plugin]
       };
     } else {
       babelOpts = {
-        plugins: ['syntax-jsx', plugin]
+        babelrc: false,
+        presets: ['react'],
+        plugins: [plugin]
       };
     }
     return babelTransform(content, babelOpts);
@@ -34,7 +35,6 @@ function transform (opts) {
 }
 
 export default function (content) {
-
   this.cacheable && this.cacheable(true);
   this.addDependency(this.resourcePath);
 
@@ -44,9 +44,8 @@ export default function (content) {
 
   Promise.resolve(String(content))
     .then(optimize(query.svgo))
-    // .then(r => (console.log(r), r))
     .then(transform({
-      es5: query.es5
+      jsx: query.jsx
     }))
     .then(result => {
       cb(null, result.code);

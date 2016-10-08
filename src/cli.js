@@ -26,17 +26,16 @@ export function handlePath(configFile) {
 export function getArgv() {
   return yargs
     .usage('Usage: $0 [files] [options]')
-    .option('5', {
-      alias: 'es5',
-      describe: 'Use babel presets es2015 and react',
+
+    .option('jsx', {
+      describe: 'Output JSX instead of applying react preset to convert to JS',
       boolean: true,
       default: false
     })
-    .option('0', {
-      alias: 'stdout',
+    .option('stdout', {
       describe: 'Print output to stdout',
       boolean: true,
-      default: 'false'
+      default: false
     })
     // svgo options
     .option('svgo', {
@@ -72,7 +71,7 @@ export function getLoaderContext({argv, query, file}) {
       return function(err, result) {
         /* eslint-disable no-console */
         if (err) return console.error("ERROR ERROR ERROR", file, err.stack);
-        if (argv['0']) console.log(result);
+        if (argv['stdout']) console.log(result);
         /* eslint-enable */
         else fs.writeFileSync(makeFilename(file), result);
       };
@@ -91,7 +90,7 @@ export function run() {
     try {
       // serializable check
       query = '?' + JSON.stringify({
-        es5: argv.es5,
+        jsx: argv.jsx,
         svgo: svgoOpts
       });
     } catch(e) {

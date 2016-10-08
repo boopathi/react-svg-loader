@@ -3,11 +3,11 @@ import React from 'react';
 import testUtils from 'react-addons-test-utils';
 import test from 'tape';
 import vm from 'vm';
+import {transform} from 'babel-core';
 
 function loader(content) {
   return new Promise(function(resolve, reject) {
     let context = {
-      query: '?es5=true',
       cacheable() {},
       addDependency() {},
       async() {
@@ -16,7 +16,10 @@ function loader(content) {
 
           let exports = {};
           let sandbox = { exports, require };
-          vm.runInNewContext(result, sandbox);
+          vm.runInNewContext(transform(result, {
+            babelrc: false,
+            presets: ['es2015']
+          }).code, sandbox);
           resolve(sandbox.exports.default);
         }
       }

@@ -6,7 +6,7 @@ Error.stackTraceLimit = Infinity;
 
 function exec (...args) {
   return new Promise((resolve, reject) => {
-    execFile('node', [path.join(__dirname, '..', 'lib', 'cli.js'), '-0'].concat(args), {
+    execFile('node', [path.join(__dirname, '..', 'lib', 'cli.js'), '--stdout'].concat(args), {
       cwd: path.join(__dirname, 'resources')
     }, function(err, stdout, stderr) {
       if (err) {
@@ -53,10 +53,10 @@ test('accept multiple arguments', function(t) {
     .catch(t.end);
 });
 
-test('es5 output', function (t) {
-  exec('dummy.svg', '--es5')
+test('jsx output', function (t) {
+  exec('dummy.svg', '--jsx')
     .then(r => {
-      testOccurence(t, r, 0);
+      t.assert(/return <svg/g.test(r));
       t.end();
     })
     .catch(t.end);
