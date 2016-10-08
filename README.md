@@ -26,38 +26,49 @@ npm i react-svg-loader
 ## Usage
 
 ```js
-var Image1 = require('react-svg?es5=1!./image1.svg');
+const Image1 = require('react-svg!./image1.svg');
 // or
-var Image2 = require('babel!react-svg!./image2.svg');
+const Image2 = require('babel!react-svg!./image1.svg');
 
 // and use it as
 <Image1 width={50} height={50}/>
 <Image2 width={50} height={50}/>
 ```
 
-### ES2015 + JSX output
+### Loader output
 
-By default the loader outputs ES2015 and JSX code and should be transpiled with babel or any other transpiler that supports ES2015 and JSX.
+By default the loader outputs ES2015 code (with JSX compiled to JavaScript using babel-preset-react). You can combine it with babel-loader to compile it down to ES5.
 
 ```js
 // In your webpack config
 {
   test: /\.svg$/,
-  loader: 'babel!react-svg'
+  loaders: [
+    {
+      loader: 'babel',
+      query: {
+        presets: ['es2015']
+      }
+    },
+    {
+      loader: 'react-svg',
+      query: {
+        jsx: true
+      }
+    }
+  ]
 }
 ```
 
-### ES5 output
+### JSX output
 
-Pass loader query `es5=true`.
-
-Note: babel transform is applied with `react` and `es2015-loose` presets.
+Pass loader query `jsx=true`.
 
 ```js
 // In your webpack config
 {
   test: /\.svg$/,
-  loader: 'react-svg?es5=1'
+  loader: 'react-svg?jsx=1'
 }
 ```
 
@@ -70,7 +81,6 @@ Note: babel transform is applied with `react` and `es2015-loose` presets.
   test: /\.svg$/,
   loader: 'react-svg',
   query: {
-    es5: true,
     svgo: {
       // svgo options
       plugins: [{removeTitle: false}],
@@ -258,8 +268,8 @@ in the **SAME directory** as the files
 
 ### CLI Options
 
-+ `-5` | `--es5`: Transforms ES2015+JSX output to ES5 using `presets=[es2015-loose, react]`
-+ `-0` | `--stdout`: Outputs to STDOUT
++ `--jsx`: Outputs JSX code instead of compiling it to JavaScript using babel-preset-react
++ `--stdout`: Outputs to STDOUT
 + `--svgo <config_file>`: Supports SVGO Config YAML / JSON / JS
 + `--svgo.plugins <...plugins>`: Takes in an array of plugins that need to be enabled
 + `--svgo.plugins.<plugin> <true|false>`: - Enable/Disable the plugin
