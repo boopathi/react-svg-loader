@@ -37,7 +37,7 @@
     "babel-plugin-syntax-jsx": "~6.13.0",
     "babel-preset-es2015": "~6.16.0",
     "babel-preset-es2015-loose": "~7.0.0",
-    "babel-preset-react": "~6.11.0",
+    "babel-preset-react": "~6.16.0",
     "js-yaml": "~3.6.0",
     "loader-utils": "~0.2.13",
     "lodash.isplainobject": "~4.0.4",
