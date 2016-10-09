@@ -48,7 +48,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-register": "^6.16.3",
     "eslint": "^3.7.1",
-    "eslint-plugin-react": "^6.1.1",
+    "eslint-plugin-react": "^6.4.0",
     "faucet": "0.0.1",
     "isparta": "^4.0.0",
     "react": "^15.3.2",
