@@ -40,7 +40,7 @@
     "loader-utils": "~0.2.13",
     "lodash.isplainobject": "~4.0.4",
     "svgo": "~0.7.1",
-    "yargs": "~6.1.1"
+    "yargs": "~6.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
