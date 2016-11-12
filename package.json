@@ -36,7 +36,7 @@
     "babel-core": "~6.18.0",
     "babel-plugin-syntax-jsx": "~6.18.0",
     "babel-preset-react": "~6.16.0",
-    "js-yaml": "~3.6.0",
+    "js-yaml": "~3.7.0",
     "loader-utils": "~0.2.13",
     "lodash.isplainobject": "~4.0.4",
     "svgo": "~0.7.1",
