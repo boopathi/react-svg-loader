@@ -288,4 +288,4 @@ in the **SAME directory** as the files
 
 ## LICENSE
 
-MIT License - http://boopathi.mit-license.org
+MIT License - https://boopathi.mit-license.org/2015
