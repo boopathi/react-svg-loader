@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/boopathi/react-svg-loader#readme",
   "dependencies": {
-    "babel-core": "~6.20.0",
+    "babel-core": "~6.21.0",
     "babel-plugin-syntax-jsx": "~6.18.0",
     "babel-preset-react": "~6.16.0",
     "js-yaml": "~3.7.0",
