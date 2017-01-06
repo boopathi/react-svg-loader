@@ -51,7 +51,7 @@
     "eslint-plugin-react": "^6.8.0",
     "faucet": "0.0.1",
     "isparta": "^4.0.0",
-    "react": "^15.4.1",
+    "react": "^15.4.2",
     "react-addons-test-utils": "^15.4.1",
     "tape": "^4.6.3"
   }
