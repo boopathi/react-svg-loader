@@ -1,27 +1,21 @@
+---
+sudo: false
 language: node_js
+cache: yarn
+
 node_js:
+- '7'
 - '6'
-- '5'
 - '4'
-cache:
-  directories:
-  - node_modules
-before_install:
-- npm install -g semver
-install:
-- npm install
-# Ensure babel-cli is installed after babel in node.js 0.12
-# It started happening for node4 as well. So installing this for all
-- npm install babel-cli@"^6.6.5"
-- npm install -g codeclimate-test-reporter
+
 script:
-- npm run lint
-- npm run build
-- npm run cover
+- yarn run lint
+- yarn run build
+- yarn run cover
+
 after_script:
 - codeclimate-test-reporter < coverage/lcov.info
-matrix:
-  fast_finish: true
+
 addons:
   code_climate:
     repo_token:
