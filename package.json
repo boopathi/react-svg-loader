@@ -39,7 +39,7 @@
     "js-yaml": "~3.7.0",
     "loader-utils": "~0.2.13",
     "lodash.isplainobject": "~4.0.4",
-    "svgo": "~0.7.1",
+    "svgo": "~0.7.2",
     "yargs": "~6.6.0"
   },
   "devDependencies": {
