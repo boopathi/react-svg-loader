@@ -106,6 +106,17 @@ test('compression: namespace attr', function(t) {
     .catch(t.end);
 });
 
+test('should not convert data-* props', function(t) {
+  t.plan(1);
+
+  loader(`<svg data-foo="foo"></svg>`)
+    .then(component => render(React.createElement(component)))
+    .then(r => {
+      t.equal(Object.keys(r.props).indexOf('data-foo'), 0, 'data-* shouldn\'t be camelCased')
+    })
+    .catch(t.end);
+});
+
 const circle = `
 <svg class='class1 class2' style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
   <circle class='class3 class4' cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />

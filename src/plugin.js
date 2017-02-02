@@ -38,11 +38,13 @@ export default function (babel) {
           );
         }
 
-        // converts
-        // <svg stroke-width="5">
-        // to
-        // <svg strokeWidth="5">
-        path.node.name.name = hyphenToCamel(path.node.name.name);
+        if (path.node.name.name.indexOf('data-') !== 0) {
+          // converts
+          // <svg stroke-width="5">
+          // to
+          // <svg strokeWidth="5">
+          path.node.name.name = hyphenToCamel(path.node.name.name);
+        }
       }
     }
   };
