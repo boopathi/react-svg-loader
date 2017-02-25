@@ -38,7 +38,7 @@ export default function (content) {
   this.cacheable && this.cacheable(true);
   this.addDependency(this.resourcePath);
 
-  const query = loaderUtils.parseQuery(this.query);
+  const query = loaderUtils.getOptions(this) || {};
 
   let cb = this.async();
 
