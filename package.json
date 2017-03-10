@@ -41,7 +41,7 @@
     "lodash.isplainobject": "^4.0.4",
     "react-dom": "^15.4.2",
     "svgo": "^0.7.2",
-    "yargs": "^6.6.0"
+    "yargs": "^7.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
