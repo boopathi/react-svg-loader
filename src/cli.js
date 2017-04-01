@@ -55,7 +55,12 @@ export function getSVGOOpts(argv) {
     svgoOpts = handlePath(argv.svgo);
   } else if (isPlainObject(argv.svgo)){
     svgoOpts = argv.svgo;
-    if (isPlainObject(svgoOpts.plugins) || typeof svgoOpts.plugins === 'string') {
+    if (isPlainObject(svgoOpts.plugins)) {
+      svgoOpts.plugins = Object.keys(svgoOpts.plugins).map((key) => {
+        return {[key]: svgoOpts.plugins[key] === "false" ? false : true}
+      });
+    }
+    else if (typeof svgoOpts.plugins === 'string') {
       svgoOpts.plugins = [svgoOpts.plugins];
     }
   }

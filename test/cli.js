@@ -75,6 +75,26 @@ test('pass options to svgo', function(t) {
   }).catch(t.end);
 });
 
+test('disable svgo plugin', function(t) {
+  Promise.all([
+    exec('dummy.svg', '--svgo.plugins.sortAttrs', 'true'),
+    exec('dummy.svg', '--svgo.plugins.sortAttrs', 'false'),
+  ]).then(r => {
+    t.notEqual(r[0], r[1]);
+    t.end();
+  }).catch(t.end);
+});
+
+test('pass multiple svgo plugin options', function(t) {
+  Promise.all([
+    exec('dummy.svg', '--svgo.plugins.convertStyleToAttrs', 'false', '--svgo.plugins.sortAttrs', 'true'),
+    exec('dummy.svg', '--svgo.plugins.convertStyleToAttrs', 'false'),
+  ]).then(r => {
+    t.notEqual(r[0], r[1]);
+    t.end();
+  }).catch(t.end);
+});
+
 test('plugins options in svgo', function(t) {
   Promise.all([
     exec('dummy.svg'),
