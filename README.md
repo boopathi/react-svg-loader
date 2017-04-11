@@ -29,9 +29,9 @@ npm i react-svg-loader
 
 ```js
 // without webpack loader config
-import Image1 from 'react-svg!./image1.svg';
+import Image1 from 'react-svg-loader!./image1.svg';
 
-// or if you're passing all .svg files via react-svg loader,
+// or if you're passing all .svg files via react-svg-loader,
 import Image2 from './image1.svg';
 
 // and use it like any other React Component
@@ -49,13 +49,13 @@ By default the loader outputs ES2015 code (with JSX compiled to JavaScript using
   test: /\.svg$/,
   loaders: [
     {
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         presets: ['es2015']
       }
     },
     {
-      loader: 'react-svg',
+      loader: 'react-svg-loader',
       query: {
         jsx: true
       }
@@ -72,7 +72,7 @@ Pass loader query `jsx=true`.
 // In your webpack config
 {
   test: /\.svg$/,
-  loader: 'react-svg?jsx=1'
+  loader: 'react-svg-loader?jsx=1'
 }
 ```
 
@@ -83,7 +83,7 @@ Pass loader query `jsx=true`.
 ```js
 {
   test: /\.svg$/,
-  loader: 'react-svg',
+  loader: 'react-svg-loader',
   query: {
     svgo: {
       // svgo options
@@ -99,7 +99,7 @@ or if you're using with babel-loader, you can
 ```js
 {
   test: /\.svg$/,
-  loader: 'babel!react-svg?' + JSON.stringify({
+  loader: 'babel-loader!react-svg-loader?' + JSON.stringify({
     svgo: {
       // svgo options
       plugins: [{removeTitle: false}],
@@ -114,9 +114,12 @@ or if you're using with babel-loader, you can
 ```js
 {
   test: /\.svg$/,
-  loaders: [ 'babel',
+  use: [
     {
-      loader: 'react-svg',
+      loader: 'babel-loader'
+    },
+    {
+      loader: 'react-svg-loader',
       query: {
         svgo: {
           plugins: [{removeTitle: false}],
