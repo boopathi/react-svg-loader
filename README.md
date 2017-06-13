@@ -109,6 +109,12 @@ or if you're using with babel-loader, you can
 }
 ```
 
+**If you want to use aria attributes in your SVGs**, set this SVGO plugin option:
+
+```js
+{ removeUnknownsAndDefaults: false }
+```
+
 #### Webpack 2.x
 
 ```js

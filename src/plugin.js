@@ -38,7 +38,7 @@ export default function (babel) {
           );
         }
 
-        if (path.node.name.name.indexOf('data-') !== 0) {
+        if (!/^(data-|aria-)/.test(path.node.name.name)) {
           // converts
           // <svg stroke-width="5">
           // to
