@@ -281,6 +281,7 @@ in the **SAME directory** as the files
 + `--svgo.plugins <...plugins>`: Takes in an array of plugins that need to be enabled
 + `--svgo.plugins.<plugin> <true|false>`: - Enable/Disable the plugin
 + `--svgo.floatPrecision $N`: Set floatPrecision to `N` for SVGO. SVGO supports 1-8.
++ `--dist`: Outputs the transformed files to the specified directory
 
 ```
 `npm bin`/svg2react file1.svg --es5 -0

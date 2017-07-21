@@ -7,6 +7,13 @@ import yaml from 'js-yaml';
 import path from 'path';
 import isPlainObject from 'lodash.isplainobject';
 
+export function makeFileDistPath(dist, file) {
+  return path.format({
+    dir: dist,
+    name: makeFilename(file)
+  });
+}
+
 export function makeFilename(filename) {
   return filename + '.react.js';
 }
@@ -40,6 +47,9 @@ export function getArgv() {
     // svgo options
     .option('svgo', {
       describe: 'Path to YAML or JS or JSON config file for SVGO'
+    })
+    .options('dist', {
+      describe: 'Output to the specified directory'
     })
     .demand(1)
     .version(require('../package.json').version)
@@ -78,7 +88,7 @@ export function getLoaderContext({argv, query, file}) {
         if (err) return console.error("ERROR ERROR ERROR", file, err.stack);
         if (argv['stdout']) console.log(result);
         /* eslint-enable */
-        else fs.writeFileSync(makeFilename(file), result);
+        else fs.writeFileSync(makeFileDistPath(argv['dist'], file), result);
       };
     }
   };
