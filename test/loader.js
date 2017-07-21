@@ -5,7 +5,7 @@ import test from 'tape';
 import vm from 'vm';
 import {transform} from 'babel-core';
 
-function loader(content) {
+function loader(content, query) {
   return new Promise(function(resolve, reject) {
     let context = {
       cacheable() {},
@@ -22,7 +22,8 @@ function loader(content) {
           }).code, sandbox);
           resolve(sandbox.exports.default);
         }
-      }
+      },
+      query
     };
     reactSVGLoader.apply(context, [content]);
   });
@@ -113,6 +114,23 @@ test('should not convert data-* props', function(t) {
     .then(component => render(React.createElement(component)))
     .then(r => {
       t.equal(Object.keys(r.props).indexOf('data-foo'), 0, 'data-* shouldn\'t be camelCased')
+    })
+    .catch(t.end);
+});
+
+test('should not convert aria-* props', function(t) {
+  t.plan(1);
+
+  loader(`<svg aria-labelledby="foo"></svg>`, {
+    svgo: {
+      plugins: [
+        { removeUnknownsAndDefaults: false },
+      ]
+    }
+  })
+    .then(component => render(React.createElement(component)))
+    .then(r => {
+      t.equal(Object.keys(r.props).indexOf('aria-labelledby'), 0, 'aria-* shouldn\'t be camelCased')
     })
     .catch(t.end);
 });
