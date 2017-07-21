@@ -120,7 +120,7 @@ or if you're using with babel-loader, you can
     },
     {
       loader: 'react-svg-loader',
-      query: {
+      options: {
         svgo: {
           plugins: [{removeTitle: false}],
           floatPrecision: 2
