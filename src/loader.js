@@ -21,13 +21,23 @@ function transform (opts) {
     if (opts.jsx) {
       babelOpts = {
         babelrc: false,
-        plugins: ['syntax-jsx', plugin]
+        plugins: [
+          'syntax-jsx',
+          [plugin, {
+            styleProp: opts.styleProp,
+          }],
+        ],
       };
     } else {
       babelOpts = {
         babelrc: false,
         presets: ['react'],
-        plugins: [plugin]
+        plugins: [
+          plugin,
+          [plugin, {
+            styleProp: opts.styleProp,
+          }],
+        ],
       };
     }
     return babelTransform(content, babelOpts);
@@ -45,7 +55,8 @@ export default function (content) {
   Promise.resolve(String(content))
     .then(optimize(query.svgo))
     .then(transform({
-      jsx: query.jsx
+      jsx: query.jsx,
+      styleProp: query.styleProp
     }))
     .then(result => {
       cb(null, result.code);

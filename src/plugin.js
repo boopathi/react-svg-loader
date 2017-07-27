@@ -51,11 +51,13 @@ export default function (babel) {
 
   // returns
   // export default class SVG extends React.Component {
+  // ++ const { style, ...rest } = props; // <-- extracts style from consumer's props
+  // ++ const finalStyle = {...style, ${svg_styling_options} };
   //   render() {
   //     return ${input_svg_node}
   //   }
   // }
-  const getExport = function (svg, className = 'SVG') {
+  const getExport = function (svg, styleProp, className = 'SVG') {
     return t.exportDefaultDeclaration(
       t.classDeclaration(
         t.identifier(className),
@@ -70,7 +72,24 @@ export default function (babel) {
               t.identifier('render'),
               [],
               t.blockStatement(
-                [t.returnStatement(svg)]
+                [
+                  t.variableDeclaration('const', [      // const
+                    t.variableDeclarator(
+                      t.identifier('{style, ...rest}'), // { style, ...rest }
+                      // =
+                      // t.thisExpression(),
+                      t.identifier('this.props')             // this.props;
+                    )
+                  ]),
+                  t.variableDeclaration('const', [      // const
+                    t.variableDeclarator(
+                      t.identifier('finalStyle'),                         // finalStyle
+                      // =
+                      t.identifier('{ ...style, ' + styleProp + ' }') // { ...style, <STYLE_OPTIONS> };
+                    ),
+                  ]),
+                  t.returnStatement(svg)
+                ]
               )
             )
           ]
@@ -83,18 +102,18 @@ export default function (babel) {
   // converts
   // <svg>
   // to
-  // <svg {...this.props}>
+  // <svg {...rest}>
   // after passing through attributes visitors
   const svgVisitor = {
     JSXOpeningElement(path) {
       if (path.node.name.name.toLowerCase() === 'svg') {
         // add spread props
         path.node.attributes.push(
+          t.identifier('style={finalStyle}') // style={finalStyle}
+        );
+        path.node.attributes.push(
           t.jSXSpreadAttribute(
-            t.memberExpression(
-              t.thisExpression(),
-              t.identifier('props')
-            )
+            t.identifier('rest') // ...rest
           )
         );
       }
@@ -108,10 +127,10 @@ export default function (babel) {
   // export default class SVG extends React.Component { render() { <svg/> }}
   // after passing through other visitors
   const svgExpressionVisitor = {
-    ExpressionStatement(path) {
+    ExpressionStatement(path, state) {
       if (!path.get('expression').isJSXElement()) return;
       if (path.get('expression.openingElement.name').node.name !== 'svg') return;
-      path.replaceWith(getExport(path.get('expression').node));
+      path.replaceWith(getExport(path.get('expression').node, state.opts.styleProp));
     }
   }
 
