@@ -256,16 +256,16 @@ is transformed to
 </svg>
 ```
 
-#### 4. class to className
+#### 4. class to className & class values to styles prop
 
 ```html
-<svg class="hello"/>
+<svg class="foo bar"/>
 ```
 
 is transformed to
 
-```html
-<svg className="hello"/>
+```jsx
+<svg className={ (styles["foo"] || "foo") + " " + (styles["bar"] || "bar") }>
 ```
 
 #### 5. export React.Component
@@ -280,7 +280,7 @@ is transformed to
 
 ```js
 import React from 'react';
-export default props => <svg {...props}>...</svg>;
+export default ({ styles = {}, ...props }) => <svg {...props}>...</svg>;
 ```
 
 ### Example
@@ -288,7 +288,7 @@ export default props => <svg {...props}>...</svg>;
 ##### Input SVG
 
 ```html
-<svg style='text-align: center; width: 100px' pointer-events="stroke">
+<svg class="foo" style='text-align: center; width: 100px' pointer-events="stroke">
   <circle cx="50" cy="50" r="25" style="text-align: center;" stroke-width="5" />
 </svg>
 ```
@@ -297,7 +297,8 @@ export default props => <svg {...props}>...</svg>;
 
 ```js
 import React from "react";
-export default props => <svg
+export default ({ styles = {}, ...props}) => <svg
+  className={styles["foo"] || "foo"}
   style={{ textAlign: "center", width: "100px" }}
   pointerEvents="stroke"
   {...props}>
