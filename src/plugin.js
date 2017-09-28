@@ -83,10 +83,10 @@ export default function(babel: BabelCore) {
         }
 
         // converts
-        // <svg stroke-width="5" data-x="0">
+        // <svg stroke-width="5" data-x="0" aria-label="foo">
         // to
-        // <svg strokeWidth="5" data-x="0">
-        if (name.node.name.indexOf("data-") !== 0) {
+        // <svg strokeWidth="5" data-x="0" aria-label="foo">
+        if (!/^(data-|aria-)/.test(name.node.name)) {
           name.replaceWith(t.jSXIdentifier(hyphenToCamel(path.node.name.name)));
         }
       }

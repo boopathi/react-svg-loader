@@ -5,9 +5,10 @@ import test from "tape";
 import vm from "vm";
 import { transform } from "babel-core";
 
-function loader(content) {
+function loader(content, query) {
   return new Promise(function(resolve, reject) {
     let context = {
+      query,
       cacheable() {},
       addDependency() {},
       async() {
@@ -115,13 +116,18 @@ test("compression: namespace attr", function(t) {
     .catch(t.end);
 });
 
-test("should not convert data-* props", function(t) {
-  t.plan(1);
+test("should not convert data-* and aria-* props", function(t) {
+  t.plan(2);
 
-  loader(`<svg data-foo="foo"></svg>`)
+  loader(`<svg data-foo="foo" aria-label="Open"></svg>`, {
+    svgo: {
+      plugins: [{ removeUnknownsAndDefaults: false }]
+    }
+  })
     .then(component => render(React.createElement(component)))
     .then(r => {
-      t.equal(Object.keys(r.props).indexOf("data-foo"), 0, "data-* shouldn't be camelCased");
+      t.notEqual(Object.keys(r.props).indexOf("data-foo"), -1, "data-* shouldn't be camelCased");
+      t.notEqual(Object.keys(r.props).indexOf("aria-label"), -1, "aria-* shouldn't be camelCased");
     })
     .catch(t.end);
 });

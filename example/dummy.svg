@@ -1,4 +1,10 @@
-<svg class="blah" style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
+<svg
+  class="blah"
+  style='text-align: center; width: 100px;height:100px'
+  fill="#ddd"
+  pointer-events="stroke"
+  data-x="foo"
+  aria-y="bar">
   <style>
     <!-- This will be removed by svgo -->
     svg {
