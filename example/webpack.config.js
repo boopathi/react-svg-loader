@@ -1,26 +1,26 @@
-var svgLoader = require.resolve('../');
+const reactSvgLoader = require.resolve("../");
+const path = require("path");
 
 module.exports = {
-  entry: './index.js',
+  entry: "./index.js",
   output: {
-    path: 'public',
-    filename: 'bundle.js'
+    path: path.join(__dirname, "public"),
+    filename: "bundle.js"
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.svg$/,
-        loaders: [
-          'babel',
+        exclude: /node_modules/,
+        use: [
+          "babel-loader",
           {
-            loader: svgLoader, // 'react-svg'
+            loader: reactSvgLoader, // 'react-svg'
             query: {
               es5: false,
               svgo: {
                 pretty: true,
-                plugins: [
-                  { removeStyleElement: true }
-                ]
+                plugins: [{ removeStyleElement: true }]
               }
             }
           }
@@ -28,7 +28,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel'
+        loader: "babel-loader",
+        exclude: /node_modules/
       }
     ]
   }
