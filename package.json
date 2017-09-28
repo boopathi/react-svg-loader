@@ -2,37 +2,37 @@
   "name": "react-svg-loader",
   "version": "2.0.0-alpha.1",
   "description": "Optimize svg and load it as a React Component",
+  "keywords": [
+    "loader",
+    "react",
+    "react-svg-loader",
+    "webpack",
+    "webpack-loader"
+  ],
+  "homepage": "https://github.com/boopathi/react-svg-loader#readme",
+  "bugs": {
+    "url": "https://github.com/boopathi/react-svg-loader/issues"
+  },
+  "license": "MIT",
+  "author": "boopathi",
   "main": "lib/loader.js",
-  "scripts": {
-    "build": "babel src --out-dir lib --copy-files",
-    "clean": "rm -rf lib",
-    "flow": "flow",
-    "eslint": "eslint .",
-    "lint": "yarn flow && yarn eslint",
-    "test": "tape -r babel-register test/index.js | faucet",
-    "cover": "babel-node `npm bin`/isparta cover test/index.js",
-    "watch": "babel src --out-dir lib --copy-files --watch"
+  "bin": {
+    "svg2react": "./lib/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
   },
-  "keywords": [
-    "react-svg-loader",
-    "webpack-loader",
-    "loader",
-    "webpack",
-    "react"
-  ],
-  "bin": {
-    "svg2react": "./lib/cli.js"
+  "scripts": {
+    "build": "babel src --out-dir lib --copy-files",
+    "clean": "rm -rf lib",
+    "cover": "babel-node `npm bin`/isparta cover test/index.js",
+    "eslint": "eslint .",
+    "flow": "flow",
+    "lint": "yarn flow && yarn eslint",
+    "test": "tape -r babel-register test/index.js | faucet",
+    "watch": "babel src --out-dir lib --copy-files --watch"
   },
-  "author": "boopathi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/boopathi/react-svg-loader/issues"
-  },
-  "homepage": "https://github.com/boopathi/react-svg-loader#readme",
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
@@ -60,5 +60,8 @@
     "react": "^16.0.0",
     "react-test-renderer": "^16.0.0",
     "tape": "^4.7.0"
-  }
+  },
+  "workspaces": [
+    "examples"
+  ]
 }
