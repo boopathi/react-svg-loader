@@ -59,7 +59,7 @@
     "eslint-plugin-flowtype": "^2.36.0",
     "eslint-plugin-react": "^7.0.1",
     "faucet": "0.0.1",
-    "flow-bin": "^0.55.0",
+    "flow-bin": "^0.56.0",
     "isparta": "^4.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
