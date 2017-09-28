@@ -7,51 +7,87 @@ import type BabelCore from "babel-core";
 export default function(babel: BabelCore) {
   const t = babel.types;
 
+  const createClass = (className: string) =>
+    t.logicalExpression(
+      "||",
+      t.memberExpression(
+        /* object   = */ t.identifier("styles"),
+        /* property = */ t.stringLiteral(className),
+        /* computed = */ true
+      ),
+      t.stringLiteral(className)
+    );
+
   const attrVisitor = {
     JSXAttribute(path: any) {
-      if (t.isJSXNamespacedName(path.node.name)) {
+      const name = path.get("name");
+      const value = path.get("value");
+
+      if (name.isJSXNamespacedName()) {
         // converts
         // <svg xmlns:xlink="asdf">
         // to
         // <svg xmlnsXlink="asdf">
-        path.node.name = t.jSXIdentifier(
-          namespaceToCamel(
-            path.node.name.namespace.name,
-            path.node.name.name.name
+        name.replaceWith(
+          t.jSXIdentifier(
+            namespaceToCamel(
+              path.node.name.namespace.name,
+              path.node.name.name.name
+            )
           )
         );
-      } else if (t.isJSXIdentifier(path.node.name)) {
-        // converts
-        // <tag class="blah blah1"/>
-        // to
-        // <tag className="blah blah1"/>
-        if (path.node.name.name === "class") {
-          path.node.name.name = "className";
+      } else if (name.isJSXIdentifier()) {
+        if (name.node.name === "class") {
+          // converts
+          // <tag class="blah blah1"/>
+          // to
+          // <tag className="blah blah1"/>
+          name.replaceWith(t.jSXIdentifier("className"));
+
+          // converts
+          // className="foo bar"
+          // to
+          // className={(styles["foo"] || "foo") + " " + (styles["bar"] || "bar")}
+          let classes = value.node.value.split(/\s/);
+
+          if (classes.length > 0) {
+            let expr = createClass(classes[0]);
+            for (let i = 1; i < classes.length; i++) {
+              expr = t.binaryExpression(
+                "+",
+                // (props.styles["foo"] || "foo") + " "
+                t.binaryExpression("+", expr, t.stringLiteral(" ")),
+                // (props.styles["bar"] || "bar")
+                createClass(classes[i])
+              );
+            }
+            value.replaceWith(t.jSXExpressionContainer(expr));
+          }
         }
 
         // converts
         // <tag style="text-align: center; width: 50px">
         // to
         // <tag style={{textAlign: 'center', width: '50px'}}>
-        if (path.node.name.name === "style") {
-          let csso = cssToObj(path.node.value.value);
+        if (name.node.name === "style") {
+          let csso = cssToObj(value.node.value);
           let properties = Object.keys(csso).map(prop =>
             t.objectProperty(
               t.identifier(hyphenToCamel(prop)),
               t.stringLiteral(csso[prop])
             )
           );
-          path.node.value = t.jSXExpressionContainer(
-            t.objectExpression(properties)
+          value.replaceWith(
+            t.jSXExpressionContainer(t.objectExpression(properties))
           );
         }
 
-        if (path.node.name.name.indexOf("data-") !== 0) {
-          // converts
-          // <svg stroke-width="5">
-          // to
-          // <svg strokeWidth="5">
-          path.node.name.name = hyphenToCamel(path.node.name.name);
+        // converts
+        // <svg stroke-width="5" data-x="0">
+        // to
+        // <svg strokeWidth="5" data-x="0">
+        if (name.node.name.indexOf("data-") !== 0) {
+          name.replaceWith(t.jSXIdentifier(hyphenToCamel(path.node.name.name)));
         }
       }
     }
@@ -61,7 +97,23 @@ export default function(babel: BabelCore) {
   // export default (props) => ${input_svg_node}
   const getExport = function(svg) {
     return t.exportDefaultDeclaration(
-      t.arrowFunctionExpression([t.identifier("props")], svg)
+      t.arrowFunctionExpression(
+        [
+          t.objectPattern([
+            t.objectProperty(
+              t.identifier("styles"),
+              t.assignmentPattern(
+                t.identifier("styles"),
+                t.objectExpression([])
+              ),
+              false,
+              true
+            ),
+            t.restProperty(t.identifier("props"))
+          ])
+        ],
+        svg
+      )
     );
   };
 

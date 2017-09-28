@@ -23,7 +23,7 @@ function loader(content) {
                 [
                   "env",
                   {
-                    targets: { node: 4 }
+                    targets: { ie: 11 }
                   }
                 ],
                 "react"

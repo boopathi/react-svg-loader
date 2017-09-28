@@ -39,6 +39,6 @@ function transform({ jsx = false }) {
     babelTransform(content, {
       babelrc: false,
       presets: [jsx ? void 0 : "react"].filter(Boolean),
-      plugins: ["syntax-jsx", plugin]
+      plugins: ["syntax-jsx", "transform-object-rest-spread", plugin]
     });
 }

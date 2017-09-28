@@ -1,4 +1,4 @@
-<svg style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
+<svg class="blah" style='text-align: center; width: 100px;height:100px' fill="#ddd" pointer-events="stroke">
   <style>
     <!-- This will be removed by svgo -->
     svg {
@@ -8,5 +8,5 @@
       background: red;
     }
   </style>
-  <circle cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />
+  <circle class="foo bar" cx="50" cy="50" r="25" style="text-align: center; stroke: #000000;" stroke-width="5" />
 </svg>

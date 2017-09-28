@@ -15,7 +15,10 @@
   },
   "license": "MIT",
   "author": "boopathi",
-  "files": ["lib", "README.md"],
+  "files": [
+    "lib",
+    "README.md"
+  ],
   "main": "lib/loader.js",
   "bin": {
     "svg2react": "./lib/cli.js"
@@ -37,6 +40,7 @@
   "dependencies": {
     "babel-core": "^6.25.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",
     "js-yaml": "^3.9.0",
     "loader-utils": "^1.0.2",
