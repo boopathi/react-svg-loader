@@ -6,11 +6,12 @@
   "scripts": {
     "build": "babel src --out-dir lib --copy-files",
     "clean": "rm -rf lib",
-    "lint": "eslint src/ test/ example/*.js --ignore-pattern '*.react.js'",
+    "flow": "flow",
+    "eslint": "eslint .",
+    "lint": "yarn flow && yarn eslint",
     "test": "tape -r babel-register test/index.js | faucet",
     "cover": "babel-node `npm bin`/isparta cover test/index.js",
-    "watch": "babel src --out-dir lib --copy-files --watch",
-    "preversion": "npm run clean && npm run lint && npm run build && npm run test"
+    "watch": "babel src --out-dir lib --copy-files --watch"
   },
   "repository": {
     "type": "git",
@@ -33,27 +34,29 @@
   },
   "homepage": "https://github.com/boopathi/react-svg-loader#readme",
   "dependencies": {
-    "babel-core": "^6.22.1",
+    "babel-core": "^6.25.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-preset-react": "^6.22.0",
-    "js-yaml": "^3.7.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "js-yaml": "^3.9.0",
     "loader-utils": "^1.0.2",
     "lodash.isplainobject": "^4.0.4",
-    "react-dom": "^15.4.2",
+    "react-dom": "^16.0.0",
     "svgo": "^0.7.2",
-    "yargs": "^7.0.2"
+    "yargs": "^9.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
+    "babel-cli": "^6.24.1",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-register": "^6.22.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-register": "^6.24.1",
     "eslint": "^4.1.0",
     "eslint-plugin-react": "^7.0.1",
     "faucet": "0.0.1",
+    "flow-bin": "^0.55.0",
     "isparta": "^4.0.0",
-    "react": "^15.4.2",
-    "react-addons-test-utils": "^15.4.2",
-    "tape": "^4.6.3"
+    "react": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
+    "tape": "^4.7.0"
   }
 }
