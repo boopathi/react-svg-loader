@@ -1,4 +1,4 @@
-import './css-to-obj';
-import './loader';
-import './cli';
-import './svgo';
+import "./css-to-obj";
+import "./loader";
+import "./cli";
+import "./svgo";

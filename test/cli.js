@@ -1,22 +1,27 @@
-import test from 'tape';
-import {execFile} from 'child_process';
-import path from 'path';
+import test from "tape";
+import { execFile } from "child_process";
+import path from "path";
 
 Error.stackTraceLimit = Infinity;
 
-function exec (...args) {
+function exec(...args) {
   return new Promise((resolve, reject) => {
-    execFile('node', [path.join(__dirname, '..', 'lib', 'cli.js'), '--stdout'].concat(args), {
-      cwd: path.join(__dirname, 'resources')
-    }, function(err, stdout, stderr) {
-      if (err) {
-        /* eslint-disable no-console */
-        console.error(stderr);
-        /* eslint-enable */
-        return reject(err);
+    execFile(
+      "node",
+      [path.join(__dirname, "..", "lib", "cli.js"), "--stdout"].concat(args),
+      {
+        cwd: path.join(__dirname, "resources")
+      },
+      function(err, stdout, stderr) {
+        if (err) {
+          /* eslint-disable no-console */
+          console.error(stderr);
+          /* eslint-enable */
+          return reject(err);
+        }
+        resolve(stdout);
       }
-      resolve(stdout);
-    });
+    );
   });
 }
 
@@ -35,8 +40,8 @@ function testOccurence(t, content, n) {
   t.equal(o.export, n);
 }
 
-test('accept single argument', function(t) {
-  exec('dummy.svg')
+test("accept single argument", function(t) {
+  exec("dummy.svg")
     .then(r => {
       testOccurence(t, r, 1);
       t.end();
@@ -44,8 +49,8 @@ test('accept single argument', function(t) {
     .catch(t.end);
 });
 
-test('accept multiple arguments', function(t) {
-  exec('dummy.svg', 'dummy2.svg')
+test("accept multiple arguments", function(t) {
+  exec("dummy.svg", "dummy2.svg")
     .then(r => {
       testOccurence(t, r, 2);
       t.end();
@@ -53,8 +58,8 @@ test('accept multiple arguments', function(t) {
     .catch(t.end);
 });
 
-test('jsx output', function (t) {
-  exec('dummy.svg', '--jsx')
+test("jsx output", function(t) {
+  exec("dummy.svg", "--jsx")
     .then(r => {
       t.assert(/return <svg/g.test(r));
       t.end();
@@ -62,57 +67,70 @@ test('jsx output', function (t) {
     .catch(t.end);
 });
 
-test('pass options to svgo', function(t) {
+test("pass options to svgo", function(t) {
   Promise.all([
-    exec('dummy.svg'),
-    exec('dummy.svg', '--svgo.js2svg.pretty'),
-    exec('dummy2.svg', '--svgo.floatPrecision', '1'),
-    exec('dummy2.svg', '--svgo.floatPrecision', '8')
-  ]).then(r => {
-    t.notEqual(r[0], r[1]);
-    t.notEqual(r[2], r[3]);
-    t.end();
-  }).catch(t.end);
+    exec("dummy.svg"),
+    exec("dummy.svg", "--svgo.js2svg.pretty"),
+    exec("dummy2.svg", "--svgo.floatPrecision", "1"),
+    exec("dummy2.svg", "--svgo.floatPrecision", "8")
+  ])
+    .then(r => {
+      t.notEqual(r[0], r[1]);
+      t.notEqual(r[2], r[3]);
+      t.end();
+    })
+    .catch(t.end);
 });
 
-test('disable svgo plugin', function(t) {
+test("disable svgo plugin", function(t) {
   Promise.all([
-    exec('dummy.svg', '--svgo.plugins.sortAttrs', 'true'),
-    exec('dummy.svg', '--svgo.plugins.sortAttrs', 'false'),
-  ]).then(r => {
-    t.notEqual(r[0], r[1]);
-    t.end();
-  }).catch(t.end);
+    exec("dummy.svg", "--svgo.plugins.sortAttrs", "true"),
+    exec("dummy.svg", "--svgo.plugins.sortAttrs", "false")
+  ])
+    .then(r => {
+      t.notEqual(r[0], r[1]);
+      t.end();
+    })
+    .catch(t.end);
 });
 
-test('pass multiple svgo plugin options', function(t) {
+test("pass multiple svgo plugin options", function(t) {
   Promise.all([
-    exec('dummy.svg', '--svgo.plugins.convertStyleToAttrs', 'false', '--svgo.plugins.sortAttrs', 'true'),
-    exec('dummy.svg', '--svgo.plugins.convertStyleToAttrs', 'false'),
-  ]).then(r => {
-    t.notEqual(r[0], r[1]);
-    t.end();
-  }).catch(t.end);
+    exec(
+      "dummy.svg",
+      "--svgo.plugins.convertStyleToAttrs",
+      "false",
+      "--svgo.plugins.sortAttrs",
+      "true"
+    ),
+    exec("dummy.svg", "--svgo.plugins.convertStyleToAttrs", "false")
+  ])
+    .then(r => {
+      t.notEqual(r[0], r[1]);
+      t.end();
+    })
+    .catch(t.end);
 });
 
-test('plugins options in svgo', function(t) {
-  Promise.all([
-    exec('dummy.svg'),
-    exec('dummy.svg', '--svgo.full')
-  ]).then(r => {
-    t.notEqual(r[0], r[1]);
-    t.end();
-  }).catch(t.end);
+test("plugins options in svgo", function(t) {
+  Promise.all([exec("dummy.svg"), exec("dummy.svg", "--svgo.full")])
+    .then(r => {
+      t.notEqual(r[0], r[1]);
+      t.end();
+    })
+    .catch(t.end);
 });
 
-test('accepts yaml/json/js input', function(t) {
+test("accepts yaml/json/js input", function(t) {
   Promise.all([
-    exec('dummy.svg', '--svgo', 'config.yaml'),
-    exec('dummy.svg', '--svgo', 'config.json'),
-    exec('dummy.svg', '--svgo', 'config.js')
-  ]).then(r => {
-    t.equal(r[0], r[1]);
-    t.equal(r[1], r[2]);
-    t.end();
-  }).catch(t.end);
+    exec("dummy.svg", "--svgo", "config.yaml"),
+    exec("dummy.svg", "--svgo", "config.json"),
+    exec("dummy.svg", "--svgo", "config.js")
+  ])
+    .then(r => {
+      t.equal(r[0], r[1]);
+      t.equal(r[1], r[2]);
+      t.end();
+    })
+    .catch(t.end);
 });

@@ -113,11 +113,7 @@ test("should not convert data-* props", function(t) {
   loader(`<svg data-foo="foo"></svg>`)
     .then(component => render(React.createElement(component)))
     .then(r => {
-      t.equal(
-        Object.keys(r.props).indexOf("data-foo"),
-        0,
-        "data-* shouldn't be camelCased"
-      );
+      t.equal(Object.keys(r.props).indexOf("data-foo"), 0, "data-* shouldn't be camelCased");
     })
     .catch(t.end);
 });

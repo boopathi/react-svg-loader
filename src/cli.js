@@ -85,7 +85,7 @@ function getLoaderContext({ argv, query, file }) {
   };
 }
 
-export function run() {
+function run() {
   const argv = getArgv();
   const svgoOpts = getSVGOOpts(argv);
 
@@ -111,7 +111,6 @@ export function run() {
   });
 }
 
-// for testability
 if (require.main === module) {
   run();
 }
