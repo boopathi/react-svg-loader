@@ -15,6 +15,10 @@
   },
   "license": "MIT",
   "author": "boopathi",
+  "files": [
+    "lib",
+    "README.md"
+  ],
   "main": "lib/loader.js",
   "bin": {
     "svg2react": "./lib/cli.js"
