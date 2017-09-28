@@ -47,10 +47,12 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
+    "babel-eslint": "^8.0.1",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.24.1",
     "eslint": "^4.1.0",
+    "eslint-plugin-flowtype": "^2.36.0",
     "eslint-plugin-react": "^7.0.1",
     "faucet": "0.0.1",
     "flow-bin": "^0.55.0",
