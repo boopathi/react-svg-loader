@@ -95,7 +95,8 @@ function run() {
     const source = fs.readFileSync(file);
 
     const query = {
-      svgo: svgoOpts
+      svgo: svgoOpts,
+      jsx: argv.jsx
     };
 
     loader.apply(getLoaderContext({ argv, query, file }), [source]);
