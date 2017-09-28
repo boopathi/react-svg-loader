@@ -58,15 +58,6 @@ test("accept multiple arguments", function(t) {
     .catch(t.end);
 });
 
-test("jsx output", function(t) {
-  exec("dummy.svg", "--jsx")
-    .then(r => {
-      t.assert(/return <svg/g.test(r));
-      t.end();
-    })
-    .catch(t.end);
-});
-
 test("pass options to svgo", function(t) {
   Promise.all([
     exec("dummy.svg"),

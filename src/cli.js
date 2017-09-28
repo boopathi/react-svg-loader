@@ -19,6 +19,8 @@ function handlePath(configFile: string) {
       return yaml.safeLoad(fs.readFileSync(configFile).toString());
     case ".json":
       return JSON.parse(fs.readFileSync(configFile).toString());
+    case ".js":
+      return require(path.join(process.cwd(), configFile));
     default:
       throw new Error("Unsupported config file format.");
   }
@@ -28,12 +30,6 @@ function getArgv() {
   return (
     yargs
       .usage("Usage: $0 [files] [options]")
-      .option("jsx", {
-        describe:
-          "Output JSX instead of applying react preset to convert to JS",
-        boolean: true,
-        default: false
-      })
       .option("stdout", {
         describe: "Print output to stdout",
         boolean: true,
@@ -51,12 +47,13 @@ function getArgv() {
 }
 
 function getSVGOOpts(argv) {
-  let svgoOpts;
+  let svgoOpts = {};
 
   if (typeof argv.svgo === "string") {
     svgoOpts = handlePath(argv.svgo);
   } else if (isPlainObject(argv.svgo)) {
     svgoOpts = argv.svgo;
+    // convert plugin object to array of objects
     if (isPlainObject(svgoOpts.plugins)) {
       svgoOpts.plugins = Object.keys((svgoOpts.plugins: any)).map(key => {
         return { [key]: svgoOpts.plugins[key] === "false" ? false : true };
@@ -65,13 +62,13 @@ function getSVGOOpts(argv) {
       svgoOpts.plugins = [svgoOpts.plugins];
     }
   }
+
   return svgoOpts;
 }
 
 function getLoaderContext({ argv, query, file }) {
   return {
     query,
-    cacheable() {},
     addDependency() {},
     async() {
       return function(err, result) {
@@ -90,23 +87,12 @@ function run() {
   const svgoOpts = getSVGOOpts(argv);
 
   argv._.map(file => {
-    let source = fs.readFileSync(file);
+    const source = fs.readFileSync(file);
 
-    let query;
-    try {
-      // serializable check
-      query =
-        "?" +
-        JSON.stringify({
-          jsx: argv.jsx,
-          svgo: svgoOpts
-        });
-    } catch (e) {
-      /* eslint-disable no-console */
-      console.error("The options passed are not serializable.");
-      /* eslint-enable */
-      process.exit(1);
-    }
+    const query = {
+      svgo: svgoOpts
+    };
+
     loader.apply(getLoaderContext({ argv, query, file }), [source]);
   });
 }

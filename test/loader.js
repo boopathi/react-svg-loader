@@ -19,7 +19,15 @@ function loader(content) {
           vm.runInNewContext(
             transform(result, {
               babelrc: false,
-              presets: ["es2015"]
+              presets: [
+                [
+                  "env",
+                  {
+                    targets: { node: 4 }
+                  }
+                ],
+                "react"
+              ]
             }).code,
             sandbox
           );

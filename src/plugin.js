@@ -58,43 +58,23 @@ export default function(babel: BabelCore) {
   };
 
   // returns
-  // export default class SVG extends React.Component {
-  //   render() {
-  //     return ${input_svg_node}
-  //   }
-  // }
-  const getExport = function(svg, className = "SVG") {
+  // export default (props) => ${input_svg_node}
+  const getExport = function(svg) {
     return t.exportDefaultDeclaration(
-      t.classDeclaration(
-        t.identifier(className),
-        t.memberExpression(t.identifier("React"), t.identifier("Component")),
-        t.classBody([
-          t.classMethod(
-            "method",
-            t.identifier("render"),
-            [],
-            t.blockStatement([t.returnStatement(svg)])
-          )
-        ]),
-        []
-      )
+      t.arrowFunctionExpression([t.identifier("props")], svg)
     );
   };
 
   // converts
   // <svg>
   // to
-  // <svg {...this.props}>
+  // <svg {this.props}>
   // after passing through attributes visitors
   const svgVisitor = {
     JSXOpeningElement(path: any) {
       if (path.node.name.name.toLowerCase() === "svg") {
         // add spread props
-        path.node.attributes.push(
-          t.jSXSpreadAttribute(
-            t.memberExpression(t.thisExpression(), t.identifier("props"))
-          )
-        );
+        path.node.attributes.push(t.jSXSpreadAttribute(t.identifier("props")));
       }
     }
   };
@@ -103,7 +83,7 @@ export default function(babel: BabelCore) {
   // <svg/>
   // to
   // import React from 'react';
-  // export default class SVG extends React.Component { render() { <svg/> }}
+  // export default props => <svg {...props}/>;
   // after passing through other visitors
   const svgExpressionVisitor = {
     ExpressionStatement(path: any) {
