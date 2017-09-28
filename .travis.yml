@@ -4,14 +4,14 @@ language: node_js
 cache: yarn
 
 node_js:
-- '7'
+- '8'
 - '6'
 - '4'
 
 script:
-- yarn run lint
-- yarn run build
-- yarn run cover
+- yarn lint
+- yarn build
+- yarn cover
 
 after_script:
 - codeclimate-test-reporter < coverage/lcov.info
