@@ -8,7 +8,7 @@
 
 ### Current
 
-VERSION: `2.0.0-alpha.2` (master)
+VERSION: `2.0.0-alpha` (master)
 
 *Note: This section will be moved to Changelog on `2.0.0` release.*
 
