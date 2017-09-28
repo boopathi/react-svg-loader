@@ -34,7 +34,7 @@ function optimize(opts = {}) {
 }
 
 // Babel Transform
-function transform(content) {
+function transform() {
   return content =>
     babelTransform(content, {
       babelrc: false,

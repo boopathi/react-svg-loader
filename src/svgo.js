@@ -12,10 +12,6 @@ const essentialPlugins = [
   "removeStyleElement"
 ];
 
-function isEssentialPlugin(p: string) {
-  return essentialPlugins.indexOf(p) !== -1;
-}
-
 export function validateAndFix(opts: any = {}) {
   if (!isPlainObject(opts))
     throw new Error("Expected options.svgo to be Object.");
