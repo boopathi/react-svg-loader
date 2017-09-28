@@ -14,7 +14,7 @@ export default function(content: string) {
 
   Promise.resolve(String(content))
     .then(optimize(loaderOpts.svgo))
-    .then(transform())
+    .then(transform({ jsx: loaderOpts.jsx }))
     .then(result => cb(null, result.code))
     .catch(err => cb(err));
 }
@@ -34,10 +34,11 @@ function optimize(opts = {}) {
 }
 
 // Babel Transform
-function transform() {
+function transform({ jsx = false }) {
   return content =>
     babelTransform(content, {
       babelrc: false,
+      presets: [jsx ? void 0 : "react"].filter(Boolean),
       plugins: ["syntax-jsx", plugin]
     });
 }

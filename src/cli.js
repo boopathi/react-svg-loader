@@ -30,6 +30,11 @@ function getArgv() {
   return (
     yargs
       .usage("Usage: $0 [files] [options]")
+      .option("jsx", {
+        describe: "Output JSX instead of applying babel-preset-react",
+        boolean: true,
+        default: false
+      })
       .option("stdout", {
         describe: "Print output to stdout",
         boolean: true,
