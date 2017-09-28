@@ -6,23 +6,96 @@
 
 ## Versions
 
-#### Current
+### Current
 
-+ v2.0.0-alpha.1 - master branch
-+ Drops Node 0.12 support (use at your own risk)
+VERSION: `2.0.0-alpha.2` (master)
 
-#### v1.x
+*Note: This section will be moved to Changelog on `2.0.0` release.*
+
+##### Drops Node 0.12 support & webpack 1 support
+
+Tests are run on Node 4, 6, and 8
+
+##### Output change from component class to arrow function
+
+Previously, the output of the react-svg-loader is,
+
+```js
+import React from "react";
+export default class SVG extends React.Component {
+  render() {
+    return <svg {...this.props}>{svgContent}</svg>;
+  }
+}
+```
+
+and now, it is,
+
+```js
+import React from "react";
+export default props => <svg {...props}>{svgContent}</svg>;
+```
+
+##### Drop option `es5`
+
+Previously, you could do,
+
+```js
+{
+  loader: "react-svg-loader",
+  options: {
+    es5: true
+  }
+}
+```
+
+and get output transpiled to ES5 using babel-preset-es2015. This is now deprecated and the **recommended** way to use react-svg-loader is to use it with [babel-loader](https://github.com/babel/babel-loader)
+
+```js
+{
+  test: /\.svg$/,
+  use: [
+    "babel-loader",
+    "react-svg-loader"
+  ]
+}
+```
+
+and with [babel-preset-env](https://github.com/babel/babel-preset-env) in `.babelrc`:
+
+```json
+{
+  "presets": [
+    [
+      "env",
+      {
+        "target": {
+          "browsers": "IE > 11"
+        }
+      }
+    ]
+  ]
+}
+```
+
+### v1.x
 
 [branch=v1](https://github.com/boopathi/react-svg-loader/tree/v1)
 
-#### v0.1.x
+### v0.1.x
 
 [branch=v0.1](https://github.com/boopathi/react-svg-loader/tree/v0.1)
 
 ## Install
 
 ```sh
-npm i react-svg-loader
+npm i react-svg-loader --save-dev
+```
+
+or
+
+```sh
+yarn add react-svg-loader --dev
 ```
 
 ## Usage
@@ -41,88 +114,40 @@ import Image2 from './image1.svg';
 
 ### Loader output
 
-By default the loader outputs ES2015 code (with JSX compiled to JavaScript using babel-preset-react). You can combine it with babel-loader to compile it down to ES5.
+By default the loader outputs ES2015 code (with JSX compiled to JavaScript using babel-preset-react). You can combine it with [babel-loader](https://github.com/babel/babel-loader) + [babel-preset-env](https://github.com/babel/babel-preset-env) to compile it down to your target.
 
 ```js
 // In your webpack config
 {
   test: /\.svg$/,
-  loaders: [
+  use: [
     {
-      loader: 'babel-loader',
-      query: {
-        presets: ['es2015']
-      }
+      loader: "babel-loader"
     },
     {
-      loader: 'react-svg-loader',
-      query: {
-        jsx: true
+      loader: "react-svg-loader",
+      options: {
+        jsx: true // true outputs JSX tags
       }
     }
   ]
 }
 ```
 
-### JSX output
-
-Pass loader query `jsx=true`.
-
-```js
-// In your webpack config
-{
-  test: /\.svg$/,
-  loader: 'react-svg-loader?jsx=1'
-}
-```
-
 ### SVGO options
-
-#### Webpack 1.x
-
-```js
-{
-  test: /\.svg$/,
-  loader: 'react-svg-loader',
-  query: {
-    svgo: {
-      // svgo options
-      plugins: [{removeTitle: false}],
-      floatPrecision: 2
-    }
-  }
-}
-```
-
-or if you're using with babel-loader, you can
-
-```js
-{
-  test: /\.svg$/,
-  loader: 'babel-loader!react-svg-loader?' + JSON.stringify({
-    svgo: {
-      // svgo options
-      plugins: [{removeTitle: false}],
-      floatPrecision: 2
-    }
-  }),
-}
-```
-
-#### Webpack 2.x
 
 ```js
 {
   test: /\.svg$/,
   use: [
+    "babel-loader",
     {
-      loader: 'babel-loader'
-    },
-    {
-      loader: 'react-svg-loader',
+      loader: "react-svg-loader",
       options: {
         svgo: {
-          plugins: [{removeTitle: false}],
+          plugins: [
+            { removeTitle: false }
+          ],
           floatPrecision: 2
         }
       }
@@ -196,7 +221,7 @@ The props passed to the output component is passed on to the root SVG node and t
 is transformed to
 
 ```html
-<svg width="50" {...this.props}>
+<svg width="50" {...props}>
   ...
 </svg>
 ```
@@ -215,7 +240,7 @@ is transformed to
 
 #### 5. export React.Component
 
-The loader should now export the svg component. And this is done by wrapping it in a Component Class.
+The loader should now export the svg component. And this is done by wrapping it in an ArrowFunctionExpression.
 
 ```html
 <svg>...</svg>
@@ -225,11 +250,7 @@ is transformed to
 
 ```js
 import React from 'react';
-export default class SVG extends React.Component {
-  render() {
-    return <svg>...</svg>;
-  }
-}
+export default props => <svg {...props}>...</svg>;
 ```
 
 ### Example
@@ -246,16 +267,12 @@ export default class SVG extends React.Component {
 
 ```js
 import React from "react";
-export default class SVG extends React.Component {
-  render() {
-    return <svg
-      style={{ textAlign: "center", width: "100px" }}
-      pointerEvents={this.props.pointerEvents ? this.props.pointerEvents : "stroke"}
-      {...this.props} >
-        <circle cx="50" cy="50" r="25" style={{textAlign: "center"}} strokeWidth="5" />
-    </svg>;
-  }
-}
+export default props => <svg
+  style={{ textAlign: "center", width: "100px" }}
+  pointerEvents="stroke"
+  {...props}>
+    <circle cx="50" cy="50" r="25" style={{textAlign: "center"}} strokeWidth="5" />
+</svg>;
 ```
 
 ## CLI
