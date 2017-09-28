@@ -12,13 +12,13 @@ VERSION: `2.0.0-alpha.2` (master)
 
 *Note: This section will be moved to Changelog on `2.0.0` release.*
 
-##### Drops Node 0.12 support & webpack 1 support
+#### Drops Node 0.12 support & webpack 1 support
 
 Tests are run on Node 4, 6, and 8
 
-##### Output change from component class to arrow function
+#### Output change from component class to arrow function
 
-Previously, the output of the react-svg-loader was,
+Previously, the output of the react-svg-loader was -
 
 ```js
 import React from "react";
@@ -29,14 +29,42 @@ export default class SVG extends React.Component {
 }
 ```
 
-and now it is,
+and now it is -
 
 ```js
 import React from "react";
 export default props => <svg {...props}>{svgContent}</svg>;
 ```
 
-##### Drop option `es5`
+#### Extensible classes (now you can use with css-modules)
+
+Previously, class values are NOT transformed. Now they are transformed such the component can be used with css-modules
+
+```js
+<svg class="foo bar">
+```
+
+is transformed to
+
+```js
+<svg className={ (styles["foo"] || "foo") + " " + (styles["bar"] || "bar") }></svg>
+```
+
+So, you can pass/override some styles in the svg, for example -
+
+```js
+import Image from "react-svg-loader!./image.svg";
+import styles from "./styles.css"; // with css-modules
+
+const imageStyles = {
+  foo: styles.foo,
+  bar: styles.bar
+}
+
+let component = <Image styles={imageStyles} />
+```
+
+#### Drop option `es5`
 
 Previously, you could do,
 
