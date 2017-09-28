@@ -18,7 +18,7 @@ Tests are run on Node 4, 6, and 8
 
 ##### Output change from component class to arrow function
 
-Previously, the output of the react-svg-loader is,
+Previously, the output of the react-svg-loader was,
 
 ```js
 import React from "react";
@@ -29,7 +29,7 @@ export default class SVG extends React.Component {
 }
 ```
 
-and now, it is,
+and now it is,
 
 ```js
 import React from "react";
@@ -49,7 +49,9 @@ Previously, you could do,
 }
 ```
 
-and get output transpiled to ES5 using babel-preset-es2015. This is now deprecated and the **recommended** way to use react-svg-loader is to use it with [babel-loader](https://github.com/babel/babel-loader)
+and get output transpiled to ES5 using babel-preset-es2015.
+
+This is now deprecated and the **recommended** way to use react-svg-loader is to use it with [babel-loader](https://github.com/babel/babel-loader)
 
 ```js
 {
@@ -300,7 +302,7 @@ in the **SAME directory** as the files
 + `--svgo.floatPrecision $N`: Set floatPrecision to `N` for SVGO. SVGO supports 1-8.
 
 ```
-`npm bin`/svg2react file1.svg --es5 -0
+`npm bin`/svg2react file1.svg --jsx --stdout
 ```
 
 ## Assumptions and Other gotchas
