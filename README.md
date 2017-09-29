@@ -374,4 +374,4 @@ in the **SAME directory** as the files
 
 ## LICENSE
 
-MIT License - https://boopathi.mit-license.org/2015
+[MIT](https://github.com/boopathi/react-svg-loader/blob/master/LICENSE)
