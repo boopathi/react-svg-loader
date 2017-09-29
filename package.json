@@ -17,6 +17,7 @@
   "author": "boopathi",
   "files": [
     "lib",
+    "LICENSE",
     "README.md"
   ],
   "main": "lib/loader.js",
