@@ -126,8 +126,16 @@ test("should not convert data-* and aria-* props", function(t) {
   })
     .then(component => render(React.createElement(component)))
     .then(r => {
-      t.notEqual(Object.keys(r.props).indexOf("data-foo"), -1, "data-* shouldn't be camelCased");
-      t.notEqual(Object.keys(r.props).indexOf("aria-label"), -1, "aria-* shouldn't be camelCased");
+      t.notEqual(
+        Object.keys(r.props).indexOf("data-foo"),
+        -1,
+        "data-* shouldn't be camelCased"
+      );
+      t.notEqual(
+        Object.keys(r.props).indexOf("aria-label"),
+        -1,
+        "aria-* shouldn't be camelCased"
+      );
     })
     .catch(t.end);
 });
