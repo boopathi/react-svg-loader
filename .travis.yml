@@ -4,8 +4,9 @@ language: node_js
 cache: yarn
 
 env:
-  global:
-    - CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
+- CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
+- BABEL_VERSION="^7.0.0-beta.2" PRESET_ENV_VERSION="^2.0.0-beta.2"
+- BABEL_VERSION="^6" PRESET_ENV_VERSION="^1.6.0"
 
 node_js:
 - '8'
@@ -17,6 +18,14 @@ before_install:
 - export PATH=$HOME/.yarn/bin:$PATH
 
 before_script:
+-
+  yarn add
+    babel-cli@"$BABEL_VERSION"
+    babel-core@"$BABEL_VERSION"
+    babel-plugin-syntax-jsx@"$BABEL_VERSION"
+    babel-plugin-transform-object-rest-spread@"$BABEL_VERSION"
+    babel-preset-env@"$PRESET_ENV_VERSION"
+    babel-preset-react@"$BABEL_VERSION"
 - yarn build
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
@@ -25,6 +34,7 @@ before_script:
 script:
 - if [ -n "${LINT-}" ]; then yarn lint; fi
 - if [ -z "${SKIPTESTS-}" ]; then yarn cover; fi
+- if [ "$BABEL_VERSION" -ne "^6" ]; then yarn add babel-node@"$BABEL_VERSION"; fi
 
 after_script:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
