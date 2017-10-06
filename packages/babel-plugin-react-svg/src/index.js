@@ -109,7 +109,7 @@ export default function(babel: BabelCore) {
               false,
               true
             ),
-            t.restProperty(t.identifier("props"))
+            t.restProperty ? t.restProperty(t.identifier("props")) : t.restElement(t.identifier("props"))
           ])
         ],
         svg
