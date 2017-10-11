@@ -8,13 +8,24 @@ node_js:
 - '6'
 - '4'
 
-script:
-- yarn lint
+before_install:
+- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.2.0
+- export PATH=$HOME/.yarn/bin:$PATH
+
+before_script:
 - yarn build
-- yarn cover
+
+script:
+- if [ -n "${LINT-}" ]; then yarn lint; fi
+- if [ -z "${SKIPTESTS-}" ]; then yarn cover; fi
 
 after_script:
 - codeclimate-test-reporter < coverage/lcov.info
+
+matrix:
+  include:
+    - node_js: "node"
+      env: LINT=true SKIPTESTS=true
 
 addons:
   code_climate:
