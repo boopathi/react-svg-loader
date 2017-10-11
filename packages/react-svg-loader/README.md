@@ -70,6 +70,25 @@ By default the loader outputs ES2015 code (with JSX compiled to JavaScript using
 }
 ```
 
+## Internals
+
+<p align="center">
+Input SVG
+</p>
+<p align="center">↓</p>
+<p align="center">
+SVG Optimize using <a href="https://github.com/svg/svgo">SVGO</a>
+</p>
+<p align="center">↓</p>
+<p align="center">
+Babel Transform with <code>preset=react</code> and <a href="src/plugin.js"><code>plugin=svgToComponent</code></a>
+</p>
+
+## Assumptions and Other gotchas
+
++ Root element is always `<svg>`
++ SVG is optimized using SVGO
+
 ## LICENSE
 
 [MIT](https://github.com/boopathi/react-svg-loader/blob/master/LICENSE)

@@ -149,25 +149,6 @@ and with [babel-preset-env](https://github.com/babel/babel-preset-env) in `.babe
 
 [branch=v0.1](https://github.com/boopathi/react-svg-loader/tree/v0.1)
 
-## Internals
-
-<p align="center">
-Input SVG
-</p>
-<p align="center">↓</p>
-<p align="center">
-SVG Optimize using <a href="https://github.com/svg/svgo">SVGO</a>
-</p>
-<p align="center">↓</p>
-<p align="center">
-Babel Transform with <code>preset=react</code> and <a href="src/plugin.js"><code>plugin=svgToComponent</code></a>
-</p>
-
-## Assumptions and Other gotchas
-
-+ Root element is always `<svg>`
-+ SVG is optimized using SVGO
-
 ## LICENSE
 
 [MIT](https://github.com/boopathi/react-svg-loader/blob/master/LICENSE)
