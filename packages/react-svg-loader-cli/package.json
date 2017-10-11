@@ -3,17 +3,14 @@
   "version": "2.0.0-alpha.3",
   "description": "react-svg-loader cli",
   "keywords": [
-    "react",
-    "react-svg-loader",
+    "cli",
     "commandline",
-    "cli"
+    "react",
+    "react-svg-loader"
   ],
   "homepage": "https://github.com/boopathi/react-svg-loader/packages/react-svg-loader-cli",
   "bugs": {
     "url": "https://github.com/boopathi/react-svg-loader/issues"
-  },
-  "bin": {
-    "svg2react": "./lib/cli.js"
   },
   "license": "MIT",
   "author": "boopathi",
@@ -23,12 +20,15 @@
     "README.md"
   ],
   "main": "lib/loader.js",
+  "bin": {
+    "svg2react": "./lib/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
   },
   "dependencies": {
-    "lodash.isplainobject": "^4.0.4",
+    "lodash.isplainobject": "^4.0.6",
     "react-svg-loader": "^2.0.0-alpha.3",
     "yargs": "^9.0.1"
   }
