@@ -3,6 +3,10 @@ sudo: false
 language: node_js
 cache: yarn
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
+
 node_js:
 - '8'
 - '6'
@@ -14,13 +18,16 @@ before_install:
 
 before_script:
 - yarn build
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
 
 script:
 - if [ -n "${LINT-}" ]; then yarn lint; fi
 - if [ -z "${SKIPTESTS-}" ]; then yarn cover; fi
 
 after_script:
-- codeclimate-test-reporter < coverage/lcov.info
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 matrix:
   include:
