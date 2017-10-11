@@ -4,39 +4,6 @@
 
 [![Build Status](https://travis-ci.org/boopathi/react-svg-loader.svg?branch=master)](https://travis-ci.org/boopathi/react-svg-loader) [![npm version](https://badge.fury.io/js/react-svg-loader.svg)](https://badge.fury.io/js/react-svg-loader) [![Code Climate](https://codeclimate.com/github/boopathi/react-svg-loader/badges/gpa.svg)](https://codeclimate.com/github/boopathi/react-svg-loader) [![Test Coverage](https://codeclimate.com/github/boopathi/react-svg-loader/badges/coverage.svg)](https://codeclimate.com/github/boopathi/react-svg-loader/coverage)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [Versions](#versions)
-  - [Current](#current)
-    - [Drops Node 0.12 support & webpack 1 support](#drops-node-012-support--webpack-1-support)
-    - [Output change from component class to arrow function](#output-change-from-component-class-to-arrow-function)
-    - [Extensible classes (now you can use with css-modules)](#extensible-classes-now-you-can-use-with-css-modules)
-    - [Drop option `es5`](#drop-option-es5)
-  - [v1.x](#v1x)
-  - [v0.1.x](#v01x)
-- [Install](#install)
-- [Usage](#usage)
-  - [Loader output](#loader-output)
-  - [SVGO options](#svgo-options)
-- [Internals](#internals)
-  - [Transformations](#transformations)
-    - [1. Hyphenated attributes to camelCase](#1-hyphenated-attributes-to-camelcase)
-    - [2. Style attr string to object](#2-style-attr-string-to-object)
-    - [3. Propagate props to root element](#3-propagate-props-to-root-element)
-    - [4. class to className & class values to styles prop](#4-class-to-classname--class-values-to-styles-prop)
-    - [5. export React.Component](#5-export-reactcomponent)
-  - [Example](#example)
-    - [Input SVG](#input-svg)
-    - [Output React Component](#output-react-component)
-- [CLI](#cli)
-  - [CLI Options](#cli-options)
-- [Assumptions and Other gotchas](#assumptions-and-other-gotchas)
-- [LICENSE](#license)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Versions
 
 ### Current
