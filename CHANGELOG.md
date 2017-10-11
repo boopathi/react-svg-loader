@@ -97,3 +97,11 @@ and with [babel-preset-env](https://github.com/babel/babel-preset-env) in `.babe
   ]
 }
 ```
+
+#### Move to 3 packages
+
+Now react-svg-loader is split into 3 packages
+
++ [babel-plugin-react-svg](/packages/babel-plugin-react-svg)
++ [react-svg-loader](/packages/react-svg-loader)
++ [react-svg-loader-cli](/packages/react-svg-loader-cli)
