@@ -1,6 +1,6 @@
 {
   "name": "react-svg-loader",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0",
   "private": true,
   "description": "Optimize svg and load it as a React Component",
   "keywords": [
@@ -16,15 +16,6 @@
   },
   "license": "MIT",
   "author": "boopathi",
-  "files": [
-    "lib",
-    "LICENSE",
-    "README.md"
-  ],
-  "main": "lib/loader.js",
-  "bin": {
-    "svg2react": "./lib/cli.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
