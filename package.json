@@ -22,7 +22,8 @@
   },
   "scripts": {
     "build": "gulp build",
-    "clean": "rm -rf lib",
+    "prepublish": "yarn clean && yarn build",
+    "clean": "rm -rf packages/*/lib example/public coverage .nyc_output",
     "cover": "NODE_ENV=test nyc --reporter=lcov yarn test",
     "eslint": "eslint .",
     "flow": "flow",
