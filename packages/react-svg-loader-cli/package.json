@@ -1,6 +1,6 @@
 {
   "name": "react-svg-loader-cli",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-alpha.4",
   "description": "react-svg-loader cli",
   "keywords": [
     "cli",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "lodash.isplainobject": "^4.0.6",
-    "react-svg-loader": "^2.0.0-alpha.3",
+    "react-svg-loader": "^2.0.0-alpha.4",
     "yargs": "^9.0.1"
   }
 }
