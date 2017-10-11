@@ -1,6 +1,7 @@
 {
   "name": "react-svg-loader",
   "version": "2.0.0-alpha.3",
+  "private": true,
   "description": "Optimize svg and load it as a React Component",
   "keywords": [
     "loader",
@@ -29,25 +30,14 @@
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
   },
   "scripts": {
-    "build": "babel src --out-dir lib --copy-files",
+    "build": "gulp build",
     "clean": "rm -rf lib",
     "cover": "babel-node `npm bin`/isparta cover test/index.js",
     "eslint": "eslint .",
     "flow": "flow",
     "lint": "yarn flow && yarn eslint",
     "test": "tape -r babel-register test/index.js | faucet",
-    "watch": "babel src --out-dir lib --copy-files --watch"
-  },
-  "dependencies": {
-    "babel-core": "^6.25.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-react": "^6.24.1",
-    "js-yaml": "^3.9.0",
-    "loader-utils": "^1.0.2",
-    "lodash.isplainobject": "^4.0.4",
-    "svgo": "^0.7.2",
-    "yargs": "^9.0.1"
+    "watch": "gulp watch"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -56,17 +46,26 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.24.1",
+    "chalk": "^2.0.1",
     "eslint": "^4.1.0",
     "eslint-plugin-flowtype": "^2.36.0",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.0.1",
     "faucet": "0.0.1",
     "flow-bin": "^0.56.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-newer": "^1.3.0",
+    "gulp-util": "^3.0.8",
     "isparta": "^4.0.0",
     "prettier": "^1.7.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
-    "tape": "^4.7.0"
-  }
+    "tape": "^4.7.0",
+    "through2": "^2.0.3"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

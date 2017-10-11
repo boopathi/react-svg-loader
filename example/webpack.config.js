@@ -1,4 +1,4 @@
-const reactSvgLoader = require.resolve("../");
+const reactSvgLoader = require.resolve("../packages/react-svg-loader");
 const path = require("path");
 
 module.exports = {

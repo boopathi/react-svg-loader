@@ -5,7 +5,7 @@ import { transform as babelTransform } from "babel-core";
 import loaderUtils from "loader-utils";
 
 import { validateAndFix } from "./svgo";
-import plugin from "./plugin";
+import plugin from "babel-plugin-react-svg";
 
 export default function(content: string) {
   const loaderOpts = loaderUtils.getOptions(this) || {};

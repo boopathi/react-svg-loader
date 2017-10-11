@@ -1,0 +1,32 @@
+{
+  "name": "babel-plugin-react-svg",
+  "version": "2.0.0-alpha.3",
+  "description": "Babel plugin to transform svg to react component",
+  "keywords": [
+    "babel",
+    "babel-plugin",
+    "react",
+    "react-svg-loader",
+    "svg",
+    "webpack",
+    "webpack-loader"
+  ],
+  "homepage": "https://github.com/boopathi/react-svg-loader#readme",
+  "bugs": {
+    "url": "https://github.com/boopathi/react-svg-loader/issues"
+  },
+  "license": "MIT",
+  "author": "boopathi",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boopathi/react-svg-loader.git"
+  },
+  "peerDependencies": {
+    "babel-plugin-syntax-jsx": "^6.18.0"
+  }
+}
