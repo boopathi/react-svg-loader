@@ -4,3 +4,4 @@ lib
 *.svg.react.js
 coverage
 .vscode
+.nyc_output

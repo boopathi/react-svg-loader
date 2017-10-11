@@ -3,10 +3,21 @@
     [
       "env",
       {
-        "targets": { "node": 4 }
+        "targets": {
+          "node": 4
+        }
       }
     ],
     "flow"
   ],
-  "plugins": ["add-module-exports"]
+  "plugins": [
+    "add-module-exports"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
 }
