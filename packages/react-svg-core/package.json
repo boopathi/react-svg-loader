@@ -1,0 +1,32 @@
+{
+  "name": "react-svg-core",
+  "version": "2.0.0",
+  "description": "Core for react-svg-loader",
+  "keywords": [
+    "react-svg-loader"
+  ],
+  "homepage": "https://github.com/boopathi/react-svg-loader/tree/master/packages/react-svg-core",
+  "bugs": {
+    "url": "https://github.com/boopathi/react-svg-loader/issues"
+  },
+  "license": "MIT",
+  "author": "boopathi",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boopathi/react-svg-loader.git"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-react-svg": "^2.0.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-react": "^6.24.1",
+    "lodash.isplainobject": "^4.0.6",
+    "svgo": "^0.7.2"
+  }
+}

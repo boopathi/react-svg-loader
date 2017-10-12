@@ -25,13 +25,7 @@
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-plugin-react-svg": "^2.0.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-react": "^6.24.1",
     "loader-utils": "^1.1.0",
-    "lodash.isplainobject": "^4.0.6",
-    "svgo": "^0.7.2"
+    "react-svg-core": "^2.0.0"
   }
 }
