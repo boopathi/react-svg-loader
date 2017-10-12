@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.0
+
+### Rollup plugin
+
+Two new packages -
+
++ [react-svg-core](/packages/react-svg-core) - shared between webpack loader and rollup plugin
++ [rollup-plugin-react-svg](/packages/rollup-plugin-react-svg) - rollup plugin to load `.svg` files as react components
+
 ## 2.0.0
 
 ### Drops Node 0.12 support & webpack 1 support

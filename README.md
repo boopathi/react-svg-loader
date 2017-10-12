@@ -7,14 +7,16 @@
 ## Packages
 
 + [babel-plugin-react-svg](/packages/babel-plugin-react-svg)
++ [react-svg-core](/packages/react-svg-core)
 + [react-svg-loader](/packages/react-svg-loader)
 + [react-svg-loader-cli](/packages/react-svg-loader-cli)
++ [rollup-plugin-react-svg](/packages/rollup-plugin-react-svg)
 
 ## Versions
 
 ### Current
 
-VERSION: `2.0.0` (master)
+VERSION: `2.x` (master)
 
 Refer [CHANGELOG](CHANGELOG.md)
 
