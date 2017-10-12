@@ -1,6 +1,6 @@
 {
   "name": "react-svg-core",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Core for react-svg-loader",
   "keywords": [
     "react-svg-loader"
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "babel-core": "^6.26.0",
-    "babel-plugin-react-svg": "^2.0.0",
+    "babel-plugin-react-svg": "^2.1.0",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",

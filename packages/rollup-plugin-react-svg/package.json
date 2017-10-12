@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-react-svg",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Optimize svg and load it as a React Component",
   "keywords": [
     "loader",
@@ -25,7 +25,7 @@
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
   },
   "dependencies": {
-    "rollup-pluginutils": "^2.0.1",
-    "react-svg-core": "^2.0.0"
+    "react-svg-core": "^2.1.0",
+    "rollup-pluginutils": "^2.0.1"
   }
 }
