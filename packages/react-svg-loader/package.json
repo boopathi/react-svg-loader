@@ -9,7 +9,7 @@
     "webpack",
     "webpack-loader"
   ],
-  "homepage": "https://github.com/boopathi/react-svg-loader/packages/react-svg-loader",
+  "homepage": "https://github.com/boopathi/react-svg-loader/tree/master/packages/react-svg-loader",
   "bugs": {
     "url": "https://github.com/boopathi/react-svg-loader/issues"
   },

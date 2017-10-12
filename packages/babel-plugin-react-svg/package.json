@@ -11,7 +11,7 @@
     "webpack",
     "webpack-loader"
   ],
-  "homepage": "https://github.com/boopathi/react-svg-loader/packages/babel-plugin-react-svg",
+  "homepage": "https://github.com/boopathi/react-svg-loader/tree/master/packages/babel-plugin-react-svg",
   "bugs": {
     "url": "https://github.com/boopathi/react-svg-loader/issues"
   },
