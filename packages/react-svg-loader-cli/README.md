@@ -21,7 +21,7 @@ npm i -g react-svg-loader-cli
 
 # or with yarn
 
-yarn add -g react-svg-loader-cli
+yarn global add react-svg-loader-cli
 ```
 
 ## Usage (svg2react)
