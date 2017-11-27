@@ -1,39 +1,32 @@
----
 sudo: false
 language: node_js
 cache: yarn
-
 env:
   global:
-    - CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
-
+  - CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
+  - secure: B8EAjT1bTJPH7fhtaToh0hGebFQulVRMgdnIUYmLV6sPktJfhN0JBTGlraRpcZJuXT5tHYGvf8BGaHUR4iPUl0CQuuDYTlKharQUZI3u9k1PVMJJLh93XB7H9aJJypKXeaLXRXP5qHLLSYJpb4z7Wby4R7jimHAXdhr2EONTxxDhdeNdg+ebC6xXVUCklEBCZvqeEf6r4E8seh4+liQdrkCb0Wi69iNWxvf7CBmOjRZ89Jz6cQe2QGq7yqZbrs4jdLmsirF+qk4laS1IpnoWYVq+RdRTBn80YFAT4sMS3ES5OFpJ2qyNz6ZKs3ykGwOsW/R8t7PKTKI5Scw8ojjWS/uZJIGinWknnYEzyrGhGHtMV3eDIOGb4kNGl11qfVnPQPFxkq08eXTL3Bfo883XAjkJilkwg6TGUXaxbaEHaPHsiSlaRW8cw4q8Jq2q5bgpuiOs+cTlmjdFewTZJlXTnX5htRp9y5HQw++IemH/77MtGP/eSspPiJt///FJttAYVufepZp8I2uAl+05C1zfns+MX4/BhkZkZv6N3vJrKYJ5LFw/WPWK7a7J71ZyZQF32tfrZ/MyRVGXdxbhWFXXnsrgOQAhEn7bR+GV+MTQCtvy0N/ybYn51HW1i91QE5mWsRp9nUKIAX5HYMQef6dbklR4O9d75X2PZFBKNpRjTno=
 node_js:
 - '8'
 - '6'
 - '4'
-
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.2.0
 - export PATH=$HOME/.yarn/bin:$PATH
-
 before_script:
 - yarn build
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
-- ./cc-test-reporter before-build
-
+- "./cc-test-reporter before-build"
 script:
 - if [ -n "${LINT-}" ]; then yarn lint; fi
 - if [ -z "${SKIPTESTS-}" ]; then yarn cover; fi
-
 after_script:
-- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 matrix:
   include:
-    - node_js: "node"
-      env: LINT=true SKIPTESTS=true
-
+  - node_js: node
+    env: LINT=true SKIPTESTS=true
 addons:
   code_climate:
     repo_token:
