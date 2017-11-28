@@ -26,7 +26,6 @@
     "cover": "NODE_ENV=test nyc --reporter=lcov yarn test",
     "eslint": "eslint .",
     "flow": "flow",
-    "preinstall": "yarn clean && yarn build",
     "lint": "yarn flow && yarn eslint",
     "publish-master": "lerna publish -c --yes -m 'chore(nightly): publish %s'",
     "test": "NODE_ENV=test tape -r babel-register test/index.js | faucet",
