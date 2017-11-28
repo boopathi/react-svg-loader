@@ -35,14 +35,10 @@ addons:
 jobs:
   include:
     - stage: npm release
-      if: repo = babel/minify
-      if: branch = master
-      node_js: '8'
-      script: yarn clean && yarn build
       deploy:
         provider: script
         script: npm run publish-master
         on:
-          repo: babel/minify
+          repo: boopathi/react-svg-loader
           branch: master
         skip_cleanup: true
