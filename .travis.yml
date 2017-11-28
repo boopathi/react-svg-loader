@@ -1,44 +1,55 @@
 sudo: false
 language: node_js
 cache: yarn
+
+stages:
+  - lint
+  - test
+  - name: publish
+    if: (branch = master) AND (repo = boopathi/react-svg-loader)
+
+jobs:
+  include:
+    - stage: lint
+      node_js: '8'
+      script: yarn lint
+    - stage: publish
+      node_js: '8'
+      env:
+        global:
+          - secure: B8EAjT1bTJPH7fhtaToh0hGebFQulVRMgdnIUYmLV6sPktJfhN0JBTGlraRpcZJuXT5tHYGvf8BGaHUR4iPUl0CQuuDYTlKharQUZI3u9k1PVMJJLh93XB7H9aJJypKXeaLXRXP5qHLLSYJpb4z7Wby4R7jimHAXdhr2EONTxxDhdeNdg+ebC6xXVUCklEBCZvqeEf6r4E8seh4+liQdrkCb0Wi69iNWxvf7CBmOjRZ89Jz6cQe2QGq7yqZbrs4jdLmsirF+qk4laS1IpnoWYVq+RdRTBn80YFAT4sMS3ES5OFpJ2qyNz6ZKs3ykGwOsW/R8t7PKTKI5Scw8ojjWS/uZJIGinWknnYEzyrGhGHtMV3eDIOGb4kNGl11qfVnPQPFxkq08eXTL3Bfo883XAjkJilkwg6TGUXaxbaEHaPHsiSlaRW8cw4q8Jq2q5bgpuiOs+cTlmjdFewTZJlXTnX5htRp9y5HQw++IemH/77MtGP/eSspPiJt///FJttAYVufepZp8I2uAl+05C1zfns+MX4/BhkZkZv6N3vJrKYJ5LFw/WPWK7a7J71ZyZQF32tfrZ/MyRVGXdxbhWFXXnsrgOQAhEn7bR+GV+MTQCtvy0N/ybYn51HW1i91QE5mWsRp9nUKIAX5HYMQef6dbklR4O9d75X2PZFBKNpRjTno=
+      deploy:
+        provider: script
+        script: npm run publish-master
+        skip_cleanup: true
+
 env:
   global:
-  - CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
-  - secure: B8EAjT1bTJPH7fhtaToh0hGebFQulVRMgdnIUYmLV6sPktJfhN0JBTGlraRpcZJuXT5tHYGvf8BGaHUR4iPUl0CQuuDYTlKharQUZI3u9k1PVMJJLh93XB7H9aJJypKXeaLXRXP5qHLLSYJpb4z7Wby4R7jimHAXdhr2EONTxxDhdeNdg+ebC6xXVUCklEBCZvqeEf6r4E8seh4+liQdrkCb0Wi69iNWxvf7CBmOjRZ89Jz6cQe2QGq7yqZbrs4jdLmsirF+qk4laS1IpnoWYVq+RdRTBn80YFAT4sMS3ES5OFpJ2qyNz6ZKs3ykGwOsW/R8t7PKTKI5Scw8ojjWS/uZJIGinWknnYEzyrGhGHtMV3eDIOGb4kNGl11qfVnPQPFxkq08eXTL3Bfo883XAjkJilkwg6TGUXaxbaEHaPHsiSlaRW8cw4q8Jq2q5bgpuiOs+cTlmjdFewTZJlXTnX5htRp9y5HQw++IemH/77MtGP/eSspPiJt///FJttAYVufepZp8I2uAl+05C1zfns+MX4/BhkZkZv6N3vJrKYJ5LFw/WPWK7a7J71ZyZQF32tfrZ/MyRVGXdxbhWFXXnsrgOQAhEn7bR+GV+MTQCtvy0N/ybYn51HW1i91QE5mWsRp9nUKIAX5HYMQef6dbklR4O9d75X2PZFBKNpRjTno=
+    - CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
+
 node_js:
-- '8'
-- '6'
-- '4'
+  - '8'
+  - '6'
+  - '4'
+
 before_install:
-- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.3.2
-- export PATH=$HOME/.yarn/bin:$PATH
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.3.2
+  - export PATH=$HOME/.yarn/bin:$PATH
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+
 before_script:
-- yarn clean
-- yarn build
-- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
-  > ./cc-test-reporter
-- chmod +x ./cc-test-reporter
-- "./cc-test-reporter before-build"
+  - yarn clean
+  - yarn build
+  - "./cc-test-reporter before-build"
+
 script:
-- if [ -n "${LINT-}" ]; then yarn lint; fi
-- if [ -z "${SKIPTESTS-}" ]; then yarn cover; fi
+  - yarn cover
+
 after_script:
-- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
-matrix:
-  include:
-  - node_js: node
-    env: LINT=true SKIPTESTS=true
+  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+
 addons:
   code_climate:
     repo_token:
       secure: hU3p2PlR6A4ZdTDzkYsKpXbuFsgdgSTDBW+b+SSs7ePpz1hbY86oYCP6SLNB87qMwM97oFae21/mGGQhrwc6lQiDNNYLM5C4twypjHk1sbXfyCtIOvJI9EjlxqOtPy1/FJ7jzeCSm9zts/r7IhNrEJpvA8Usg8hX9agI1W2Wy006sKplmhE7WNIhr9iikkhMVlIftWy4/nWDDQ66DiRh526VMi5ruv8jp22zeH3Nj6DrE3pCfj6+NXbNLYuP7KqGRDN9WWUrVOSHGwa215SOP9GYocNXoqhdgbWiestMpyj3GLOfHAqitw7Sdem9+yyPf1x9cMfuSYLddjIGEhLo6AE5KjjI86njycX2/di8ykMNXyevZEuKN3W7rcuVW817FC7ehEpjPphPHTsuku8nwtJlGSgCbNWffq+k+kc421Nm92TAWkdIBtqaG2dX6pBE420BaMNlT7FxqEDznzWuKbFh+Hcdx7RHbfJbWfAJEvztGEN6jKLjSq+T58d6Q6PSs1pjUxe/wPrw9oksem6lKGNxzlbV2/89WSfU5p57NBOlIuTr3Tt5//PlHeStgeVNWF/zkJQzqk8DnE38fD+EALX7sU8kirO2gtD71F7ZzuDZ06agPQoM7hgtDBaKt/GC4OZsxVli8MZlG80yPXaIe8E3tpxYSG7Uw4bPQSGM3xc=
-jobs:
-  include:
-    - stage: npm release
-      deploy:
-        provider: script
-        script: npm run publish-master
-        on:
-          repo: boopathi/react-svg-loader
-          branch: master
-        skip_cleanup: true
