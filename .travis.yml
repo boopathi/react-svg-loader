@@ -15,9 +15,7 @@ jobs:
       script: yarn lint
     - stage: publish
       node_js: '8'
-      env:
-        global:
-          - secure: B8EAjT1bTJPH7fhtaToh0hGebFQulVRMgdnIUYmLV6sPktJfhN0JBTGlraRpcZJuXT5tHYGvf8BGaHUR4iPUl0CQuuDYTlKharQUZI3u9k1PVMJJLh93XB7H9aJJypKXeaLXRXP5qHLLSYJpb4z7Wby4R7jimHAXdhr2EONTxxDhdeNdg+ebC6xXVUCklEBCZvqeEf6r4E8seh4+liQdrkCb0Wi69iNWxvf7CBmOjRZ89Jz6cQe2QGq7yqZbrs4jdLmsirF+qk4laS1IpnoWYVq+RdRTBn80YFAT4sMS3ES5OFpJ2qyNz6ZKs3ykGwOsW/R8t7PKTKI5Scw8ojjWS/uZJIGinWknnYEzyrGhGHtMV3eDIOGb4kNGl11qfVnPQPFxkq08eXTL3Bfo883XAjkJilkwg6TGUXaxbaEHaPHsiSlaRW8cw4q8Jq2q5bgpuiOs+cTlmjdFewTZJlXTnX5htRp9y5HQw++IemH/77MtGP/eSspPiJt///FJttAYVufepZp8I2uAl+05C1zfns+MX4/BhkZkZv6N3vJrKYJ5LFw/WPWK7a7J71ZyZQF32tfrZ/MyRVGXdxbhWFXXnsrgOQAhEn7bR+GV+MTQCtvy0N/ybYn51HW1i91QE5mWsRp9nUKIAX5HYMQef6dbklR4O9d75X2PZFBKNpRjTno=
+      script: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
       deploy:
         provider: script
         script: npm run publish-master
