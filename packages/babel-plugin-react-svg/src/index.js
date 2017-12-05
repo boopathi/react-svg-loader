@@ -146,25 +146,30 @@ export default function(babel: BabelCore) {
     }
   };
 
-  const programVisitor = {
-    Program(path: any) {
-      // add import react statement
-      path.node.body.unshift(
-        t.importDeclaration(
-          [t.importDefaultSpecifier(t.identifier("React"))],
-          t.stringLiteral("react")
-        )
-      );
-    }
-  };
+  const visitor = Object.assign(
+    {},
+    svgExpressionVisitor,
+    svgVisitor,
+    attrVisitor
+  );
 
   return {
-    visitor: Object.assign(
-      {},
-      programVisitor,
-      svgExpressionVisitor,
-      svgVisitor,
-      attrVisitor
-    )
+    visitor: {
+      Program(path: any, state: any) {
+        if (!/\.svg$/.test(state.file.opts.filename)) {
+          return;
+        }
+
+        // add import react statement
+        path.node.body.unshift(
+          t.importDeclaration(
+            [t.importDefaultSpecifier(t.identifier("React"))],
+            t.stringLiteral("react")
+          )
+        );
+
+        path.traverse(visitor);
+      }
+    }
   };
 }
