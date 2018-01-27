@@ -1,14 +1,17 @@
 // @flow
 
-import fs from 'fs';
-import isSvg from 'is-svg';
+import fs from "fs";
+import isSvg from "is-svg";
 import loaderUtils from "loader-utils";
 import { optimize, transform } from "react-svg-core";
 
 export default function(content: string) {
   const loaderOpts = loaderUtils.getOptions(this) || {};
 
-  if (loaderOpts.match && !loaderOpts.match.test(this._module.issuer.userRequest)) {
+  if (
+    loaderOpts.match &&
+    !loaderOpts.match.test(this._module.issuer.userRequest)
+  ) {
     this.callback(null, content);
     return;
   }
@@ -22,7 +25,7 @@ export default function(content: string) {
       }
 
       return new Promise((resolve, reject) => {
-        fs.readFile(this.resourcePath, 'utf-8', function (err, data) {
+        fs.readFile(this.resourcePath, "utf-8", function(err, data) {
           if (err !== null) {
             reject(err);
           } else {
