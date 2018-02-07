@@ -11,13 +11,7 @@ export function optimize(opts: any = {}): string => Promise<string> {
   validateAndFix(opts);
   const svgo = new Svgo(opts);
 
-  return (content: string) =>
-    new Promise((resolve, reject) =>
-      svgo.optimize(
-        content,
-        ({ error, data }) => (error ? reject(error) : resolve(data))
-      )
-    );
+  return (content: string) => svgo.optimize(content).then(data => data.data)
 }
 
 // Babel Transform
