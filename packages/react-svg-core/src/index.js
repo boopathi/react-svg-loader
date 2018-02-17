@@ -22,6 +22,10 @@ export function transform(
     babelTransform(content, {
       babelrc: false,
       presets: [jsx ? void 0 : "react"].filter(Boolean),
-      plugins: ["syntax-jsx", "transform-object-rest-spread", plugin]
+      plugins: [
+        require.resolve("babel-plugin-syntax-jsx"),
+        require.resolve("babel-plugin-transform-object-rest-spread"),
+        plugin
+      ]
     });
 }
