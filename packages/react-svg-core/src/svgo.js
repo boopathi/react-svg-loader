@@ -37,6 +37,7 @@ export function validateAndFix(opts: any = {}) {
       for (const pluginName of Object.keys(plugin)) {
         if (essentialPlugins.indexOf(pluginName) > -1) {
           // enable the plugin in-place if it's an essential plugin
+          // $FlowFixMe: suppressing until refactor (`plugin` is a sealed obj)
           plugin[pluginName] = true;
           state.set(pluginName, true);
         }
