@@ -1,5 +1,7 @@
 # react-svg-loader
 
+[![Join the chat at https://gitter.im/boopathi/react-svg-loader](https://badges.gitter.im/boopathi/react-svg-loader.svg)](https://gitter.im/boopathi/react-svg-loader?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/boopathi/react-svg-loader.svg)](https://greenkeeper.io/)
 
 [![Build Status](https://travis-ci.org/boopathi/react-svg-loader.svg?branch=master)](https://travis-ci.org/boopathi/react-svg-loader) [![npm version](https://badge.fury.io/js/react-svg-loader.svg)](https://badge.fury.io/js/react-svg-loader) [![Code Climate](https://codeclimate.com/github/boopathi/react-svg-loader/badges/gpa.svg)](https://codeclimate.com/github/boopathi/react-svg-loader) [![Test Coverage](https://codeclimate.com/github/boopathi/react-svg-loader/badges/coverage.svg)](https://codeclimate.com/github/boopathi/react-svg-loader/coverage)
