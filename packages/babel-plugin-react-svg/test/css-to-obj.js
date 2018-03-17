@@ -18,9 +18,7 @@ test("single entry check", function(t) {
 
 test("multiple entries check", function(t) {
   let url = "https://example.com/image.svg";
-  let css = `width: 50px; height: 50px; text-align: center; background:url(${
-    url
-  })`;
+  let css = `width: 50px; height: 50px; text-align: center; background:url(${url})`;
   let o = cssToObj(css);
   t.equal(Object.keys(o).length, 4);
   t.equal(o.width, "50px");

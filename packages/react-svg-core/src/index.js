@@ -15,9 +15,9 @@ export function optimize(opts: any = {}): string => Promise<string> {
 }
 
 // Babel Transform
-export function transform(
-  { jsx = false }: { jsx: boolean } = {}
-): string => string {
+export function transform({
+  jsx = false
+}: { jsx: boolean } = {}): string => string {
   return content =>
     babelTransform(content, {
       babelrc: false,
