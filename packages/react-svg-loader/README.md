@@ -41,7 +41,8 @@ By default the loader outputs ES2015 code (with JSX compiled to JavaScript using
     {
       loader: "react-svg-loader",
       options: {
-        jsx: true // true outputs JSX tags
+        jsx: true, // true outputs JSX tags
+        match: /\.jsx?/, // files we want to transform using react-svg-loader
       }
     }
   ]

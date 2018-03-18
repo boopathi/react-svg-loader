@@ -1,6 +1,6 @@
 {
   "name": "react-svg-loader",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Optimize svg and load it as a React Component",
   "keywords": [
     "loader",
@@ -25,6 +25,7 @@
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
   },
   "dependencies": {
+    "is-svg": "^2.1.0",
     "loader-utils": "^1.1.0",
     "react-svg-core": "^2.1.0"
   }
