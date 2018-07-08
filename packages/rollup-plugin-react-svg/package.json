@@ -26,6 +26,6 @@
   },
   "dependencies": {
     "react-svg-core": "^2.1.0",
-    "rollup-pluginutils": "^2.0.1"
+    "rollup-pluginutils": "^2.3.0"
   }
 }
