@@ -60,14 +60,11 @@ test("accept multiple arguments", function(t) {
 
 test("pass options to svgo", function(t) {
   Promise.all([
-    exec("dummy.svg"),
-    exec("dummy.svg", "--svgo.js2svg.pretty"),
     exec("dummy2.svg", "--svgo.floatPrecision", "1"),
     exec("dummy2.svg", "--svgo.floatPrecision", "8")
   ])
     .then(r => {
       t.notEqual(r[0], r[1]);
-      t.notEqual(r[2], r[3]);
       t.end();
     })
     .catch(t.end);

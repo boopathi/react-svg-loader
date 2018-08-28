@@ -36,7 +36,21 @@ export function build() {
         callback(null, file);
       })
     )
-    .pipe(babel())
+    .pipe(
+      babel({
+        presets: [
+          "@babel/preset-flow",
+          [
+            "@babel/preset-env",
+            {
+              targets: {
+                node: "4"
+              }
+            }
+          ]
+        ]
+      })
+    )
     .pipe(gulp.dest(dest));
 }
 
