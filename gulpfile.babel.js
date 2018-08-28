@@ -29,12 +29,26 @@ export function build() {
         callback(null, file);
       })
     )
-    .pipe(babel())
     .pipe(newer(dest))
     .pipe(
       through.obj((file, enc, callback) => {
         gutil.log("Compiling", "'" + chalk.cyan(file._path) + "'...");
         callback(null, file);
+      })
+    )
+    .pipe(
+      babel({
+        presets: [
+          "@babel/preset-flow",
+          [
+            "@babel/preset-env",
+            {
+              targets: {
+                node: "4"
+              }
+            }
+          ]
+        ]
       })
     )
     .pipe(gulp.dest(dest));
