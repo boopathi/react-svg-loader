@@ -1,3 +1,4 @@
+import "@babel/register";
 import fs from "fs";
 import path from "path";
 

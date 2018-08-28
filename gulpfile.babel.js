@@ -29,6 +29,7 @@ export function build() {
         callback(null, file);
       })
     )
+    .pipe(babel())
     .pipe(newer(dest))
     .pipe(
       through.obj((file, enc, callback) => {
@@ -36,7 +37,6 @@ export function build() {
         callback(null, file);
       })
     )
-    .pipe(babel())
     .pipe(gulp.dest(dest));
 }
 

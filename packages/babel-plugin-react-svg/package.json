@@ -27,6 +27,6 @@
     "url": "git+https://github.com/boopathi/react-svg-loader.git"
   },
   "peerDependencies": {
-    "babel-plugin-syntax-jsx": "^6.18.0"
+    "@babel/plugin-syntax-jsx": "^7.0.0"
   }
 }
