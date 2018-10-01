@@ -42,7 +42,7 @@
     "chalk": "^2.4.1",
     "eslint": "^5.1.0",
     "eslint-plugin-flowtype": "^2.49.3",
-    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.10.0",
     "faucet": "0.0.1",
     "flow-bin": "^0.76.0",
