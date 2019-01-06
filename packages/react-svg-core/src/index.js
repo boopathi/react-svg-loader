@@ -25,6 +25,7 @@ export function transform({
       plugins: [
         require.resolve("babel-plugin-syntax-jsx"),
         require.resolve("babel-plugin-transform-object-rest-spread"),
+        require.resolve("babel-plugin-transform-es2015-arrow-functions"),
         plugin
       ]
     });
