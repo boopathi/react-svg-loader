@@ -13,6 +13,10 @@
   "bugs": {
     "url": "https://github.com/boopathi/react-svg-loader/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boopathi/react-svg-loader.git"
+  },
   "license": "MIT",
   "author": "boopathi",
   "files": [
@@ -20,12 +24,8 @@
     "README.md"
   ],
   "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/boopathi/react-svg-loader.git"
-  },
   "dependencies": {
     "react-svg-core": "^2.1.0",
-    "rollup-pluginutils": "^2.3.0"
+    "rollup-pluginutils": "^2.3.3"
   }
 }

@@ -9,6 +9,10 @@
   "bugs": {
     "url": "https://github.com/boopathi/react-svg-loader/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boopathi/react-svg-loader.git"
+  },
   "license": "MIT",
   "author": "boopathi",
   "files": [
@@ -16,17 +20,12 @@
     "README.md"
   ],
   "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/boopathi/react-svg-loader.git"
-  },
   "dependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-plugin-react-svg": "^2.1.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-react": "^6.24.1",
     "lodash.isplainobject": "^4.0.6",
-    "svgo": "^1.0.5"
+    "svgo": "^1.1.1"
   }
 }
