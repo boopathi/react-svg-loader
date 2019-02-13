@@ -6,6 +6,7 @@ import type BabelCore from "babel-core";
 
 export default function(babel: BabelCore) {
   const t = babel.types;
+  const restElement = t.restElement ? t.restElement : t.restProperty;
 
   const createClass = (className: string) =>
     t.logicalExpression(
@@ -109,7 +110,7 @@ export default function(babel: BabelCore) {
               false,
               true
             ),
-            t.restProperty(t.identifier("props"))
+            restElement(t.identifier("props"))
           ])
         ],
         svg
