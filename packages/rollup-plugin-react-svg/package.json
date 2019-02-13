@@ -29,6 +29,6 @@
     "rollup-pluginutils": "^2.3.3"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=6"
   }
 }

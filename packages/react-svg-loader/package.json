@@ -29,6 +29,6 @@
     "react-svg-core": "^2.1.0"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=6"
   }
 }
