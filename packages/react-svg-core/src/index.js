@@ -1,7 +1,7 @@
 // @flow
 
 import Svgo from "svgo";
-import { transform as babelTransform } from "babel-core";
+import { transformSync as babelTransform } from "@babel/core";
 import plugin from "babel-plugin-react-svg";
 
 import { validateAndFix } from "./svgo";
@@ -21,7 +21,7 @@ export function transform({
   return content =>
     babelTransform(content, {
       babelrc: false,
-      presets: [jsx ? void 0 : "react"].filter(Boolean),
-      plugins: [require.resolve("babel-plugin-syntax-jsx"), plugin]
+      presets: [jsx ? void 0 : "@babel/preset-react"].filter(Boolean),
+      plugins: [require.resolve("@babel/plugin-syntax-jsx"), plugin]
     });
 }

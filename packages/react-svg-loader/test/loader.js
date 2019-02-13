@@ -3,7 +3,7 @@ import React from "react";
 import ShallowRenderer from "react-test-renderer/shallow";
 import test from "tape";
 import vm from "vm";
-import { transform } from "babel-core";
+import { transform } from "@babel/core";
 
 function loader(content, query) {
   return new Promise(function(resolve, reject) {
@@ -16,18 +16,19 @@ function loader(content, query) {
           if (err) return reject(err);
 
           let exports = {};
-          let sandbox = { exports, require };
+          let sandbox = { module: { exports }, exports, require };
           vm.runInNewContext(
             transform(result, {
               babelrc: false,
+              configFile: false,
               presets: [
                 [
-                  "env",
+                  "@babel/preset-env",
                   {
                     targets: { ie: 11 }
                   }
                 ],
-                "react"
+                "@babel/preset-react"
               ]
             }).code,
             sandbox

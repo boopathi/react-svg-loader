@@ -19,7 +19,7 @@ if (path.win32 === path) {
   libFragment = "$1/lib/";
 }
 
-export function build() {
+function build() {
   return gulp
     .src(scripts)
     .pipe(
@@ -40,8 +40,10 @@ export function build() {
     .pipe(gulp.dest(dest));
 }
 
-export const watch = gulp.series(build, () => {
+const watch = gulp.series(build, () => {
   gulp.watch(scripts, { debounceDelay: 200 }, build).on("error", () => {});
 });
 
-export default build;
+exports.default = build;
+exports.build = build;
+exports.watch = watch;

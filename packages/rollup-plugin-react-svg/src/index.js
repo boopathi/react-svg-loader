@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import { transform, optimize } from "react-svg-core";
 import { createFilter } from "rollup-pluginutils";
+import type { BabelFileResult } from "@babel/core";
 
 type PluginOpts = {
   include?: any,
@@ -25,7 +26,7 @@ export default function reactSvgLoadPlugin(options: PluginOpts = {}): any {
       return Promise.resolve(String(contents))
         .then(optimize(options.svgo))
         .then(transform({ jsx: options.jsx }))
-        .then(result => result.code);
+        .then((result: BabelFileResult) => result.code);
     }
   };
 }

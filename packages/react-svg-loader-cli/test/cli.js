@@ -60,8 +60,8 @@ test("accept multiple arguments", function(t) {
 
 test("pass options to svgo", function(t) {
   Promise.all([
-    exec("dummy.svg"),
-    exec("dummy.svg", "--svgo.js2svg.pretty"),
+    exec("dummy.svg", "--jsx"),
+    exec("dummy.svg", "--svgo.js2svg.pretty", "--jsx"),
     exec("dummy2.svg", "--svgo.floatPrecision", "1"),
     exec("dummy2.svg", "--svgo.floatPrecision", "8")
   ])

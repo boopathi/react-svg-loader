@@ -31,7 +31,7 @@
     "flow": "flow",
     "lint": "yarn flow && yarn eslint",
     "publish-master": "lerna publish -c --yes -m 'chore(nightly): publish %s'",
-    "test": "NODE_ENV=test tape -r babel-register test/index.js | faucet",
+    "test": "tape -r @babel/register packages/**/test/*.js",
     "watch": "gulp watch"
   },
   "devDependencies": {
@@ -49,7 +49,7 @@
     "eslint-plugin-react": "^7.12.4",
     "faucet": "0.0.1",
     "flow-bin": "^0.92.1",
-    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp": "^4.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-newer": "^1.4.0",
     "gulp-util": "^3.0.8",
