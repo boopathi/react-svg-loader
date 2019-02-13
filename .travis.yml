@@ -18,7 +18,9 @@ jobs:
       script: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
       deploy:
         provider: script
-        script: npm run publish-master
+        script:
+          - git diff
+          - npm run publish-master
         skip_cleanup: true
 
 env:
@@ -39,7 +41,9 @@ before_install:
 before_script:
   - yarn clean
   - yarn build
-  - "./cc-test-reporter before-build"
+
+# disabled because of broken istanbul cover
+# - "./cc-test-reporter before-build"
 
 script:
   - yarn test
