@@ -27,5 +27,8 @@
   "dependencies": {
     "react-svg-core": "^2.1.0",
     "rollup-pluginutils": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=8"
   }
 }

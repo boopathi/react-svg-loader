@@ -27,5 +27,8 @@
   "dependencies": {
     "loader-utils": "^1.2.3",
     "react-svg-core": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=8"
   }
 }
