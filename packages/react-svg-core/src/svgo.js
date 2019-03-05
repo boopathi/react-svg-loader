@@ -5,6 +5,7 @@
 // for the babylon JSX parser to work
 
 import isPlainObject from "lodash.isplainobject";
+import cloneDeep from "lodash.clonedeep";
 
 const essentialPlugins = [
   "removeDoctype",
@@ -16,13 +17,15 @@ export function validateAndFix(opts: any = {}) {
   if (!isPlainObject(opts))
     throw new Error("Expected options.svgo to be Object.");
 
-  if (opts.plugins === void 0) opts.plugins = [];
+  let cleanOpts = cloneDeep(opts);
 
-  if (!Array.isArray(opts.plugins))
+  if (cleanOpts.plugins === void 0) cleanOpts.plugins = [];
+
+  if (!Array.isArray(cleanOpts.plugins))
     throw new Error("Expected options.svgo.plugins to be an array");
 
-  if (opts.plugins.length === 0) {
-    opts.plugins = [...essentialPlugins].map(p => ({ [p]: true }));
+  if (cleanOpts.plugins.length === 0) {
+    cleanOpts.plugins = [...essentialPlugins].map(p => ({ [p]: true }));
   }
 
   const state = new Map();
@@ -32,7 +35,7 @@ export function validateAndFix(opts: any = {}) {
   }
 
   // parse through input plugins and mark enabled ones
-  for (const plugin of opts.plugins) {
+  for (const plugin of cleanOpts.plugins) {
     if (isPlainObject(plugin)) {
       for (const pluginName of Object.keys(plugin)) {
         if (essentialPlugins.indexOf(pluginName) > -1) {
@@ -55,14 +58,16 @@ export function validateAndFix(opts: any = {}) {
   // add missing plugins
   for (const p of essentialPlugins) {
     if (!state.get(p)) {
-      opts.plugins.push(p);
+      cleanOpts.plugins.push(p);
     }
   }
 
   // convert strings to objects to match the form svgo accepts
-  for (let i = 0; i < opts.plugins.length; i++) {
-    if (typeof opts.plugins[i] === "string") {
-      opts.plugins[i] = { [opts.plugins[i]]: true };
+  for (let i = 0; i < cleanOpts.plugins.length; i++) {
+    if (typeof cleanOpts.plugins[i] === "string") {
+      cleanOpts.plugins[i] = { [cleanOpts.plugins[i]]: true };
     }
   }
+
+  return cleanOpts;
 }

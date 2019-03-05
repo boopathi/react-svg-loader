@@ -8,7 +8,7 @@ import { validateAndFix } from "./svgo";
 
 // SVGO Optimize
 export function optimize(opts: any = {}): string => Promise<string> {
-  validateAndFix(opts);
+  opts = validateAndFix(opts);
   const svgo = new Svgo(opts);
 
   return (content: string) => svgo.optimize(content).then(data => data.data);
