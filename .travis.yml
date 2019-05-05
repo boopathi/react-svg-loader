@@ -20,6 +20,7 @@ jobs:
         provider: script
         script: npm run publish-master
         skip_cleanup: true
+        api_key: $NPM_TOKEN
 
 env:
   global:
