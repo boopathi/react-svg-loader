@@ -4,19 +4,23 @@
 
 ## Packages
 
-* [babel-plugin-react-svg](/packages/babel-plugin-react-svg)
-* [react-svg-core](/packages/react-svg-core)
-* [react-svg-loader](/packages/react-svg-loader)
-* [react-svg-loader-cli](/packages/react-svg-loader-cli)
-* [rollup-plugin-react-svg](/packages/rollup-plugin-react-svg)
+- [babel-plugin-react-svg](/packages/babel-plugin-react-svg)
+- [react-svg-core](/packages/react-svg-core)
+- [react-svg-loader](/packages/react-svg-loader)
+- [react-svg-loader-cli](/packages/react-svg-loader-cli)
+- [rollup-plugin-react-svg](/packages/rollup-plugin-react-svg)
 
 ## Versions
 
 ### Current
 
-VERSION: `2.x` (master)
+VERSION: `3.x` (master)
 
 Refer [CHANGELOG](CHANGELOG.md)
+
+### v2.x
+
+[branch=v2](https://github.com/boopathi/react-svg-loader/tree/v2)
 
 ### v1.x
 
