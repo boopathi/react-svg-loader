@@ -1,13 +1,24 @@
 # Changelog
 
+## 3.0.0
+
+- Drop Node 6. Run tests on Node 8, 10, and 12
+- Upgrade dependencies
+
+Fixes:
+
+- Close svgo object instead of mutating it ([#250](https://github.com/boopathi/react-svg-loader/pull/250))
+- Compatibility between babel 6 and 7 for `t.restElement` and `t.restProperty` ([#244](https://github.com/boopathi/react-svg-loader/pull/244))
+- Update to use fully resolved paths for babel plugins ([#209](https://github.com/boopathi/react-svg-loader/pull/209))
+
 ## 2.1.0
 
 ### Rollup plugin
 
 Two new packages -
 
-+ [react-svg-core](/packages/react-svg-core) - shared between webpack loader and rollup plugin
-+ [rollup-plugin-react-svg](/packages/rollup-plugin-react-svg) - rollup plugin to load `.svg` files as react components
+- [react-svg-core](/packages/react-svg-core) - shared between webpack loader and rollup plugin
+- [rollup-plugin-react-svg](/packages/rollup-plugin-react-svg) - rollup plugin to load `.svg` files as react components
 
 ## 2.0.0
 
@@ -58,9 +69,9 @@ import styles from "./styles.css"; // with css-modules
 const imageStyles = {
   foo: styles.foo,
   bar: styles.bar
-}
+};
 
-let component = <Image styles={imageStyles} />
+let component = <Image styles={imageStyles} />;
 ```
 
 ### Drop option `es5`
@@ -111,6 +122,6 @@ and with [babel-preset-env](https://github.com/babel/babel-preset-env) in `.babe
 
 Now react-svg-loader is split into 3 packages
 
-+ [babel-plugin-react-svg](/packages/babel-plugin-react-svg)
-+ [react-svg-loader](/packages/react-svg-loader)
-+ [react-svg-loader-cli](/packages/react-svg-loader-cli)
+- [babel-plugin-react-svg](/packages/babel-plugin-react-svg)
+- [react-svg-loader](/packages/react-svg-loader)
+- [react-svg-loader-cli](/packages/react-svg-loader-cli)
