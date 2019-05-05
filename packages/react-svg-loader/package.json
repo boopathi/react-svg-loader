@@ -26,9 +26,9 @@
   "main": "lib/loader.js",
   "dependencies": {
     "loader-utils": "^1.2.3",
-    "react-svg-core": "^2.1.0"
+    "react-svg-core": "^3.0.0"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   }
 }

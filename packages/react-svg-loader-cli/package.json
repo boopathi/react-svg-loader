@@ -29,10 +29,10 @@
   },
   "dependencies": {
     "lodash.isplainobject": "^4.0.6",
-    "react-svg-loader": "^2.1.0",
+    "react-svg-loader": "^3.0.0",
     "yargs": "^13.2.2"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   }
 }
