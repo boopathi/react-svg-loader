@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-react-svg",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Babel plugin to transform svg to react component",
   "keywords": [
     "babel",
