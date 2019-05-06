@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+- Fix `package.json` version updates ([27bce4a](https://github.com/boopathi/react-svg-loader/commit/27bce4a34c1d9e184619a34c2e3f7ce5bfa019a6))
+
 ## 3.0.0
 
 - Drop Node 6. Run tests on Node 8, 10, and 12
