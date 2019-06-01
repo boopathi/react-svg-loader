@@ -5,6 +5,11 @@
     "node": true,
     "es6": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "prettier/prettier": "error"
   },

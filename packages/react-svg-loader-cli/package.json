@@ -30,7 +30,7 @@
   "dependencies": {
     "lodash.isplainobject": "^4.0.6",
     "react-svg-loader": "^3.0.1",
-    "yargs": "^13.2.2"
+    "yargs": "^13.2.4"
   },
   "engines": {
     "node": ">=8"
