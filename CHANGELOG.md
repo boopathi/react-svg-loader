@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3
+
+- Ignore babel config files during transformation [#264](https://github.com/boopathi/react-svg-loader/pull/264)
+
 ## 3.0.1
 
 - Fix `package.json` version updates ([27bce4a](https://github.com/boopathi/react-svg-loader/commit/27bce4a34c1d9e184619a34c2e3f7ce5bfa019a6))
