@@ -7,11 +7,36 @@
 import isPlainObject from "lodash.isplainobject";
 import cloneDeep from "lodash.clonedeep";
 
-const essentialPlugins = [
-  "removeDoctype",
-  "removeComments",
-  "removeStyleElement"
-];
+const essentialPlugins = {
+  removeDoctype: true,
+  removeComments: true,
+  removeStyleElement: true
+};
+
+// If not explicitly set by the user, then set this value
+const pluginDefaults = {
+  removeViewBox: false
+};
+
+type SvgoPlugin = {
+  [key: string]: any
+};
+
+function getPlugin(
+  pluginLike: string | SvgoPlugin,
+  value: boolean = true
+): [string, SvgoPlugin] {
+  if (typeof pluginLike === "string") {
+    return [
+      pluginLike,
+      {
+        [pluginLike]: value
+      }
+    ];
+  }
+  const pluginName = Object.keys(pluginLike)[0];
+  return [pluginName, pluginLike];
+}
 
 export function validateAndFix(opts: any = {}) {
   if (!isPlainObject(opts))
@@ -19,55 +44,43 @@ export function validateAndFix(opts: any = {}) {
 
   let cleanOpts = cloneDeep(opts);
 
-  if (cleanOpts.plugins === void 0) cleanOpts.plugins = [];
+  const plugins = new Map<string, SvgoPlugin>();
 
-  if (!Array.isArray(cleanOpts.plugins))
-    throw new Error("Expected options.svgo.plugins to be an array");
-
-  if (cleanOpts.plugins.length === 0) {
-    cleanOpts.plugins = [...essentialPlugins].map(p => ({ [p]: true }));
+  // add user input plugins to the map
+  if (Array.isArray(cleanOpts.plugins)) {
+    for (const plugin of cleanOpts.plugins) {
+      const p = getPlugin(plugin);
+      plugins.set(p[0], p[1]);
+    }
   }
 
-  const state = new Map();
-  // mark all essential plugins as disabled
-  for (const p of essentialPlugins) {
-    state.set(p, false);
+  for (let plugin in essentialPlugins) {
+    if (hop(essentialPlugins, plugin)) {
+      const p = getPlugin(plugin, essentialPlugins[plugin]);
+      // overwrite
+      plugins.set(p[0], p[1]);
+    }
   }
 
-  // parse through input plugins and mark enabled ones
-  for (const plugin of cleanOpts.plugins) {
-    if (isPlainObject(plugin)) {
-      for (const pluginName of Object.keys(plugin)) {
-        if (essentialPlugins.indexOf(pluginName) > -1) {
-          // enable the plugin in-place if it's an essential plugin
-          // $FlowFixMe: suppressing until refactor (`plugin` is a sealed obj)
-          plugin[pluginName] = true;
-          state.set(pluginName, true);
-        }
+  for (let plugin in pluginDefaults) {
+    if (hop(pluginDefaults, plugin)) {
+      const p = getPlugin(plugin, pluginDefaults[plugin]);
+      // do not overwrite
+      const existingPlugin = plugins.get(p[0]);
+      if (existingPlugin == null) {
+        plugins.set(p[0], p[1]);
       }
-    } else if (typeof plugin === "string") {
-      state.set(plugin, true);
-    } else {
-      throw new TypeError(
-        "Expected SVGO plugin to be of type String or Object. Got " +
-          typeof plugin
-      );
     }
   }
 
-  // add missing plugins
-  for (const p of essentialPlugins) {
-    if (!state.get(p)) {
-      cleanOpts.plugins.push(p);
-    }
-  }
-
-  // convert strings to objects to match the form svgo accepts
-  for (let i = 0; i < cleanOpts.plugins.length; i++) {
-    if (typeof cleanOpts.plugins[i] === "string") {
-      cleanOpts.plugins[i] = { [cleanOpts.plugins[i]]: true };
-    }
+  cleanOpts.plugins = [];
+  for (const [, plugin] of plugins) {
+    cleanOpts.plugins.push(plugin);
   }
 
   return cleanOpts;
+}
+
+function hop(o, key) {
+  return Object.prototype.hasOwnProperty.call(o, key);
 }
