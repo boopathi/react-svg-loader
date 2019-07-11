@@ -1,4 +1,5 @@
 {
+  "files": [],
   "references": [
     { "path": "babel-plugin-react-svg" },
     { "path": "react-svg-core" },
