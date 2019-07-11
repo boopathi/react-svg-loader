@@ -1,5 +1,3 @@
-// @flow
-
 export function hyphenToCamel(name: string) {
   return name.replace(/-([a-z])/g, g => g[1].toUpperCase());
 }

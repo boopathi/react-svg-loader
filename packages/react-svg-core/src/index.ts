@@ -1,5 +1,3 @@
-// @flow
-
 import Svgo from "svgo";
 import { transformSync as babelTransform } from "@babel/core";
 import plugin from "babel-plugin-react-svg";

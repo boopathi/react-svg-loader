@@ -1,0 +1,9 @@
+{
+  "references": [
+    { "path": "babel-plugin-react-svg" },
+    { "path": "react-svg-core" },
+    { "path": "react-svg-loader" },
+    { "path": "react-svg-loader-cli" },
+    { "path": "rollup-plugin-react-svg" }
+  ]
+}

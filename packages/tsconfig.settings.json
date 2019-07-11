@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    // compulsory settings for TS Project references
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // our settings
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "es2016",
+    "downlevelIteration": true
+  }
+}

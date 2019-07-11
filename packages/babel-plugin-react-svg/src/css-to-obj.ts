@@ -1,5 +1,3 @@
-// @flow
-
 export default function cssToObj(css: string) {
   let o = {};
   if (typeof css !== "undefined") {
