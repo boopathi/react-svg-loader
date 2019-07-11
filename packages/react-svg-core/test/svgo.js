@@ -1,4 +1,4 @@
-import { validateAndFix } from "../src/svgo";
+import { validateAndFix } from "../lib/svgo";
 import test from "tape";
 
 test("fills essential plugins and default plugins when empty", function(t) {

@@ -20,7 +20,9 @@ export function transform({ jsx = false }: { jsx?: boolean } = {}): (
     babelTransform(content, {
       babelrc: false,
       configFile: false,
-      presets: [jsx ? void 0 : "@babel/preset-react"].filter(Boolean),
+      presets: [jsx ? void 0 : require.resolve("@babel/preset-react")].filter(
+        Boolean
+      ),
       plugins: [require.resolve("@babel/plugin-syntax-jsx"), plugin]
     });
 }

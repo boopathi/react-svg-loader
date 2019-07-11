@@ -1,5 +1,5 @@
 import test from "tape";
-import cssToObj from "../src/css-to-obj";
+import cssToObj from "../lib/css-to-obj";
 
 test("no entry check", function(t) {
   let css = "";

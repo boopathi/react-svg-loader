@@ -1,4 +1,4 @@
-import reactSVGLoader from "../src/loader";
+import reactSVGLoader from "../lib/loader";
 import React from "react";
 import ShallowRenderer from "react-test-renderer/shallow";
 import test from "tape";

@@ -26,7 +26,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "react-svg-core": "^3.0.3",
-    "rollup-pluginutils": "^2.8.0"
+    "rollup-pluginutils": "^2.8.1"
   },
   "engines": {
     "node": ">=8"

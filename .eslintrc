@@ -1,6 +1,10 @@
 {
-  "parser": "babel-eslint",
-  "plugins": ["flowtype", "react", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./packages/tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier", "@typescript-eslint"],
   "env": {
     "node": true,
     "es6": true
@@ -13,5 +17,9 @@
   "rules": {
     "prettier/prettier": "error"
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ]
 }
