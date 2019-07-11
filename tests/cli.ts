@@ -2,13 +2,14 @@ import test from "tape";
 import { execFile } from "child_process";
 import path from "path";
 
-Error.stackTraceLimit = Infinity;
-
 function exec(...args) {
   return new Promise((resolve, reject) => {
     execFile(
       "node",
-      [path.join(__dirname, "..", "lib", "cli.js"), "--stdout"].concat(args),
+      [
+        path.join(__dirname, "../packages/react-svg-loader-cli/lib/cli.js"),
+        "--stdout"
+      ].concat(args),
       {
         cwd: path.join(__dirname, "resources")
       },
@@ -26,7 +27,7 @@ function exec(...args) {
 }
 
 function occurence(content) {
-  let occ = {};
+  let occ: any = {};
   occ.import = content.match(/import\sReact/g);
   occ.export = content.match(/export\sdefault/g);
   occ.import = occ.import ? occ.import.length : 0;

@@ -6,3 +6,4 @@ coverage
 .vscode
 .nyc_output
 *.log
+*.tsbuildinfo

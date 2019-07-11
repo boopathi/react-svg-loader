@@ -1,5 +1,3 @@
-// @flow
-
 // validates svgo opts
 // to contain minimal set of plugins that will strip some stuff
 // for the babylon JSX parser to work
@@ -18,9 +16,9 @@ const pluginDefaults = {
   removeViewBox: false
 };
 
-type SvgoPlugin = {
-  [key: string]: any
-};
+interface SvgoPlugin {
+  [key: string]: any;
+}
 
 function getPlugin(
   pluginLike: string | SvgoPlugin,

@@ -1,11 +1,11 @@
-import reactSVGLoader from "../src/loader";
+import reactSVGLoader from "../packages/react-svg-loader/src/loader";
 import React from "react";
 import ShallowRenderer from "react-test-renderer/shallow";
 import test from "tape";
 import vm from "vm";
 import { transform } from "@babel/core";
 
-function loader(content, query) {
+function loader(content: string, query?: any) {
   return new Promise(function(resolve, reject) {
     let context = {
       query,
@@ -16,7 +16,7 @@ function loader(content, query) {
           if (err) return reject(err);
 
           let exports = {};
-          let sandbox = { module: { exports }, exports, require };
+          let sandbox: any = { module: { exports }, exports, require };
           vm.runInNewContext(
             transform(result, {
               babelrc: false,

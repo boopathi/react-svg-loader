@@ -1,15 +1,15 @@
-import { validateAndFix } from "../src/svgo";
+import { validateAndFix } from "../packages/react-svg-core/src/svgo";
 import test from "tape";
 
 test("fills essential plugins and default plugins when empty", function(t) {
-  let opts = {};
+  let opts: any = {};
   opts = validateAndFix(opts);
   t.equal(opts.plugins.length, 4);
   t.end();
 });
 
 test("enable disabled essential plugins", function(t) {
-  let opts = {
+  let opts: any = {
     full: true,
     plugins: ["removeDoctype", { removeComments: false }]
   };
@@ -20,7 +20,7 @@ test("enable disabled essential plugins", function(t) {
 });
 
 test("default plugins are set by default", t => {
-  let opts = {};
+  let opts: any = {};
   opts = validateAndFix(opts);
   t.assert(
     opts.plugins.find(

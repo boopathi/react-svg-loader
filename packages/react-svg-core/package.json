@@ -21,7 +21,7 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "@babel/core": "^7.4.5",
+    "@babel/core": "^7.5.4",
     "@babel/plugin-syntax-jsx": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
     "babel-plugin-react-svg": "^3.0.3",

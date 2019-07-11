@@ -1,8 +1,6 @@
-// @flow
-
 import cssToObj from "./css-to-obj";
 import { hyphenToCamel, namespaceToCamel } from "./camelize";
-import type BabelCore from "@babel/core";
+import BabelCore from "@babel/core";
 
 export default function(babel: BabelCore) {
   const t = babel.types;

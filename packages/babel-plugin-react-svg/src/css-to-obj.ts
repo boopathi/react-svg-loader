@@ -1,7 +1,5 @@
-// @flow
-
-export default function cssToObj(css: string) {
-  let o = {};
+export default function cssToObj(css: string): any {
+  let o: any = {};
   if (typeof css !== "undefined") {
     let elements = css.split(";");
     elements

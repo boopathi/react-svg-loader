@@ -40,18 +40,13 @@ before_install:
 before_script:
   - yarn clean
   - yarn build
-
-# disabled because of broken istanbul cover
-# - "./cc-test-reporter before-build"
+  - "./cc-test-reporter before-build"
 
 script:
-  - yarn test
+  - yarn cover
 
-# disabled because of broken istanbul cover
-#  - yarn cover
-
-# after_script:
-#   - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+after_script:
+  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
 
 addons:
   code_climate:
