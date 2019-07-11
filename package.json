@@ -25,13 +25,13 @@
   ],
   "scripts": {
     "build": "tsc -b packages",
-    "clean": "tsc -b packages --clean && rm -rf example/public coverage .nyc_output",
+    "clean": "yarn build --clean && rm -rf example/public coverage .nyc_output",
     "cover": "NODE_ENV=test nyc --reporter=lcov yarn test",
     "eslint": "eslint .",
     "lint": "yarn eslint",
     "publish-master": "lerna publish -c --yes -m 'chore(nightly): publish %s'",
     "test": "tape -r @babel/register packages/**/test/*.js | faucet",
-    "watch": "gulp watch"
+    "watch": "yarn build --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
@@ -42,12 +42,10 @@
     "@types/node": "^12.6.2",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
-    "babel-eslint": "^10.0.2",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-istanbul": "^5.1.4",
     "chalk": "^2.4.2",
     "eslint": "^6.0.1",
-    "eslint-plugin-flowtype": "^3.11.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
     "faucet": "0.0.1",
