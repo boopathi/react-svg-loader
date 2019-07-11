@@ -7,5 +7,7 @@ declare module "@babel/core" {
     [method: string]: (...args: any[]) => any;
   }
 
+  export function transformSync(...args: any[]): any;
+
   export default BabelCore;
 }

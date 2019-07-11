@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "target": "es2016",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true
   }
 }

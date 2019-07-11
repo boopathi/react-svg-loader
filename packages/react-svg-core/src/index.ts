@@ -5,7 +5,7 @@ import plugin from "babel-plugin-react-svg";
 import { validateAndFix } from "./svgo";
 
 // SVGO Optimize
-export function optimize(opts: any = {}): string => Promise<string> {
+export function optimize(opts: any = {}): (content: string) => Promise<string> {
   opts = validateAndFix(opts);
   const svgo = new Svgo(opts);
 
@@ -13,9 +13,9 @@ export function optimize(opts: any = {}): string => Promise<string> {
 }
 
 // Babel Transform
-export function transform({
-  jsx = false
-}: { jsx: boolean } = {}): string => string {
+export function transform({ jsx = false }: { jsx?: boolean } = {}): (
+  content: string
+) => string {
   return content =>
     babelTransform(content, {
       babelrc: false,

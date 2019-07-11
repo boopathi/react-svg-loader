@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
-// @flow
-
 import loader from "react-svg-loader";
-import fs from "fs";
+import * as fs from "fs";
 import yargs from "yargs";
 import yaml from "js-yaml";
-import path from "path";
+import * as path from "path";
 import isPlainObject from "lodash.isplainobject";
 
 function makeFilename(filename: string) {
@@ -52,7 +50,7 @@ function getArgv() {
 }
 
 function getSVGOOpts(argv) {
-  let svgoOpts = {};
+  let svgoOpts: any = {};
 
   if (typeof argv.svgo === "string") {
     svgoOpts = handlePath(argv.svgo);
@@ -60,7 +58,7 @@ function getSVGOOpts(argv) {
     svgoOpts = argv.svgo;
     // convert plugin object to array of objects
     if (isPlainObject(svgoOpts.plugins)) {
-      svgoOpts.plugins = Object.keys((svgoOpts.plugins: any)).map(key => {
+      svgoOpts.plugins = Object.keys(svgoOpts.plugins).map(key => {
         return { [key]: svgoOpts.plugins[key] === "false" ? false : true };
       });
     } else if (typeof svgoOpts.plugins === "string") {
