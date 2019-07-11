@@ -26,11 +26,11 @@
   "scripts": {
     "build": "tsc -b packages",
     "clean": "yarn build --clean && rm -rf example/public coverage .nyc_output",
-    "cover": "NODE_ENV=test nyc --reporter=lcov yarn test",
+    "cover": "NODE_ENV=test nyc --reporter=lcov ts-node ./node_modules/tape/bin/tape tests/*.ts",
     "eslint": "eslint .",
     "lint": "yarn eslint",
     "publish-master": "lerna publish -c --yes -m 'chore(nightly): publish %s'",
-    "test": "tape -r @babel/register packages/**/test/*.js | faucet",
+    "test": "NODE_ENV=test ts-node ./node_modules/tape/bin/tape tests/*.ts | faucet",
     "watch": "yarn build --watch"
   },
   "devDependencies": {
@@ -40,6 +40,7 @@
     "@babel/register": "^7.4.4",
     "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^12.6.2",
+    "@types/tape": "^4.2.33",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
     "babel-plugin-add-module-exports": "^1.0.2",
@@ -55,7 +56,18 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",
+    "tap-nyc": "^1.0.3",
     "tape": "^4.11.0",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "packages/**"
+    ],
+    "extension": [
+      ".ts"
+    ]
   }
 }

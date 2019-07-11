@@ -1,5 +1,5 @@
 import test from "tape";
-import cssToObj from "../lib/css-to-obj";
+import cssToObj from "../packages/babel-plugin-react-svg/src/css-to-obj";
 
 test("no entry check", function(t) {
   let css = "";
