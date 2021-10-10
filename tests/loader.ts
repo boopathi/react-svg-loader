@@ -208,3 +208,12 @@ test("style attr of children", function(t) {
     })
     .catch(t.end);
 });
+
+test("creating a named function", function(t) {
+  loader(`<svg/>`, { functionName: () => "Test" })
+    .then(component => {
+      t.equal((component as Function).name, "Test");
+      t.end();
+    })
+    .catch(t.end);
+});

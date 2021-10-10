@@ -8,6 +8,7 @@ type PluginOpts = {
   exclude?: any;
   svgo?: any;
   jsx?: boolean;
+  functionName?: (filePath: string) => string;
 };
 
 export default function reactSvgLoadPlugin(options: PluginOpts = {}): any {
@@ -20,9 +21,13 @@ export default function reactSvgLoadPlugin(options: PluginOpts = {}): any {
 
       const contents = fs.readFileSync(id);
 
+      const functionName = options.functionName
+        ? options.functionName(id)
+        : null;
+
       return Promise.resolve(String(contents))
         .then(optimize(options.svgo))
-        .then(transform({ jsx: options.jsx }))
+        .then(transform({ jsx: options.jsx, functionName }))
         .then((result: any) => result.code);
     }
   };

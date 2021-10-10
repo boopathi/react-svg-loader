@@ -42,6 +42,7 @@ in the **SAME directory** as the files
 ## CLI Options
 
 + `--jsx`: Outputs JSX code instead of compiling it to JavaScript using babel-preset-react
++ `--functionName`: Generating a named function
 + `--stdout`: Outputs to STDOUT
 + `--svgo <config_file>`: Supports SVGO Config YAML / JSON / JS
 + `--svgo.plugins <...plugins>`: Takes in an array of plugins that need to be enabled

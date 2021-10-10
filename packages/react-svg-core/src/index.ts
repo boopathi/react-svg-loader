@@ -12,10 +12,15 @@ export function optimize(opts: any = {}): (content: string) => Promise<string> {
   return (content: string) => svgo.optimize(content).then(data => data.data);
 }
 
+type TransformOpts = { jsx?: boolean; functionName?: string };
+
 // Babel Transform
-export function transform({ jsx = false }: { jsx?: boolean } = {}): (
-  content: string
-) => string {
+export function transform(
+  opts: TransformOpts = {}
+): (content: string) => string {
+  const jsx = opts.jsx || false;
+  const functionName = opts.functionName || null;
+
   return content =>
     babelTransform(content, {
       babelrc: false,
@@ -23,6 +28,6 @@ export function transform({ jsx = false }: { jsx?: boolean } = {}): (
       presets: [jsx ? void 0 : require.resolve("@babel/preset-react")].filter(
         Boolean
       ),
-      plugins: [require.resolve("@babel/plugin-syntax-jsx"), plugin]
+      plugins: [require.resolve("@babel/plugin-syntax-jsx"), [plugin, {functionName}]]
     });
 }

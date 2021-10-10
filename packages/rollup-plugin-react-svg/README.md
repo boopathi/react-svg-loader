@@ -17,6 +17,7 @@ yarn add rollup-plugin-react-svg --dev
 ```js
 // rollup.config.js
 import reactSvg from "rollup-plugin-react-svg";
+import path from 'path';
 
 export default {
   ...opts,
@@ -32,6 +33,9 @@ export default {
 
       // whether to output jsx
       jsx: false,
+
+      // whether to output a named function
+      functionName: (filePath) => path.parse(filePath).name,
 
       // include: string
       include: null,

@@ -94,7 +94,8 @@ function run() {
 
     const query = {
       svgo: svgoOpts,
-      jsx: argv.jsx
+      jsx: argv.jsx,
+      functionName: argv.functionName
     };
 
     loader.apply(getLoaderContext({ argv, query, file }), [source]);
