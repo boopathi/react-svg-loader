@@ -1,4 +1,4 @@
-name: react-svg-loader
+name: Test and Lint
 
 on: [push]
 
@@ -7,33 +7,30 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Node 12 for Lint
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: Lint
-      run: |
-        yarn
-        yarn lint
-      env:
-        CI: true
+      - uses: actions/checkout@v1
+      - name: Setup Node 12 for Lint
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Lint
+        run: |
+          yarn install
+          yarn lint
+        env:
+          CI: true
   build:
     name: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [8.x, 10.x, 12.x]
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
-      run: |
-        yarn
-        yarn build
-        yarn test
-      env:
-        CI: true
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12 for Build
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: install, build, and test
+        run: |
+          yarn install
+          yarn build
+          yarn test
+        env:
+          CI: true

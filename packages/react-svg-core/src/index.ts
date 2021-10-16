@@ -1,28 +1,32 @@
-import Svgo from "svgo";
-import { transformSync as babelTransform } from "@babel/core";
-import plugin from "babel-plugin-react-svg";
-
-import { validateAndFix } from "./svgo";
+import { PluginItem, transformSync } from '@babel/core'
+import * as svgo from 'svgo'
+import { validateAndFix } from './svgo'
 
 // SVGO Optimize
-export function optimize(opts: any = {}): (content: string) => Promise<string> {
-  opts = validateAndFix(opts);
-  const svgo = new Svgo(opts);
-
-  return (content: string) => svgo.optimize(content).then(data => data.data);
+export function optimize(opts: svgo.OptimizeOptions = {}) {
+  return (content: string) => svgo.optimize(content, validateAndFix(opts)).data
 }
 
+type Options = { jsx?: boolean; componentName?: string }
+
 // Babel Transform
-export function transform({ jsx = false }: { jsx?: boolean } = {}): (
-  content: string
-) => string {
+export function transform(options: Options = {}) {
+  const jsx = options.jsx || false
+  const componentName = options.componentName || null
+
+  const presets: PluginItem[] = []
+  if (!jsx) {
+    presets.push(require.resolve('@babel/preset-react'))
+  }
+
   return content =>
-    babelTransform(content, {
+    transformSync(content, {
       babelrc: false,
       configFile: false,
-      presets: [jsx ? void 0 : require.resolve("@babel/preset-react")].filter(
-        Boolean
-      ),
-      plugins: [require.resolve("@babel/plugin-syntax-jsx"), plugin]
-    });
+      presets: presets,
+      plugins: [
+        [require.resolve('@babel/plugin-syntax-jsx')],
+        [require.resolve('@lagunovsky/babel-plugin-react-svg'), { componentName }],
+      ],
+    })
 }

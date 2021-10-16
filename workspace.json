@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "projects": {
+    "@lagunovsky/babel-plugin-react-svg": "packages/babel-plugin-react-svg",
+    "@lagunovsky/react-svg-core": "packages/react-svg-core",
+    "@lagunovsky/react-svg-loader": "packages/react-svg-loader",
+    "@lagunovsky/react-svg-loader-cli": "packages/react-svg-loader-cli",
+    "@lagunovsky/rollup-plugin-react-svg": "packages/rollup-plugin-react-svg"
+  }
+}

@@ -41,7 +41,8 @@ By default the loader outputs ES2015 code (with JSX compiled to JavaScript using
     {
       loader: "react-svg-loader",
       options: {
-        jsx: true // true outputs JSX tags
+        jsx: true, // true outputs JSX tags
+        functionName: (filePath) => path.parse(filePath).name, // whether to output a named function, null for anonymous functions
       }
     }
   ]
@@ -71,23 +72,22 @@ By default the loader outputs ES2015 code (with JSX compiled to JavaScript using
 ```
 
 ## Internals
-
-<p align="center">
+<p>
 Input SVG
 </p>
-<p align="center">↓</p>
-<p align="center">
+<p>↓</p>
+<p>
 SVG Optimize using <a href="https://github.com/svg/svgo">SVGO</a>
 </p>
-<p align="center">↓</p>
-<p align="center">
+<p>↓</p>
+<p>
 Babel Transform with <code>preset=react</code> and <a href="https://github.com/boopathi/react-svg-loader/tree/master/packages/babel-plugin-react-svg"><code>plugin=svgToComponent</code></a>
 </p>
 
 ## Assumptions and Other gotchas
 
-+ Root element is always `<svg>`
-+ SVG is optimized using SVGO
+- Root element is always `<svg>`
+- SVG is optimized using SVGO
 
 ## LICENSE
 

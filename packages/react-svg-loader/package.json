@@ -1,6 +1,6 @@
 {
-  "name": "react-svg-loader",
-  "version": "3.0.3",
+  "name": "@lagunovsky/react-svg-loader",
+  "version": "4.0.0-alpha.0",
   "description": "Optimize svg and load it as a React Component",
   "keywords": [
     "loader",
@@ -9,13 +9,14 @@
     "webpack",
     "webpack-loader"
   ],
-  "homepage": "https://github.com/boopathi/react-svg-loader/tree/master/packages/react-svg-loader",
+  "homepage": "https://github.com/lagunovsky/react-svg-loader/tree/master/packages/react-svg-loader",
   "bugs": {
-    "url": "https://github.com/boopathi/react-svg-loader/issues"
+    "url": "https://github.com/lagunovsky/react-svg-loader/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/boopathi/react-svg-loader.git"
+    "url": "git+https://github.com/lagunovsky/react-svg-loader.git",
+    "directory": "packages/react-svg-loader"
   },
   "license": "MIT",
   "author": "boopathi",
@@ -25,10 +26,12 @@
   ],
   "main": "lib/loader.js",
   "dependencies": {
-    "loader-utils": "^1.2.3",
-    "react-svg-core": "^3.0.3"
+    "@lagunovsky/react-svg-core": "^4.0.0-alpha.0"
   },
   "engines": {
     "node": ">=8"
+  },
+  "publishConfig": {
+    "@lagunovsky:registry": "https://npm.pkg.github.com"
   }
 }

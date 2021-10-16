@@ -1,15 +1,13 @@
-export default function cssToObj(css: string): any {
-  let o: any = {};
-  if (typeof css !== "undefined") {
-    let elements = css.split(";");
-    elements
+export default function cssToObj(css?: string) {
+  const o: { [key: string]: string } = {}
+  if (css !== undefined) {
+    css
+      .split(';')
       .filter(el => !!el)
       .map(el => {
-        let s = el.split(":"),
-          key = s.shift().trim(),
-          value = s.join(":").trim();
-        o[key] = value;
-      });
+        const s = el.split(':')
+        o[s.shift().trim()] = s.join(':').trim()
+      })
   }
-  return o;
+  return o
 }
