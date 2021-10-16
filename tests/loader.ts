@@ -6,13 +6,13 @@ import vm from "vm";
 import { transform } from "@babel/core";
 
 function loader(content: string, query?: any) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     let context = {
       query,
       cacheable() {},
       addDependency() {},
       async() {
-        return function(err, result) {
+        return function (err, result) {
           if (err) return reject(err);
 
           let exports = {};
@@ -25,17 +25,17 @@ function loader(content: string, query?: any) {
                 [
                   "@babel/preset-env",
                   {
-                    targets: { ie: 11 }
-                  }
+                    targets: { ie: 11 },
+                  },
                 ],
-                "@babel/preset-react"
-              ]
+                "@babel/preset-react",
+              ],
             }).code,
             sandbox
           );
           resolve(sandbox.exports.default);
         };
-      }
+      },
     };
     reactSVGLoader.apply(context, [content]);
   });
@@ -47,23 +47,23 @@ function render(element) {
   return r.getRenderOutput();
 }
 
-test("empty svg tag", function(t) {
+test("empty svg tag", function (t) {
   t.plan(1);
 
   loader(`<svg/>`)
-    .then(component => render(React.createElement(component)))
-    .then(r => {
+    .then((component) => render(React.createElement(component)))
+    .then((r) => {
       t.equal(r.type, "svg");
     })
     .catch(t.end);
 });
 
-test("svg tag with some props", function(t) {
+test("svg tag with some props", function (t) {
   t.plan(4);
 
   loader(`<svg width="50" height="50" />`)
-    .then(component => render(React.createElement(component)))
-    .then(r => {
+    .then((component) => render(React.createElement(component)))
+    .then((r) => {
       t.equal(r.type, "svg", "tag check");
       t.assert(Object.keys(r.props).length > 1, "assert props exists");
       t.equal(r.props.width, "50", "width prop check");
@@ -72,16 +72,16 @@ test("svg tag with some props", function(t) {
     .catch(t.end);
 });
 
-test("passing props to empty svg tag", function(t) {
+test("passing props to empty svg tag", function (t) {
   t.plan(4);
 
   loader(`<svg/>`)
     // pass in number - comes out as number,
     // pass in string - comes out as string
-    .then(component =>
+    .then((component) =>
       render(React.createElement(component, { width: 100, height: "100" }))
     )
-    .then(r => {
+    .then((r) => {
       t.equal(r.type, "svg", "tag check");
       t.assert(Object.keys(r.props).length > 1, "assert props exists");
       t.equal(r.props.width, 100, "width prop check");
@@ -90,14 +90,14 @@ test("passing props to empty svg tag", function(t) {
     .catch(t.end);
 });
 
-test("overriding props of an svg", function(t) {
+test("overriding props of an svg", function (t) {
   t.plan(4);
 
   loader(`<svg width="50" height="50" />`)
-    .then(component =>
+    .then((component) =>
       render(React.createElement(component, { width: 100, height: "100" }))
     )
-    .then(r => {
+    .then((r) => {
       t.equal(r.type, "svg", "tag check");
       t.assert(Object.keys(r.props).length > 1, "assert props exists");
       t.equal(r.props.width, 100, "width prop check");
@@ -106,27 +106,27 @@ test("overriding props of an svg", function(t) {
     .catch(t.end);
 });
 
-test("compression: namespace attr", function(t) {
+test("compression: namespace attr", function (t) {
   t.plan(1);
 
   loader(`<svg xmlns:bullshit="adsf" />`)
-    .then(component => render(React.createElement(component)))
-    .then(r => {
+    .then((component) => render(React.createElement(component)))
+    .then((r) => {
       t.equal(Object.keys(r.props).length, 0, "namespace props are stripped");
     })
     .catch(t.end);
 });
 
-test("should not convert data-* and aria-* props", function(t) {
+test("should not convert data-* and aria-* props", function (t) {
   t.plan(2);
 
   loader(`<svg data-foo="foo" aria-label="Open"></svg>`, {
     svgo: {
-      plugins: [{ removeUnknownsAndDefaults: false }]
-    }
+      plugins: [{ removeUnknownsAndDefaults: false }],
+    },
   })
-    .then(component => render(React.createElement(component)))
-    .then(r => {
+    .then((component) => render(React.createElement(component)))
+    .then((r) => {
       t.notEqual(
         Object.keys(r.props).indexOf("data-foo"),
         -1,
@@ -147,9 +147,9 @@ const circle = `
 </svg>
 `;
 
-test("converts attr from hyphen to camel", function(t) {
+test("converts attr from hyphen to camel", function (t) {
   loader(circle)
-    .then(c => {
+    .then((c) => {
       let r = render(React.createElement(c));
       t.ok(r.props.pointerEvents, "contains pointerEvents");
       t.notOk(r.props["pointer-events"], "does not contain pointer-events");
@@ -158,9 +158,9 @@ test("converts attr from hyphen to camel", function(t) {
     .catch(t.end);
 });
 
-test("style attr of root svg", function(t) {
+test("style attr of root svg", function (t) {
   loader(circle)
-    .then(c => {
+    .then((c) => {
       let r = render(React.createElement(c));
       t.ok(r.props.style, "contains style attr");
       t.equal(typeof r.props.style, "object", "style attr is an object");
@@ -172,9 +172,9 @@ test("style attr of root svg", function(t) {
     .catch(t.end);
 });
 
-test("converts class to className", function(t) {
+test("converts class to className", function (t) {
   loader(circle)
-    .then(c => {
+    .then((c) => {
       let r = render(React.createElement(c));
       t.ok(r.props.className, "contains className");
       t.notOk(r.props.class, "does not contain class");
@@ -183,9 +183,9 @@ test("converts class to className", function(t) {
     .catch(t.end);
 });
 
-test("converts attr of children from hyphen to camel", function(t) {
+test("converts attr of children from hyphen to camel", function (t) {
   loader(circle)
-    .then(c => {
+    .then((c) => {
       let r = render(React.createElement(c));
       let props = r.props.children.props;
       t.ok(props.strokeWidth, "contains strokeWidth");
@@ -195,9 +195,9 @@ test("converts attr of children from hyphen to camel", function(t) {
     .catch(t.end);
 });
 
-test("style attr of children", function(t) {
+test("style attr of children", function (t) {
   loader(circle)
-    .then(c => {
+    .then((c) => {
       let r = render(React.createElement(c));
       let props = r.props.children.props;
       t.ok(props.style, "contais style attr");
@@ -209,9 +209,9 @@ test("style attr of children", function(t) {
     .catch(t.end);
 });
 
-test("creating a named function", function(t) {
-  loader(`<svg/>`, { functionName: () => "Test" })
-    .then(component => {
+test("creating a named function", function (t) {
+  loader(`<svg/>`, { componentName: () => "Test" })
+    .then((component) => {
       t.equal((component as Function).name, "Test");
       t.end();
     })

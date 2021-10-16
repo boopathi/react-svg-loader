@@ -35,7 +35,7 @@ export default {
       jsx: false,
 
       // whether to output a named function
-      functionName: (filePath) => path.parse(filePath).name,
+      componentName: (filePath) => path.parse(filePath).name,
 
       // include: string
       include: null,

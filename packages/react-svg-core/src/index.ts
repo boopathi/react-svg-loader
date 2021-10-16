@@ -9,25 +9,28 @@ export function optimize(opts: any = {}): (content: string) => Promise<string> {
   opts = validateAndFix(opts);
   const svgo = new Svgo(opts);
 
-  return (content: string) => svgo.optimize(content).then(data => data.data);
+  return (content: string) => svgo.optimize(content).then((data) => data.data);
 }
 
-type TransformOpts = { jsx?: boolean; functionName?: string };
+type TransformOpts = { jsx?: boolean; componentName?: string };
 
 // Babel Transform
 export function transform(
   opts: TransformOpts = {}
 ): (content: string) => string {
   const jsx = opts.jsx || false;
-  const functionName = opts.functionName || null;
+  const componentName = opts.componentName || null;
 
-  return content =>
+  return (content) =>
     babelTransform(content, {
       babelrc: false,
       configFile: false,
       presets: [jsx ? void 0 : require.resolve("@babel/preset-react")].filter(
         Boolean
       ),
-      plugins: [require.resolve("@babel/plugin-syntax-jsx"), [plugin, {functionName}]]
+      plugins: [
+        require.resolve("@babel/plugin-syntax-jsx"),
+        [plugin, { componentName }],
+      ],
     });
 }

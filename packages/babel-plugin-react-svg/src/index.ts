@@ -2,7 +2,7 @@ import cssToObj from "./css-to-obj";
 import { hyphenToCamel, namespaceToCamel } from "./camelize";
 import BabelCore from "@babel/core";
 
-export default function(babel: BabelCore) {
+export default function (babel: BabelCore) {
   const t = babel.types;
   const restElement = t.restElement ? t.restElement : t.restProperty;
 
@@ -70,7 +70,7 @@ export default function(babel: BabelCore) {
         // <tag style={{textAlign: 'center', width: '50px'}}>
         if (name.node.name === "style") {
           let csso = cssToObj(value.node.value);
-          let properties = Object.keys(csso).map(prop =>
+          let properties = Object.keys(csso).map((prop) =>
             t.objectProperty(
               t.identifier(hyphenToCamel(prop)),
               t.stringLiteral(csso[prop])
@@ -89,7 +89,7 @@ export default function(babel: BabelCore) {
           name.replaceWith(t.jSXIdentifier(hyphenToCamel(path.node.name.name)));
         }
       }
-    }
+    },
   };
 
   const exportBody = [
@@ -100,13 +100,13 @@ export default function(babel: BabelCore) {
         false,
         true
       ),
-      restElement(t.identifier("props"))
-    ])
+      restElement(t.identifier("props")),
+    ]),
   ];
 
   // returns
   // export default (props) => ${input_svg_node}
-  const getExport = function(svg) {
+  const getExport = function (svg) {
     return t.exportDefaultDeclaration(
       t.arrowFunctionExpression(exportBody, svg)
     );
@@ -114,7 +114,7 @@ export default function(babel: BabelCore) {
 
   // returns
   // export default function ${name}(props){ return ${input_svg_node} }
-  const getNamedExport = function(svg, name) {
+  const getNamedExport = function (svg, name) {
     return t.exportDefaultDeclaration(
       t.functionDeclaration(
         t.identifier(name),
@@ -135,7 +135,7 @@ export default function(babel: BabelCore) {
         // add spread props
         path.node.attributes.push(t.jSXSpreadAttribute(t.identifier("props")));
       }
-    }
+    },
   };
 
   // converts
@@ -151,11 +151,14 @@ export default function(babel: BabelCore) {
         return;
 
       path.replaceWith(
-        state.opts.functionName
-          ? getNamedExport(path.get("expression").node, state.opts.functionName)
+        state.opts.componentName
+          ? getNamedExport(
+              path.get("expression").node,
+              state.opts.componentName
+            )
           : getExport(path.get("expression").node)
       );
-    }
+    },
   };
 
   const programVisitor = {
@@ -167,7 +170,7 @@ export default function(babel: BabelCore) {
           t.stringLiteral("react")
         )
       );
-    }
+    },
   };
 
   return {
@@ -177,6 +180,6 @@ export default function(babel: BabelCore) {
       svgExpressionVisitor,
       svgVisitor,
       attrVisitor
-    )
+    ),
   };
 }
