@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.0.0
+
+- Update svgo to v2
+- Update babel to v7
+- Using jest instead of tap
+- Fuller use of types
+
 ## 3.0.3
 
 - Ignore babel config files during transformation [#264](https://github.com/boopathi/react-svg-loader/pull/264)
