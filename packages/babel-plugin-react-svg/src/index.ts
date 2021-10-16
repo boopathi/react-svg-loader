@@ -2,7 +2,7 @@ import cssToObj from "./css-to-obj";
 import { hyphenToCamel, namespaceToCamel } from "./camelize";
 import BabelCore from "@babel/core";
 
-export default function(babel: BabelCore) {
+export default function (babel: BabelCore) {
   const t = babel.types;
   const restElement = t.restElement ? t.restElement : t.restProperty;
 
@@ -70,7 +70,7 @@ export default function(babel: BabelCore) {
         // <tag style={{textAlign: 'center', width: '50px'}}>
         if (name.node.name === "style") {
           let csso = cssToObj(value.node.value);
-          let properties = Object.keys(csso).map(prop =>
+          let properties = Object.keys(csso).map((prop) =>
             t.objectProperty(
               t.identifier(hyphenToCamel(prop)),
               t.stringLiteral(csso[prop])
@@ -89,29 +89,37 @@ export default function(babel: BabelCore) {
           name.replaceWith(t.jSXIdentifier(hyphenToCamel(path.node.name.name)));
         }
       }
-    }
+    },
   };
+
+  const exportBody = [
+    t.objectPattern([
+      t.objectProperty(
+        t.identifier("styles"),
+        t.assignmentPattern(t.identifier("styles"), t.objectExpression([])),
+        false,
+        true
+      ),
+      restElement(t.identifier("props")),
+    ]),
+  ];
 
   // returns
   // export default (props) => ${input_svg_node}
-  const getExport = function(svg) {
+  const getExport = function (svg) {
     return t.exportDefaultDeclaration(
-      t.arrowFunctionExpression(
-        [
-          t.objectPattern([
-            t.objectProperty(
-              t.identifier("styles"),
-              t.assignmentPattern(
-                t.identifier("styles"),
-                t.objectExpression([])
-              ),
-              false,
-              true
-            ),
-            restElement(t.identifier("props"))
-          ])
-        ],
-        svg
+      t.arrowFunctionExpression(exportBody, svg)
+    );
+  };
+
+  // returns
+  // export default function ${name}(props){ return ${input_svg_node} }
+  const getNamedExport = function (svg, name) {
+    return t.exportDefaultDeclaration(
+      t.functionDeclaration(
+        t.identifier(name),
+        exportBody,
+        t.blockStatement([t.returnStatement(svg)])
       )
     );
   };
@@ -127,7 +135,7 @@ export default function(babel: BabelCore) {
         // add spread props
         path.node.attributes.push(t.jSXSpreadAttribute(t.identifier("props")));
       }
-    }
+    },
   };
 
   // converts
@@ -137,12 +145,20 @@ export default function(babel: BabelCore) {
   // export default props => <svg {...props}/>;
   // after passing through other visitors
   const svgExpressionVisitor = {
-    ExpressionStatement(path: any) {
+    ExpressionStatement(path: any, state: any) {
       if (!path.get("expression").isJSXElement()) return;
       if (path.get("expression.openingElement.name").node.name !== "svg")
         return;
-      path.replaceWith(getExport(path.get("expression").node));
-    }
+
+      path.replaceWith(
+        state.opts.componentName
+          ? getNamedExport(
+              path.get("expression").node,
+              state.opts.componentName
+            )
+          : getExport(path.get("expression").node)
+      );
+    },
   };
 
   const programVisitor = {
@@ -154,7 +170,7 @@ export default function(babel: BabelCore) {
           t.stringLiteral("react")
         )
       );
-    }
+    },
   };
 
   return {
@@ -164,6 +180,6 @@ export default function(babel: BabelCore) {
       svgExpressionVisitor,
       svgVisitor,
       attrVisitor
-    )
+    ),
   };
 }

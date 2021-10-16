@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.1.0
+
+You can specify the name of the component.
+
+```js
+{
+  test: /\.svg$/,
+  use: [{ 
+    loader: 'react-svg-loader', 
+    options: {
+      componentName: (resource: string) => {
+        return config.environment.production === true
+          ? null
+          : upperFirst(camelCase(path.parse(resource).name))
+      },
+    } 
+  }]
+}
+```
+
 ## 3.0.3
 
 - Ignore babel config files during transformation [#264](https://github.com/boopathi/react-svg-loader/pull/264)
