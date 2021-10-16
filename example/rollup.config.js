@@ -1,32 +1,31 @@
-import babel from "rollup-plugin-babel";
-import nodeResolve from "rollup-plugin-node-resolve";
-import cjs from "rollup-plugin-commonjs";
-import replace from "rollup-plugin-replace";
+import babel from 'rollup-plugin-babel'
+import nodeResolve from 'rollup-plugin-node-resolve'
+import cjs from 'rollup-plugin-commonjs'
+import replace from 'rollup-plugin-replace'
 
-import reactSvg from "rollup-plugin-react-svg";
+import reactSvg from 'rollup-plugin-react-svg'
 
 export default {
-  input: "index.js",
+  input: 'index.js',
   output: {
-    format: "iife",
-    file: "public/bundle.js"
+    format: 'iife',
+    file: 'public/bundle.js',
   },
   plugins: [
     babel({
-      exclude: "node_modules/**"
+      exclude: 'node_modules/**',
     }),
     nodeResolve(),
     cjs(),
     replace({
-      "process.env.NODE_ENV": JSON.stringify("production")
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
 
     // USAGE:
     reactSvg({
       // svgo options
       svgo: {
-        plugins: [], // passed to svgo
-        multipass: true
+        multipass: true,
       },
 
       // whether to output jsx
@@ -34,7 +33,7 @@ export default {
 
       include: null,
 
-      exclude: null
-    })
-  ]
-};
+      exclude: null,
+    }),
+  ],
+}

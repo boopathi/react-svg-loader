@@ -1,6 +1,6 @@
 {
-  "name": "react-svg-loader-cli",
-  "version": "3.0.3",
+  "name": "@lagunovsky/react-svg-loader-cli",
+  "version": "4.0.0-alpha.0",
   "description": "react-svg-loader cli",
   "keywords": [
     "cli",
@@ -8,13 +8,14 @@
     "react",
     "react-svg-loader"
   ],
-  "homepage": "https://github.com/boopathi/react-svg-loader/tree/master/packages/react-svg-loader-cli",
+  "homepage": "https://github.com/lagunovsky/react-svg-loader/tree/master/packages/react-svg-loader-cli",
   "bugs": {
-    "url": "https://github.com/boopathi/react-svg-loader/issues"
+    "url": "https://github.com/lagunovsky/react-svg-loader/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/boopathi/react-svg-loader.git"
+    "url": "git+https://github.com/lagunovsky/react-svg-loader.git",
+    "directory": "packages/react-svg-loader-cli"
   },
   "license": "MIT",
   "author": "boopathi",
@@ -28,11 +29,14 @@
     "svg2react": "./lib/cli.js"
   },
   "dependencies": {
+    "@lagunovsky/react-svg-loader": "^4.0.0-alpha.0",
     "lodash.isplainobject": "^4.0.6",
-    "react-svg-loader": "^3.0.3",
-    "yargs": "^13.2.4"
+    "yargs": "^17.2.1"
   },
   "engines": {
     "node": ">=8"
+  },
+  "publishConfig": {
+    "@lagunovsky:registry": "https://npm.pkg.github.com"
   }
 }

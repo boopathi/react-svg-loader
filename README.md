@@ -14,9 +14,14 @@
 
 ### Current
 
-VERSION: `3.x` (master)
+VERSION: `4.x` (master)
 
 Refer [CHANGELOG](CHANGELOG.md)
+
+### v3.x
+
+[branch=v3](https://github.com/boopathi/react-svg-loader/tree/v3)
+
 
 ### v2.x
 

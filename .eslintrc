@@ -1,10 +1,14 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./packages/tsconfig.json",
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.eslint.json"
   },
-  "plugins": ["react", "prettier", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "prettier",
+    "@typescript-eslint"
+  ],
   "env": {
     "node": true,
     "es6": true
@@ -20,6 +24,11 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:markdown/recommended",
+    "prettier"
+  ],
+  "ignorePatterns": [
+    "plugin:@typescript-eslint/no-var-requires"
   ]
 }

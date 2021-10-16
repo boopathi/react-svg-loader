@@ -2,83 +2,65 @@
 // to contain minimal set of plugins that will strip some stuff
 // for the babylon JSX parser to work
 
-import isPlainObject from "lodash.isplainobject";
-import cloneDeep from "lodash.clonedeep";
+import isPlainObject from 'lodash.isplainobject'
+import * as svgo from 'svgo'
+import { DefaultPlugin, DefaultPlugins, Plugin } from 'svgo'
 
-const essentialPlugins = {
-  removeDoctype: true,
-  removeComments: true,
-  removeStyleElement: true
-};
+type ProcessedPlugin = svgo.DefaultPlugins | svgo.CustomPlugin<object>
+type ProcessedPluginMap = Map<ProcessedPlugin['name'], ProcessedPlugin>
 
-// If not explicitly set by the user, then set this value
-const pluginDefaults = {
-  removeViewBox: false
-};
+const necessaryPlugins: DefaultPlugins['name'][] = [
+  'removeDoctype',
+  'removeComments',
+  'removeStyleElement',
+  'removeXMLProcInst',
+  'removeMetadata',
+  'removeEditorsNSData',
+]
 
-interface SvgoPlugin {
-  [key: string]: any;
-}
+export function validateAndFix(opts: svgo.OptimizeOptions = {}) {
+  if (!isPlainObject(opts)) {
+    throw new Error('Expected options.svgo to be Object.')
+  }
 
-function getPlugin(
-  pluginLike: string | SvgoPlugin,
-  value: boolean = true
-): [string, SvgoPlugin] {
-  if (typeof pluginLike === "string") {
-    return [
-      pluginLike,
-      {
-        [pluginLike]: value
+  if (!Array.isArray(opts.plugins)) {
+    opts.plugins = ['preset-default', 'removeStyleElement']
+    return opts
+  }
+
+  const plugins: ProcessedPluginMap = new Map()
+
+  opts.plugins.forEach(plugin => {
+    if (typeof plugin === 'string') {
+      plugins.set(plugin, { name: plugin } as ProcessedPlugin)
+    } else {
+      plugins.set(plugin.name, plugin)
+    }
+  })
+
+  if (plugins.has('preset-default')) {
+    const plugin = plugins.get('preset-default') as svgo.PresetDefault
+    if (plugin.params && plugin.params.overrides) {
+      necessaryPlugins.forEach(necessaryPlugin => {
+        if (plugin.params.overrides[necessaryPlugin] === false) {
+          delete plugin.params.overrides[necessaryPlugin]
+        }
+      })
+    }
+    if (!plugins.has('removeStyleElement')) {
+      plugins.set('removeStyleElement', { name: 'removeStyleElement' })
+    }
+  } else {
+    necessaryPlugins.forEach(necessaryPlugin => {
+      const plugin = plugins.get(necessaryPlugin) as DefaultPlugin<string, object>
+      if (!plugin) {
+        plugins.set(necessaryPlugin, { name: necessaryPlugin } as ProcessedPlugin)
+      } else if (Object.prototype.hasOwnProperty.call(plugin, 'active')) {
+        delete plugin.active
       }
-    ];
-  }
-  const pluginName = Object.keys(pluginLike)[0];
-  return [pluginName, pluginLike];
-}
-
-export function validateAndFix(opts: any = {}) {
-  if (!isPlainObject(opts))
-    throw new Error("Expected options.svgo to be Object.");
-
-  let cleanOpts = cloneDeep(opts);
-
-  const plugins = new Map<string, SvgoPlugin>();
-
-  // add user input plugins to the map
-  if (Array.isArray(cleanOpts.plugins)) {
-    for (const plugin of cleanOpts.plugins) {
-      const p = getPlugin(plugin);
-      plugins.set(p[0], p[1]);
-    }
+    })
   }
 
-  for (let plugin in essentialPlugins) {
-    if (hop(essentialPlugins, plugin)) {
-      const p = getPlugin(plugin, essentialPlugins[plugin]);
-      // overwrite
-      plugins.set(p[0], p[1]);
-    }
-  }
-
-  for (let plugin in pluginDefaults) {
-    if (hop(pluginDefaults, plugin)) {
-      const p = getPlugin(plugin, pluginDefaults[plugin]);
-      // do not overwrite
-      const existingPlugin = plugins.get(p[0]);
-      if (existingPlugin == null) {
-        plugins.set(p[0], p[1]);
-      }
-    }
-  }
-
-  cleanOpts.plugins = [];
-  for (const [, plugin] of plugins) {
-    cleanOpts.plugins.push(plugin);
-  }
-
-  return cleanOpts;
-}
-
-function hop(o, key) {
-  return Object.prototype.hasOwnProperty.call(o, key);
+  opts.plugins = Array.from(plugins.values()) as Plugin[]
+  return opts
 }

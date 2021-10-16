@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.0.0
+
+- Update svgo to v2
+- Update babel to v7
+- Using jest instead of tap
+- Fuller use of types
+
 ## 3.0.3
 
 - Ignore babel config files during transformation [#264](https://github.com/boopathi/react-svg-loader/pull/264)
@@ -39,10 +46,10 @@ Tests are run on Node 4, 6, and 8
 Previously, the output of the react-svg-loader was -
 
 ```js
-import React from "react";
+import React from 'react'
 export default class SVG extends React.Component {
   render() {
-    return <svg {...this.props}>{svgContent}</svg>;
+    return <svg {...this.props}>{svgContent}</svg>
   }
 }
 ```
@@ -50,8 +57,8 @@ export default class SVG extends React.Component {
 and now it is -
 
 ```js
-import React from "react";
-export default props => <svg {...props}>{svgContent}</svg>;
+import React from 'react'
+export default props => <svg {...props}>{svgContent}</svg>
 ```
 
 ### Overridable classnames (to use with css-modules)
@@ -71,15 +78,15 @@ is transformed to
 So, you can pass/override some styles in the svg, for example -
 
 ```js
-import Image from "react-svg-loader!./image.svg";
-import styles from "./styles.css"; // with css-modules
+import Image from 'react-svg-loader!./image.svg'
+import styles from './styles.css' // with css-modules
 
 const imageStyles = {
   foo: styles.foo,
-  bar: styles.bar
-};
+  bar: styles.bar,
+}
 
-let component = <Image styles={imageStyles} />;
+let component = <Image styles={imageStyles} />
 ```
 
 ### Drop option `es5`
@@ -88,7 +95,7 @@ Previously, you could do,
 
 ```js
 {
-  loader: "react-svg-loader",
+  loader: 'react-svg-loader',
   options: {
     es5: true
   }
@@ -111,7 +118,7 @@ This is now deprecated and the **recommended** way to use react-svg-loader is to
 
 and with [babel-preset-env](https://github.com/babel/babel-preset-env) in `.babelrc`:
 
-```json
+```js
 {
   "presets": [
     [

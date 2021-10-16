@@ -1,6 +1,8 @@
 lib
 *.svg.react.js
+*.md
 coverage
-flow-typed
 node_modules
-example/public/
+example
+tests/resources
+jest.config.js
