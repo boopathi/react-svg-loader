@@ -1,8 +1,8 @@
-import Svgo from "svgo";
 import { transformSync as babelTransform } from "@babel/core";
 import plugin from "babel-plugin-react-svg";
-
+import Svgo from "svgo/lib/svgo/jsAPI";
 import { validateAndFix } from "./svgo";
+
 
 // SVGO Optimize
 export function optimize(opts: any = {}): (content: string) => Promise<string> {
