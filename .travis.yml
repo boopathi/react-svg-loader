@@ -11,10 +11,10 @@ stages:
 jobs:
   include:
     - stage: lint
-      node_js: "12"
+      node_js: "16"
       script: yarn lint
     - stage: publish
-      node_js: "12"
+      node_js: "16"
       script: 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
       deploy:
         provider: script
@@ -27,9 +27,9 @@ env:
     - CC_TEST_REPORTER_ID=9f4bef923b520da4cbdb209f004a8db49b215fc0f443efd2a1698585e65c21cb
 
 node_js:
+  - "16"
+  - "14"
   - "12"
-  - "10"
-  - "8"
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.16.0
